@@ -1,0 +1,7 @@
+﻿case,exact_replay_invariant
+unequal_daily_frequency,True
+single_day_is_insufficient,True
+separate_sources,True
+calendar_boundary,True
+unknown_legacy_source,True
+stale_observation,True

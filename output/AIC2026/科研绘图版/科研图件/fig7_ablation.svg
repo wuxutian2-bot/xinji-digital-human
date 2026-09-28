@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="510.23622pt" height="283.464567pt" viewBox="0 0 510.23622 283.464567" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-25T12:03:10.660997</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 283.464567 
+L 510.23622 283.464567 
+L 510.23622 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 22.246299 107.149606 
+L 127.610079 107.149606 
+Q 132.125669 107.149606 132.125669 103.748031 
+L 132.125669 76.535433 
+Q 132.125669 73.133858 127.610079 73.133858 
+L 22.246299 73.133858 
+Q 17.730709 73.133858 17.730709 76.535433 
+L 17.730709 103.748031 
+Q 17.730709 107.149606 22.246299 107.149606 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #e7f1ed; stroke: #438f83; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 132.622686 90.141732 
+Q 156.208968 90.141732 178.844921 90.141732 
+" clip-path="url(#pa5db5da28e)" style="fill: none; stroke: #77828a; stroke-width: 0.85; stroke-linecap: round"/>
+    <path d="M 174.844921 88.141732 
+L 178.844921 90.141732 
+L 174.844921 92.141732 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #77828a; stroke: #77828a; stroke-width: 0.85; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 184.807559 107.149606 
+L 296.192126 107.149606 
+Q 300.707717 107.149606 300.707717 103.748031 
+L 300.707717 76.535433 
+Q 300.707717 73.133858 296.192126 73.133858 
+L 184.807559 73.133858 
+Q 180.291969 73.133858 180.291969 76.535433 
+L 180.291969 103.748031 
+Q 180.291969 107.149606 184.807559 107.149606 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #e7f1ed; stroke: #438f83; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 22.246299 161.574803 
+L 127.610079 161.574803 
+Q 132.125669 161.574803 132.125669 158.173228 
+L 132.125669 130.96063 
+Q 132.125669 127.559055 127.610079 127.559055 
+L 22.246299 127.559055 
+Q 17.730709 127.559055 17.730709 130.96063 
+L 17.730709 158.173228 
+Q 17.730709 161.574803 22.246299 161.574803 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #e8f0f5; stroke: #4b7d9b; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 132.622686 144.566929 
+Q 156.208968 144.566929 178.844921 144.566929 
+" clip-path="url(#pa5db5da28e)" style="fill: none; stroke: #77828a; stroke-width: 0.85; stroke-linecap: round"/>
+    <path d="M 174.844921 142.566929 
+L 178.844921 144.566929 
+L 174.844921 146.566929 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #77828a; stroke: #77828a; stroke-width: 0.85; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 184.807559 161.574803 
+L 296.192126 161.574803 
+Q 300.707717 161.574803 300.707717 158.173228 
+L 300.707717 130.96063 
+Q 300.707717 127.559055 296.192126 127.559055 
+L 184.807559 127.559055 
+Q 180.291969 127.559055 180.291969 130.96063 
+L 180.291969 158.173228 
+Q 180.291969 161.574803 184.807559 161.574803 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #e8f0f5; stroke: #4b7d9b; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 22.246299 216 
+L 127.610079 216 
+Q 132.125669 216 132.125669 212.598425 
+L 132.125669 185.385827 
+Q 132.125669 181.984252 127.610079 181.984252 
+L 22.246299 181.984252 
+Q 17.730709 181.984252 17.730709 185.385827 
+L 17.730709 212.598425 
+Q 17.730709 216 22.246299 216 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #e8f0f5; stroke: #4b7d9b; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 132.622686 198.992126 
+Q 156.208968 198.992126 178.844921 198.992126 
+" clip-path="url(#pa5db5da28e)" style="fill: none; stroke: #77828a; stroke-width: 0.85; stroke-linecap: round"/>
+    <path d="M 174.844921 196.992126 
+L 178.844921 198.992126 
+L 174.844921 200.992126 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #77828a; stroke: #77828a; stroke-width: 0.85; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 184.807559 216 
+L 296.192126 216 
+Q 300.707717 216 300.707717 212.598425 
+L 300.707717 185.385827 
+Q 300.707717 181.984252 296.192126 181.984252 
+L 184.807559 181.984252 
+Q 180.291969 181.984252 180.291969 185.385827 
+L 180.291969 212.598425 
+Q 180.291969 216 184.807559 216 
+z
+" clip-path="url(#pa5db5da28e)" style="fill: #e8f0f5; stroke: #4b7d9b; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="4.183937" y="22.98642" transform="rotate(-0 4.183937 22.98642)">a</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="25.256693" y="23.407319" transform="rotate(-0 25.256693 23.407319)">固定当前输入，改变历史条件</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="74.928189" y="93.115028" transform="rotate(-0 74.928189 93.115028)">近期压力历史</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="240.499843" y="93.100927" transform="rotate(-0 240.499843 93.100927)">反映与澄清</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="74.928189" y="147.535772" transform="rotate(-0 74.928189 147.535772)">关闭记忆</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="240.499843" y="147.540225" transform="rotate(-0 240.499843 147.540225)">支持性倾听</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="74.928189" y="201.960969" transform="rotate(-0 74.928189 201.960969)">仅未知历史</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="240.499843" y="201.965422" transform="rotate(-0 240.499843 201.965422)">支持性倾听</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #8875ad" x="160.724409" y="248.88189" transform="rotate(-0 160.724409 248.88189)">关闭表达 → 动作对象为空</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 377.574803 212.598425 
+L 489.826772 212.598425 
+L 489.826772 42.519685 
+L 377.574803 42.519685 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 382.677165 212.598425 
+L 414.347 212.598425 
+L 414.347 71.262992 
+L 382.677165 71.262992 
+z
+" clip-path="url(#p5a7b2a254f)" style="fill: #4b7d9b; opacity: 0.85"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 453.054575 212.598425 
+L 484.724409 212.598425 
+L 484.724409 118.204724 
+L 453.054575 118.204724 
+z
+" clip-path="url(#p5a7b2a254f)" style="fill: #438f83; opacity: 0.85"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m324c8d9fba" d="M 0 0 
+L 0 3.5 
+" style="stroke: #273640; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m324c8d9fba" x="398.512083" y="212.598425" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="398.512083" y="226.150671" transform="rotate(-0 398.512083 226.150671)">0.8</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m324c8d9fba" x="468.889492" y="212.598425" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="468.889492" y="226.150671" transform="rotate(-0 468.889492 226.150671)">1.2</text>
+     </g>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="433.700787" y="240.468152" transform="rotate(-0 433.700787 240.468152)">TTS 速度设置</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <defs>
+       <path id="m9c2c321eec" d="M 0 0 
+L -3.5 0 
+" style="stroke: #273640; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9c2c321eec" x="377.574803" y="212.598425" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="370.574803" y="215.874548" transform="rotate(-0 370.574803 215.874548)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m9c2c321eec" x="377.574803" y="127.559055" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="370.574803" y="130.835178" transform="rotate(-0 370.574803 130.835178)">4</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m9c2c321eec" x="377.574803" y="42.519685" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="370.574803" y="45.795808" transform="rotate(-0 370.574803 45.795808)">8</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="359.465272" y="127.559055" transform="rotate(-90 359.465272 127.559055)">音频时长 (s)</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 377.574803 212.598425 
+L 377.574803 42.519685 
+" style="fill: none; stroke: #273640; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 377.574803 212.598425 
+L 489.826772 212.598425 
+" style="fill: none; stroke: #273640; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="375.329764" y="27.238389" transform="rotate(-0 375.329764 27.238389)">b</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="383.187402" y="27.659287" transform="rotate(-0 383.187402 27.659287)">固定文本语速对照</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="398.512083" y="67.011024" transform="rotate(-0 398.512083 67.011024)">6.648</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="468.889492" y="113.952756" transform="rotate(-0 468.889492 113.952756)">4.440</text>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #77828a" x="428.598425" y="257.952756" transform="rotate(-0 428.598425 257.952756)">每个设置 1 条音频</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa5db5da28e">
+   <rect x="10.204724" y="42.519685" width="301.03937" height="226.771654"/>
+  </clipPath>
+  <clipPath id="p5a7b2a254f">
+   <rect x="377.574803" y="42.519685" width="112.251969" height="170.07874"/>
+  </clipPath>
+ </defs>
+</svg>

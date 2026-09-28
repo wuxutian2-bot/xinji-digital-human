@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "fixtures_sha256": "59789bfefa92e9d65944229bf92ceab05be83ecd19ed31e1d0f79d3b3b6718c5",
+  "baseline_source_sha256": {
+    "src/open_llm_vtuber/mental_health/safety_guard.py": "6bdec4e61cf52cca5710991c9f58cf7c307e6db4a0a9e512e1855a60b4f06767",
+    "src/open_llm_vtuber/mental_health/state_estimator.py": "3eadc96ffb84654a11ad579042a3a50317307bee26018c9bb854fba6a663f749"
+  },
+  "status": "C1 frozen before context rule implementation; both sets evaluated on old rules only"
+}

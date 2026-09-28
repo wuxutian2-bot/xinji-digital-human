@@ -1,0 +1,5 @@
+﻿component,condition,outcome
+memory,recent_stress,reflect_and_clarify
+memory,disabled,supportive_listening
+memory,unknown_history,supportive_listening
+expression,disabled,actions=[{}]

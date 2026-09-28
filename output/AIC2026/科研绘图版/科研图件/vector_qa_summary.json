@@ -1,0 +1,44 @@
+[
+  {
+    "figure": "fig1_architecture",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  },
+  {
+    "figure": "fig2_daily_method",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  },
+  {
+    "figure": "fig3_daily_evidence",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  },
+  {
+    "figure": "fig4_data",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  },
+  {
+    "figure": "fig5_training",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  },
+  {
+    "figure": "fig6_runtime",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  },
+  {
+    "figure": "fig7_ablation",
+    "returncode": 0,
+    "status": "pass",
+    "failures": null
+  }
+]

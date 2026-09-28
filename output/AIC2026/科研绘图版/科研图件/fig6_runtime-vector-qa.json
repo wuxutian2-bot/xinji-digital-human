@@ -1,0 +1,31 @@
+{
+  "schema": "scientificfigure.vector_validation.v1",
+  "status": "pass",
+  "representation": "semantic_vector",
+  "svg": {
+    "path": "output\\AIC2026\\科研绘图版\\科研图件\\fig6_runtime.svg",
+    "status": "pass",
+    "parseable": true,
+    "paths": 18,
+    "lines": 0,
+    "text_elements": 48,
+    "raster_images": 0,
+    "raster_coverage_ratio": 0.0,
+    "external_resources": [],
+    "failure_reasons": []
+  },
+  "pdf": {
+    "path": "output\\AIC2026\\科研绘图版\\科研图件\\fig6_runtime.pdf",
+    "status": "pass",
+    "parseable": true,
+    "pages": 1,
+    "fonts": [
+      "F1",
+      "F2",
+      "F3"
+    ],
+    "image_objects": 0,
+    "raster_coverage_ratio": 0.0,
+    "failure_reasons": []
+  }
+}

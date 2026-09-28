@@ -1,0 +1,50 @@
+{
+  "sft_build": {
+    "file": "D:\\模型微调\\outputs\\qwen4b_large_v1_r1\\data_build_report.json",
+    "sha256": "c841abb9d4ac7cba6610d9951233cfd237b182ee28bacdcbee9013c5b0f508d8"
+  },
+  "orpo_build": {
+    "file": "D:\\模型微调\\data\\processed\\orpo_preferences\\build_report.json",
+    "sha256": "1c51243f43469dcc89d3f3197bd054e1a476ebea5db4e34a7fbd116e4aaa5329"
+  },
+  "sft_train": {
+    "file": "D:\\模型微调\\outputs\\qwen4b_large_v1_r1\\adapter\\trainer_state.json",
+    "sha256": "3b53fc1f9af5ae434cc544d7ca4179f903536a923329a5e4b2cc431b9698fcb6"
+  },
+  "orpo_train": {
+    "file": "D:\\模型微调\\outputs\\qwen4b_orpo_qlora\\adapter\\trainer_state.json",
+    "sha256": "fde1eb89c334b97bbdb883a2a4eb161a3aab4926ce893738f57881e85bf726d1"
+  },
+  "decision": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\logs\\decision-b-cpu-schema-r1.json",
+    "sha256": "58e30b2ef5f21c7c9ca9e9c4dbe78107dfbe642d2913457926251b1b936f712c"
+  },
+  "daily": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\logs\\phase-d-daily-comparison-final.json",
+    "sha256": "d2699903c55461390af6e9f4de029b99b1fe6d3cf18e5521d949da7fcd1cf87e"
+  },
+  "engineering": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\logs\\evaluation\\engineering.json",
+    "sha256": "07aff9b9b0e555642583ed3bda75ddcd1af0e780fee0e78edc97a5888e452c65"
+  },
+  "no_memory": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\logs\\evaluation\\no-memory.json",
+    "sha256": "003b0d908438c1f9970d3d63d0b232fe4501d68df2a28aa420d5031a454889de"
+  },
+  "no_expression": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\logs\\evaluation\\no-expression.json",
+    "sha256": "60767277e468670ea142de0eb355e5c3dbdbcd479744ea6683277a6018f77ac0"
+  },
+  "tts": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\logs\\expression_tts.json",
+    "sha256": "2cc75d94fd884a14586e8025f0ef7497136caf5346f74f44465a4b3a81e60a5f"
+  },
+  "architecture": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\src\\open_llm_vtuber\\agent\\agents\\mental_health_agent.py",
+    "sha256": "36ee2e605aefa803f59281e4a92b8e0e35efca31a49a5cb0ebb69b9b53b94568"
+  },
+  "daily_method": {
+    "file": "D:\\心迹——基于长期心理状态建模与多智能体决策的智能数字人\\docs\\mental_health_phase_d_results.md",
+    "sha256": "e196af67af779f1185b3eda8f018ac91d45191819808bf2e8404e064ce1f0d50"
+  }
+}

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="510.23622pt" height="272.125984pt" viewBox="0 0 510.23622 272.125984" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-25T12:03:07.798654</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 272.125984 
+L 510.23622 272.125984 
+L 510.23622 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 45.92126 195.930709 
+L 229.606299 195.930709 
+L 229.606299 51.703937 
+L 45.92126 51.703937 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 54.27058 195.930709 
+L 109.932713 195.930709 
+L 109.932713 63.298638 
+L 54.27058 63.298638 
+z
+" clip-path="url(#p6ed76cc970)" style="fill: #77828a; opacity: 0.85"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 165.594846 195.930709 
+L 221.256979 195.930709 
+L 221.256979 148.84491 
+L 165.594846 148.84491 
+z
+" clip-path="url(#p6ed76cc970)" style="fill: #438f83; opacity: 0.85"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m5c008b7985" d="M 0 0 
+L 0 3.5 
+" style="stroke: #273640; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m5c008b7985" x="82.101646" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="82.101646" y="210.449927" transform="rotate(-0 82.101646 210.449927)">按记录</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m5c008b7985" x="193.425913" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="193.425913" y="210.449927" transform="rotate(-0 193.425913 210.449927)">按日等权</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <defs>
+       <path id="m0a206d342f" d="M 0 0 
+L -3.5 0 
+" style="stroke: #273640; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0a206d342f" x="45.92126" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="38.92126" y="199.206832" transform="rotate(-0 38.92126 199.206832)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m0a206d342f" x="45.92126" y="125.231311" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="38.92126" y="128.507434" transform="rotate(-0 38.92126 128.507434)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m0a206d342f" x="45.92126" y="54.531913" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="38.92126" y="57.808036" transform="rotate(-0 38.92126 57.808036)">1.0</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="20.306572" y="123.817323" transform="rotate(-90 20.306572 123.817323)">压力状态均值 (0–1)</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 45.92126 195.930709 
+L 45.92126 51.703937 
+" style="fill: none; stroke: #273640; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 45.92126 195.930709 
+L 229.606299 195.930709 
+" style="fill: none; stroke: #273640; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="C0_0_295009b8f1" d="M 0 1.936492 
+C 0.513564 1.936492 1.006162 1.732451 1.369306 1.369306 
+C 1.732451 1.006162 1.936492 0.513564 1.936492 -0 
+C 1.936492 -0.513564 1.732451 -1.006162 1.369306 -1.369306 
+C 1.006162 -1.732451 0.513564 -1.936492 0 -1.936492 
+C -0.513564 -1.936492 -1.006162 -1.732451 -1.369306 -1.369306 
+C -1.732451 -1.006162 -1.936492 -0.513564 -1.936492 0 
+C -1.936492 0.513564 -1.732451 1.006162 -1.369306 1.369306 
+C -1.006162 1.732451 -0.513564 1.936492 0 1.936492 
+z
+"/>
+    </defs>
+    <g clip-path="url(#p6ed76cc970)">
+     <use xlink:href="#C0_0_295009b8f1" x="82.101646" y="63.298638" style="fill: #77828a; stroke: #77828a"/>
+    </g>
+    <g clip-path="url(#p6ed76cc970)">
+     <use xlink:href="#C0_0_295009b8f1" x="193.425913" y="148.84491" style="fill: #438f83; stroke: #438f83"/>
+    </g>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="42.247559" y="38.361539" transform="rotate(-0 42.247559 38.361539)">a</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="55.105512" y="38.782437" transform="rotate(-0 55.105512 38.782437)">降低单日高频观测的权重</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="82.101646" y="57.642686" transform="rotate(-0 82.101646 57.642686)">0.938</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="193.425913" y="143.188958" transform="rotate(-0 193.425913 143.188958)">0.333</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="137.76378" y="233.429669" transform="rotate(-0 137.76378 233.429669)">3 个有效日：30×1、1×0、1×0</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_7">
+    <path d="M 306.141732 195.930709 
+L 489.826772 195.930709 
+L 489.826772 51.703937 
+L 306.141732 51.703937 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 314.491052 195.930709 
+L 347.888332 195.930709 
+L 347.888332 139.37119 
+L 314.491052 139.37119 
+z
+" clip-path="url(#pc723b3c39a)" style="fill: #77828a; opacity: 0.85"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 381.285612 195.930709 
+L 414.682892 195.930709 
+L 414.682892 82.811672 
+L 381.285612 82.811672 
+z
+" clip-path="url(#pc723b3c39a)" style="fill: #4b7d9b; opacity: 0.85"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 448.080172 195.930709 
+L 481.477452 195.930709 
+L 481.477452 195.930709 
+L 448.080172 195.930709 
+z
+" clip-path="url(#pc723b3c39a)" style="fill: #438f83; opacity: 0.85"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_3">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m5c008b7985" x="331.189692" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="331.189692" y="210.44149" transform="rotate(-0 331.189692 210.44149)">混合来源</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m5c008b7985" x="397.984252" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="397.984252" y="210.501959" transform="rotate(-0 397.984252 210.501959)">系统估计</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m5c008b7985" x="464.778812" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="464.778812" y="210.501959" transform="rotate(-0 464.778812 210.501959)">用户自报</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m0a206d342f" x="306.141732" y="195.930709" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="299.141732" y="199.206832" transform="rotate(-0 299.141732 199.206832)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0a206d342f" x="306.141732" y="125.231311" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="299.141732" y="128.507434" transform="rotate(-0 299.141732 128.507434)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m0a206d342f" x="306.141732" y="54.531913" style="fill: #273640; stroke: #273640; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: end; fill: #273640" x="299.141732" y="57.808036" transform="rotate(-0 299.141732 57.808036)">1.0</text>
+     </g>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="280.527045" y="123.817323" transform="rotate(-90 280.527045 123.817323)">压力状态均值 (0–1)</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 306.141732 195.930709 
+L 306.141732 51.703937 
+" style="fill: none; stroke: #273640; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 306.141732 195.930709 
+L 489.826772 195.930709 
+" style="fill: none; stroke: #273640; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="PathCollection_2">
+    <defs>
+     <path id="C1_0_d98731af51" d="M 0 1.936492 
+C 0.513564 1.936492 1.006162 1.732451 1.369306 1.369306 
+C 1.732451 1.006162 1.936492 0.513564 1.936492 -0 
+C 1.936492 -0.513564 1.732451 -1.006162 1.369306 -1.369306 
+C 1.006162 -1.732451 0.513564 -1.936492 0 -1.936492 
+C -0.513564 -1.936492 -1.006162 -1.732451 -1.369306 -1.369306 
+C -1.732451 -1.006162 -1.936492 -0.513564 -1.936492 0 
+C -1.936492 0.513564 -1.732451 1.006162 -1.369306 1.369306 
+C -1.006162 1.732451 -0.513564 1.936492 0 1.936492 
+z
+"/>
+    </defs>
+    <g clip-path="url(#pc723b3c39a)">
+     <use xlink:href="#C1_0_d98731af51" x="331.189692" y="139.37119" style="fill: #77828a; stroke: #77828a"/>
+    </g>
+    <g clip-path="url(#pc723b3c39a)">
+     <use xlink:href="#C1_0_d98731af51" x="397.984252" y="82.811672" style="fill: #4b7d9b; stroke: #4b7d9b"/>
+    </g>
+    <g clip-path="url(#pc723b3c39a)">
+     <use xlink:href="#C1_0_d98731af51" x="464.778812" y="195.930709" style="fill: #438f83; stroke: #438f83"/>
+    </g>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="302.468031" y="38.361539" transform="rotate(-0 302.468031 38.361539)">b</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: start; fill: #273640" x="315.325984" y="38.782437" transform="rotate(-0 315.325984 38.782437)">保留不同来源的独立含义</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="331.189692" y="133.715239" transform="rotate(-0 331.189692 133.715239)">0.400</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="397.984252" y="77.15572" transform="rotate(-0 397.984252 77.15572)">0.800</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="464.778812" y="190.274757" transform="rotate(-0 464.778812 190.274757)">0.000</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 8.5px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #273640" x="397.984252" y="233.429669" transform="rotate(-0 397.984252 233.429669)">系统与自报各 3 日：0.8 与 0</text>
+   </g>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 10px; font-family: 'Arial', 'Microsoft YaHei'; text-anchor: middle; fill: #438f83" x="255.11811" y="259.880315" transform="rotate(-0 255.11811 259.880315)">6 / 6 合成案例：追加 100 条完全相同记录后，分来源统计保持不变</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6ed76cc970">
+   <rect x="45.92126" y="51.703937" width="183.685039" height="144.226772"/>
+  </clipPath>
+  <clipPath id="pc723b3c39a">
+   <rect x="306.141732" y="51.703937" width="183.685039" height="144.226772"/>
+  </clipPath>
+ </defs>
+</svg>

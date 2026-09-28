@@ -1,0 +1,28 @@
+{
+  "checksums": {
+    "output/figure.pdf": "sha256:6eaa7fd9355fb1f9e23637bba05e1820570435576cd85c747c9bec0a311289c6",
+    "output/figure.png": "sha256:4d990ca85a4d289b18d41289b9298534df2786861d3e0a73adbc237870a37cf8",
+    "output/figure.svg": "sha256:a85da7ebd69c4ba63a71c8d1701fbd3ea4bf685135713363836bd16cfaa9a54d",
+    "src/render.py": "sha256:4705c614f29144a75d29d197241879fdf3bae40bf6646d0e751c017915037492",
+    "visualspec.json": "sha256:f28739bf65e5c80775cb0a812f790a42dffc838cfc2ab86c5fcfb9e8346edf64"
+  },
+  "data_swap_template": null,
+  "input_hashes": {
+    "input/orpo_train.csv": "sha256:fed9a5d5bc17a173697043a456314ac266d4e0796afa967ea72cfb1b6bbb3fb0",
+    "input/orpo_validation.csv": "sha256:e0d2b91bb3fb74480981a0dd1091d5040cbba0caaf08146a16405dbdaa41850f",
+    "input/sft_train.csv": "sha256:8b90fe03f9a18cfcd3e68ec20ec217cc4bfd0d9a4ba5738bb708cddf2aee43e1",
+    "input/sft_validation.csv": "sha256:6448b096da1e8d88b136b6c8d888ad7413c8231d74d210ccaa3979fb28e833d6",
+    "visualspec.json": "sha256:f28739bf65e5c80775cb0a812f790a42dffc838cfc2ab86c5fcfb9e8346edf64"
+  },
+  "outputs": {
+    "pdf": "output/figure.pdf",
+    "png": "output/figure.png",
+    "svg": "output/figure.svg"
+  },
+  "profile": "standard",
+  "qa_report": "qa/report.json",
+  "render_script": "src/render.py",
+  "schema": "sciplot.project-manifest.v1",
+  "status": "ok",
+  "visualspec": "visualspec.json"
+}

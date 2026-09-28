@@ -1,0 +1,259 @@
+{
+  "schema": "scientificfigure.visualspec.v2",
+  "figure": {
+    "size_mm": [
+      180,
+      87
+    ],
+    "dpi": 600,
+    "background": "white",
+    "crop_mode": "fixed_canvas"
+  },
+  "theme": {
+    "font": {
+      "family_candidates": [
+        "Arial",
+        "Microsoft YaHei"
+      ],
+      "size_pt": 9
+    },
+    "axes": {
+      "line_width_pt": 0.7
+    }
+  },
+  "layout": {
+    "archetype": "quantitative_grid",
+    "target_width_mm": 180,
+    "narrative_order": [
+      "a",
+      "b"
+    ],
+    "min_readable_font_size_pt": 8,
+    "panel_weights": {
+      "a": 1,
+      "b": 1
+    }
+  },
+  "panels": [
+    {
+      "id": "a",
+      "backend": "matplotlib",
+      "bbox_normalized": [
+        0.1,
+        0.22,
+        0.36,
+        0.64
+      ],
+      "representation": "semantic_vector",
+      "source_strategy": "raw_data",
+      "semantic_role": "quantification",
+      "required_output": "svg",
+      "answers_question": "训练与验证目标如何随更新步变化？",
+      "evidence_ids": [
+        "sft_train"
+      ],
+      "plots": [
+        {
+          "type": "line",
+          "data": {
+            "source": "../source_data/sft_train.csv",
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            }
+          },
+          "label": "训练日志",
+          "style": {
+            "color": "#4B7D9B",
+            "line_width_pt": 1.1
+          }
+        },
+        {
+          "type": "line",
+          "data": {
+            "source": "../source_data/sft_validation.csv",
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            }
+          },
+          "label": "验证集",
+          "style": {
+            "color": "#CD8175",
+            "line_width_pt": 1.1,
+            "marker": "o"
+          }
+        }
+      ],
+      "axes": {
+        "x": {
+          "label": "优化步数",
+          "limits": [
+            0,
+            880
+          ],
+          "ticks": [
+            0,
+            400,
+            800
+          ]
+        },
+        "y": {
+          "label": "SFT loss",
+          "limits": [
+            1.8,
+            4.6
+          ]
+        }
+      },
+      "legend": {
+        "loc": "upper right",
+        "font_size_pt": 9,
+        "frameon": false
+      },
+      "annotations": [
+        {
+          "type": "text",
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0,
+            1.1
+          ],
+          "text": "a   SFT 领域适配",
+          "style": {
+            "font_size_pt": 10,
+            "ha": "left",
+            "va": "bottom"
+          }
+        },
+        {
+          "type": "text",
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0.5,
+            -0.25
+          ],
+          "text": "最佳验证 2.2885 · step 800",
+          "style": {
+            "font_size_pt": 9,
+            "ha": "center",
+            "va": "top"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "backend": "matplotlib",
+      "bbox_normalized": [
+        0.59,
+        0.22,
+        0.36,
+        0.64
+      ],
+      "representation": "semantic_vector",
+      "source_strategy": "raw_data",
+      "semantic_role": "quantification",
+      "required_output": "svg",
+      "answers_question": "训练与验证目标如何随更新步变化？",
+      "evidence_ids": [
+        "orpo_train"
+      ],
+      "plots": [
+        {
+          "type": "line",
+          "data": {
+            "source": "../source_data/orpo_train.csv",
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            }
+          },
+          "label": "训练日志",
+          "style": {
+            "color": "#4B7D9B",
+            "line_width_pt": 1.1
+          }
+        },
+        {
+          "type": "line",
+          "data": {
+            "source": "../source_data/orpo_validation.csv",
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            }
+          },
+          "label": "验证集",
+          "style": {
+            "color": "#CD8175",
+            "line_width_pt": 1.1,
+            "marker": "o"
+          }
+        }
+      ],
+      "axes": {
+        "x": {
+          "label": "优化步数",
+          "limits": [
+            0,
+            220
+          ],
+          "ticks": [
+            0,
+            100,
+            200
+          ]
+        },
+        "y": {
+          "label": "ORPO loss",
+          "limits": [
+            1.8,
+            5.4
+          ]
+        }
+      },
+      "legend": {
+        "loc": "upper right",
+        "font_size_pt": 9,
+        "frameon": false
+      },
+      "annotations": [
+        {
+          "type": "text",
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0,
+            1.1
+          ],
+          "text": "b   ORPO 偏好优化",
+          "style": {
+            "font_size_pt": 10,
+            "ha": "left",
+            "va": "bottom"
+          }
+        },
+        {
+          "type": "text",
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0.5,
+            -0.25
+          ],
+          "text": "最佳验证 2.7734 · step 200",
+          "style": {
+            "font_size_pt": 9,
+            "ha": "center",
+            "va": "top"
+          }
+        }
+      ]
+    }
+  ],
+  "delivery": {
+    "data_columns": {
+      "x": "step",
+      "y": "loss"
+    }
+  }
+}

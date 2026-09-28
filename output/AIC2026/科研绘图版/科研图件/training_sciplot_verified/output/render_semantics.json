@@ -1,0 +1,276 @@
+{
+  "schema": "scientificfigure.render_semantics.v1",
+  "figures": {
+    "figure_1": {
+      "panels": {
+        "a": {
+          "axes": {
+            "x": {
+              "scale": "linear",
+              "limits": [
+                0.0,
+                880.0
+              ],
+              "ticks": [
+                0.0,
+                400.0,
+                800.0
+              ],
+              "label": "优化步数"
+            },
+            "y": {
+              "scale": "linear",
+              "limits": [
+                1.8,
+                4.6
+              ],
+              "ticks": [
+                1.5,
+                2.0,
+                2.5,
+                3.0,
+                3.5,
+                4.0,
+                4.5,
+                5.0
+              ],
+              "label": "SFT loss"
+            }
+          },
+          "plots": [
+            {
+              "type": "line",
+              "label": "训练日志",
+              "x_hash": "sha256:1684ded953192fbeac257b67b9df73479543e4cceac8cc6314ecd142689d6d8c",
+              "y_hash": "sha256:b18586c28a48e95853285dbf917c94b915c78d0cc424ebc64b8e9e02d19b056f",
+              "point_count": 42,
+              "style": {
+                "color": "#4b7d9b",
+                "line_width_pt": 1.1,
+                "line_style": "solid"
+              },
+              "provenance": {
+                "type": "observed",
+                "x_hash": "observed",
+                "y_hash": "observed",
+                "point_count": "observed",
+                "style.color": "observed",
+                "style.line_width_pt": "observed",
+                "style.line_style": "observed"
+              }
+            },
+            {
+              "type": "line",
+              "label": "验证集",
+              "x_hash": "sha256:ff0ac11eb36c3588255fe0ec8a0624cddc43f3bf1c5249a97ec48a488befb3d8",
+              "y_hash": "sha256:637ee5fba494a62f9eeaade5e9c4cc50810b1b41716a6f2fbc553ef1c1ce940f",
+              "point_count": 4,
+              "style": {
+                "color": "#cd8175",
+                "line_width_pt": 1.1,
+                "line_style": "solid",
+                "marker": "o"
+              },
+              "provenance": {
+                "type": "observed",
+                "x_hash": "observed",
+                "y_hash": "observed",
+                "point_count": "observed",
+                "style.color": "observed",
+                "style.line_width_pt": "observed",
+                "style.line_style": "observed",
+                "style.marker": "observed"
+              }
+            }
+          ],
+          "legend_labels": [
+            "训练日志",
+            "验证集"
+          ],
+          "annotations": [
+            {
+              "type": "text",
+              "coordinate_space": "axes_fraction",
+              "text": "a   SFT 领域适配",
+              "geometry": {
+                "x": 0.0,
+                "y": 1.1
+              },
+              "style": {
+                "font_size_pt": 10.0,
+                "color": "#000000",
+                "ha": "left",
+                "va": "bottom",
+                "rotation": 0.0,
+                "fontweight": "normal",
+                "fontstyle": "normal"
+              },
+              "provenance": {
+                "geometry": "observed",
+                "text": "observed",
+                "style": "observed"
+              }
+            },
+            {
+              "type": "text",
+              "coordinate_space": "axes_fraction",
+              "text": "最佳验证 2.2885 · step 800",
+              "geometry": {
+                "x": 0.5,
+                "y": -0.25
+              },
+              "style": {
+                "font_size_pt": 9.0,
+                "color": "#000000",
+                "ha": "center",
+                "va": "top",
+                "rotation": 0.0,
+                "fontweight": "normal",
+                "fontstyle": "normal"
+              },
+              "provenance": {
+                "geometry": "observed",
+                "text": "observed",
+                "style": "observed"
+              }
+            }
+          ]
+        },
+        "b": {
+          "axes": {
+            "x": {
+              "scale": "linear",
+              "limits": [
+                0.0,
+                220.0
+              ],
+              "ticks": [
+                0.0,
+                100.0,
+                200.0
+              ],
+              "label": "优化步数"
+            },
+            "y": {
+              "scale": "linear",
+              "limits": [
+                1.8,
+                5.4
+              ],
+              "ticks": [
+                1.5,
+                2.0,
+                2.5,
+                3.0,
+                3.5,
+                4.0,
+                4.5,
+                5.0,
+                5.5
+              ],
+              "label": "ORPO loss"
+            }
+          },
+          "plots": [
+            {
+              "type": "line",
+              "label": "训练日志",
+              "x_hash": "sha256:3bb903e10e0756406d2f99e6c38eb8986e2eb95b4d1f075fdff9f8bbcd7e7895",
+              "y_hash": "sha256:8bbeb95e179055ecef5077bf5ce4d7168cb284246b055d2d531149304e026eba",
+              "point_count": 43,
+              "style": {
+                "color": "#4b7d9b",
+                "line_width_pt": 1.1,
+                "line_style": "solid"
+              },
+              "provenance": {
+                "type": "observed",
+                "x_hash": "observed",
+                "y_hash": "observed",
+                "point_count": "observed",
+                "style.color": "observed",
+                "style.line_width_pt": "observed",
+                "style.line_style": "observed"
+              }
+            },
+            {
+              "type": "line",
+              "label": "验证集",
+              "x_hash": "sha256:e9a05d446fe92070a4f10943b71558299b65fdc2838b163f25d9a089984df4de",
+              "y_hash": "sha256:b605565aedeb46d064a50df16f0e9bd4a40ba97556fb3664c1dbd0ab88a64dc1",
+              "point_count": 4,
+              "style": {
+                "color": "#cd8175",
+                "line_width_pt": 1.1,
+                "line_style": "solid",
+                "marker": "o"
+              },
+              "provenance": {
+                "type": "observed",
+                "x_hash": "observed",
+                "y_hash": "observed",
+                "point_count": "observed",
+                "style.color": "observed",
+                "style.line_width_pt": "observed",
+                "style.line_style": "observed",
+                "style.marker": "observed"
+              }
+            }
+          ],
+          "legend_labels": [
+            "训练日志",
+            "验证集"
+          ],
+          "annotations": [
+            {
+              "type": "text",
+              "coordinate_space": "axes_fraction",
+              "text": "b   ORPO 偏好优化",
+              "geometry": {
+                "x": 0.0,
+                "y": 1.1
+              },
+              "style": {
+                "font_size_pt": 10.0,
+                "color": "#000000",
+                "ha": "left",
+                "va": "bottom",
+                "rotation": 0.0,
+                "fontweight": "normal",
+                "fontstyle": "normal"
+              },
+              "provenance": {
+                "geometry": "observed",
+                "text": "observed",
+                "style": "observed"
+              }
+            },
+            {
+              "type": "text",
+              "coordinate_space": "axes_fraction",
+              "text": "最佳验证 2.7734 · step 200",
+              "geometry": {
+                "x": 0.5,
+                "y": -0.25
+              },
+              "style": {
+                "font_size_pt": 9.0,
+                "color": "#000000",
+                "ha": "center",
+                "va": "top",
+                "rotation": 0.0,
+                "fontweight": "normal",
+                "fontstyle": "normal"
+              },
+              "provenance": {
+                "geometry": "observed",
+                "text": "observed",
+                "style": "observed"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "create_bundle": false,
+  "disabled_gates": [
+    "boxed_text_safety",
+    "bundle_structure",
+    "runtime_freeze",
+    "reproduction_entrypoint",
+    "data_swap_template",
+    "changed_input_proof",
+    "bundle_lock",
+    "environment_lock",
+    "checksum_verification",
+    "attestation",
+    "portability",
+    "portable_path_scan",
+    "bundle_verification",
+    "source_policy",
+    "release_acceptance",
+    "pdf_trace"
+  ],
+  "enabled_gates": [
+    "input_exists",
+    "input_hash",
+    "input_schema",
+    "mapping_validation",
+    "render_integrity",
+    "basic_parseability",
+    "path_isolation",
+    "canvas_safety",
+    "semantic_audit",
+    "plot_geometry_safety",
+    "vector_validation",
+    "basic_checksums",
+    "environment_summary",
+    "final_manifest_validation"
+  ],
+  "reason": "Explicit profile requested: standard",
+  "require_changed_input_proof": false,
+  "require_data_swap": false,
+  "schema": "sciplot.execution-plan.v1",
+  "selected_profile": "standard"
+}

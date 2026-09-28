@@ -1,0 +1,26 @@
+[
+  {
+    "figure": "fig1_architecture",
+    "text_outside_canvas": []
+  },
+  {
+    "figure": "fig2_daily_method",
+    "text_outside_canvas": []
+  },
+  {
+    "figure": "fig3_daily_evidence",
+    "text_outside_canvas": []
+  },
+  {
+    "figure": "fig4_data",
+    "text_outside_canvas": []
+  },
+  {
+    "figure": "fig6_runtime",
+    "text_outside_canvas": []
+  },
+  {
+    "figure": "fig7_ablation",
+    "text_outside_canvas": []
+  }
+]

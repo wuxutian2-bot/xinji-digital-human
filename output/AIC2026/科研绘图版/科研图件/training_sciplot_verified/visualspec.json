@@ -1,0 +1,269 @@
+{
+  "delivery": {
+    "data_columns": {
+      "x": "step",
+      "y": "loss"
+    },
+    "mapping_validity": {
+      "source": "existing_visualspec_mapping",
+      "status": "pass"
+    },
+    "source_hashes": {
+      "input/orpo_train.csv": "sha256:fed9a5d5bc17a173697043a456314ac266d4e0796afa967ea72cfb1b6bbb3fb0",
+      "input/orpo_validation.csv": "sha256:e0d2b91bb3fb74480981a0dd1091d5040cbba0caaf08146a16405dbdaa41850f",
+      "input/sft_train.csv": "sha256:8b90fe03f9a18cfcd3e68ec20ec217cc4bfd0d9a4ba5738bb708cddf2aee43e1",
+      "input/sft_validation.csv": "sha256:6448b096da1e8d88b136b6c8d888ad7413c8231d74d210ccaa3979fb28e833d6"
+    }
+  },
+  "figure": {
+    "background": "white",
+    "crop_mode": "fixed_canvas",
+    "dpi": 600,
+    "size_mm": [
+      180,
+      87
+    ]
+  },
+  "layout": {
+    "archetype": "quantitative_grid",
+    "min_readable_font_size_pt": 8,
+    "narrative_order": [
+      "a",
+      "b"
+    ],
+    "panel_weights": {
+      "a": 1,
+      "b": 1
+    },
+    "target_width_mm": 180
+  },
+  "panels": [
+    {
+      "annotations": [
+        {
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0,
+            1.1
+          ],
+          "style": {
+            "font_size_pt": 10,
+            "ha": "left",
+            "va": "bottom"
+          },
+          "text": "a   SFT 领域适配",
+          "type": "text"
+        },
+        {
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0.5,
+            -0.25
+          ],
+          "style": {
+            "font_size_pt": 9,
+            "ha": "center",
+            "va": "top"
+          },
+          "text": "最佳验证 2.2885 · step 800",
+          "type": "text"
+        }
+      ],
+      "answers_question": "训练与验证目标如何随更新步变化？",
+      "axes": {
+        "x": {
+          "label": "优化步数",
+          "limits": [
+            0,
+            880
+          ],
+          "ticks": [
+            0,
+            400,
+            800
+          ]
+        },
+        "y": {
+          "label": "SFT loss",
+          "limits": [
+            1.8,
+            4.6
+          ]
+        }
+      },
+      "backend": "matplotlib",
+      "bbox_normalized": [
+        0.1,
+        0.22,
+        0.36,
+        0.64
+      ],
+      "evidence_ids": [
+        "sft_train"
+      ],
+      "id": "a",
+      "legend": {
+        "font_size_pt": 9,
+        "frameon": false,
+        "loc": "upper right"
+      },
+      "plots": [
+        {
+          "data": {
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            },
+            "source": "input/sft_train.csv"
+          },
+          "label": "训练日志",
+          "style": {
+            "color": "#4B7D9B",
+            "line_width_pt": 1.1
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            },
+            "source": "input/sft_validation.csv"
+          },
+          "label": "验证集",
+          "style": {
+            "color": "#CD8175",
+            "line_width_pt": 1.1,
+            "marker": "o"
+          },
+          "type": "line"
+        }
+      ],
+      "representation": "semantic_vector",
+      "required_output": "svg",
+      "semantic_role": "quantification",
+      "source_strategy": "raw_data"
+    },
+    {
+      "annotations": [
+        {
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0,
+            1.1
+          ],
+          "style": {
+            "font_size_pt": 10,
+            "ha": "left",
+            "va": "bottom"
+          },
+          "text": "b   ORPO 偏好优化",
+          "type": "text"
+        },
+        {
+          "coordinate_space": "axes_fraction",
+          "coordinates": [
+            0.5,
+            -0.25
+          ],
+          "style": {
+            "font_size_pt": 9,
+            "ha": "center",
+            "va": "top"
+          },
+          "text": "最佳验证 2.7734 · step 200",
+          "type": "text"
+        }
+      ],
+      "answers_question": "训练与验证目标如何随更新步变化？",
+      "axes": {
+        "x": {
+          "label": "优化步数",
+          "limits": [
+            0,
+            220
+          ],
+          "ticks": [
+            0,
+            100,
+            200
+          ]
+        },
+        "y": {
+          "label": "ORPO loss",
+          "limits": [
+            1.8,
+            5.4
+          ]
+        }
+      },
+      "backend": "matplotlib",
+      "bbox_normalized": [
+        0.59,
+        0.22,
+        0.36,
+        0.64
+      ],
+      "evidence_ids": [
+        "orpo_train"
+      ],
+      "id": "b",
+      "legend": {
+        "font_size_pt": 9,
+        "frameon": false,
+        "loc": "upper right"
+      },
+      "plots": [
+        {
+          "data": {
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            },
+            "source": "input/orpo_train.csv"
+          },
+          "label": "训练日志",
+          "style": {
+            "color": "#4B7D9B",
+            "line_width_pt": 1.1
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "mapping": {
+              "x": "step",
+              "y": "loss"
+            },
+            "source": "input/orpo_validation.csv"
+          },
+          "label": "验证集",
+          "style": {
+            "color": "#CD8175",
+            "line_width_pt": 1.1,
+            "marker": "o"
+          },
+          "type": "line"
+        }
+      ],
+      "representation": "semantic_vector",
+      "required_output": "svg",
+      "semantic_role": "quantification",
+      "source_strategy": "raw_data"
+    }
+  ],
+  "schema": "scientificfigure.visualspec.v2",
+  "theme": {
+    "axes": {
+      "line_width_pt": 0.7
+    },
+    "font": {
+      "family_candidates": [
+        "Arial",
+        "Microsoft YaHei"
+      ],
+      "size_pt": 9
+    }
+  }
+}

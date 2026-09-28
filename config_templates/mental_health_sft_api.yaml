@@ -1,0 +1,13 @@
+# LLaMA-Factory OpenAI-compatible API example for the SFT adapter.
+model_name_or_path: D:/models/Qwen3-4B-Instruct-2507
+adapter_name_or_path: D:/models/Qwen3-4B-Instruct-2507-SFT-QLoRA
+template: qwen3_nothink
+enable_thinking: false
+finetuning_type: lora
+infer_backend: huggingface
+infer_dtype: bfloat16
+quantization_method: bnb
+quantization_bit: 4
+quantization_type: nf4
+double_quantization: true
+trust_remote_code: false

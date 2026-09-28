@@ -1,0 +1,106 @@
+{
+  "schema": "scientificfigure.manifest.v2",
+  "project_root": ".",
+  "spec_path": "visualspec.json",
+  "output_dir": ".",
+  "source_code_status": "pass",
+  "render_status": "pass",
+  "raster_export_status": "pass",
+  "vector_export_status": "pass",
+  "export_status": "pass",
+  "vector_validation_status": "not_run",
+  "semantic_reconstruction_status": "not_run",
+  "visual_qa_status": "not_run",
+  "qa_status": "not_run",
+  "run_status": "not_run",
+  "qa_execution_status": "not_run",
+  "quality_status": "not_applicable",
+  "status": "render_only",
+  "source_strategy": "raw_data",
+  "representation": "semantic_vector",
+  "overall_status": "render_only",
+  "figures": {
+    "figure_1": {
+      "source": null,
+      "spec": "visualspec.json",
+      "script": "render.py",
+      "runner": "render_visualspec_matplotlib.py",
+      "exports": {
+        "png": "figure.png",
+        "svg": "figure.svg",
+        "pdf": "figure.pdf"
+      },
+      "qa": {
+        "execution_status": "not_run",
+        "result": "not_applicable",
+        "score_report": null
+      },
+      "source_strategy": "raw_data",
+      "representation": "semantic_vector",
+      "status": "render_only",
+      "panels": {
+        "a": {
+          "bbox_normalized": [
+            0.1,
+            0.22,
+            0.36,
+            0.64
+          ],
+          "source": null,
+          "source_strategy": "raw_data",
+          "representation": "semantic_vector",
+          "qa": {
+            "execution_status": "not_run",
+            "result": "not_applicable",
+            "score_report": null
+          }
+        },
+        "b": {
+          "bbox_normalized": [
+            0.59,
+            0.22,
+            0.36,
+            0.64
+          ],
+          "source": null,
+          "source_strategy": "raw_data",
+          "representation": "semantic_vector",
+          "qa": {
+            "execution_status": "not_run",
+            "result": "not_applicable",
+            "score_report": null
+          }
+        }
+      }
+    }
+  },
+  "per_figure_scripts": {
+    "figure_1": "render.py"
+  },
+  "errors": [],
+  "exports": {
+    "png": "figure.png",
+    "svg": "figure.svg",
+    "pdf": "figure.pdf"
+  },
+  "backend": "python_matplotlib",
+  "crop_mode": "fixed_canvas",
+  "resolved_fonts": {
+    "default": "Arial",
+    "delivery": {
+      "cjk_required": true,
+      "candidates": [
+        "Arial",
+        "Microsoft YaHei",
+        "SimHei"
+      ]
+    }
+  },
+  "publication_readiness": {},
+  "readability": {
+    "status": "no_warnings",
+    "warnings": [],
+    "limitations": "Heuristic legend/line/bar/scatter-center overlap and unboxed annotation contrast checks; no proof of complete readability or publication readiness."
+  },
+  "semantics": "render_semantics.json"
+}

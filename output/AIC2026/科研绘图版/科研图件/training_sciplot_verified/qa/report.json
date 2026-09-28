@@ -1,0 +1,211 @@
+{
+  "boxed_text_safety": {
+    "reason": "boxed_text_safety is not enabled in qa_policy",
+    "status": "not_applicable"
+  },
+  "canvas_safety": {
+    "background": "#ffffff",
+    "edges": {
+      "bottom": {
+        "clear": true,
+        "ink_fraction": 0.0,
+        "ink_pixels": 0,
+        "required": true
+      },
+      "left": {
+        "clear": true,
+        "ink_fraction": 0.0,
+        "ink_pixels": 0,
+        "required": true
+      },
+      "right": {
+        "clear": true,
+        "ink_fraction": 0.0,
+        "ink_pixels": 0,
+        "required": true
+      },
+      "top": {
+        "clear": true,
+        "ink_fraction": 0.0,
+        "ink_pixels": 0,
+        "required": true
+      }
+    },
+    "failed_edges": [],
+    "height_px": 2055,
+    "image": "output/figure.png",
+    "margin_px": 1,
+    "required_edges": [
+      "top",
+      "right",
+      "bottom",
+      "left"
+    ],
+    "schema": "scientificfigure.canvas_safety.v1",
+    "scope": "outer_pixel_band_guard_not_text_semantic_validation",
+    "status": "pass",
+    "tolerance": 10,
+    "width_px": 4251
+  },
+  "checksums": {
+    "output/figure.pdf": "sha256:6eaa7fd9355fb1f9e23637bba05e1820570435576cd85c747c9bec0a311289c6",
+    "output/figure.png": "sha256:4d990ca85a4d289b18d41289b9298534df2786861d3e0a73adbc237870a37cf8",
+    "output/figure.svg": "sha256:a85da7ebd69c4ba63a71c8d1701fbd3ea4bf685135713363836bd16cfaa9a54d",
+    "src/render.py": "sha256:4705c614f29144a75d29d197241879fdf3bae40bf6646d0e751c017915037492",
+    "visualspec.json": "sha256:f28739bf65e5c80775cb0a812f790a42dffc838cfc2ab86c5fcfb9e8346edf64"
+  },
+  "enabled_gates": [
+    "input_exists",
+    "input_hash",
+    "input_schema",
+    "mapping_validation",
+    "render_integrity",
+    "basic_parseability",
+    "path_isolation",
+    "canvas_safety",
+    "semantic_audit",
+    "plot_geometry_safety",
+    "vector_validation",
+    "basic_checksums",
+    "environment_summary",
+    "final_manifest_validation"
+  ],
+  "environment_summary": {
+    "implementation": "CPython",
+    "platform": "Windows",
+    "python": "3.14.7"
+  },
+  "input_hashes": {
+    "input/orpo_train.csv": "sha256:fed9a5d5bc17a173697043a456314ac266d4e0796afa967ea72cfb1b6bbb3fb0",
+    "input/orpo_validation.csv": "sha256:e0d2b91bb3fb74480981a0dd1091d5040cbba0caaf08146a16405dbdaa41850f",
+    "input/sft_train.csv": "sha256:8b90fe03f9a18cfcd3e68ec20ec217cc4bfd0d9a4ba5738bb708cddf2aee43e1",
+    "input/sft_validation.csv": "sha256:6448b096da1e8d88b136b6c8d888ad7413c8231d74d210ccaa3979fb28e833d6",
+    "visualspec.json": "sha256:f28739bf65e5c80775cb0a812f790a42dffc838cfc2ab86c5fcfb9e8346edf64"
+  },
+  "manifest_validation": {
+    "failures": [],
+    "status": "pass"
+  },
+  "mapping_validation": {
+    "checked_source_plots": 4,
+    "checked_uncertainty_plots": 0,
+    "failures": [],
+    "status": "pass"
+  },
+  "output_selection": {
+    "reason": "Explicit output formats",
+    "requested": "png,svg,pdf",
+    "resolved": [
+      "png",
+      "svg",
+      "pdf"
+    ]
+  },
+  "parseability": {
+    "pdf": {
+      "path": "output/figure.pdf",
+      "sha256": "sha256:6eaa7fd9355fb1f9e23637bba05e1820570435576cd85c747c9bec0a311289c6",
+      "status": "pass"
+    },
+    "png": {
+      "path": "output/figure.png",
+      "sha256": "sha256:4d990ca85a4d289b18d41289b9298534df2786861d3e0a73adbc237870a37cf8",
+      "status": "pass"
+    },
+    "svg": {
+      "path": "output/figure.svg",
+      "sha256": "sha256:a85da7ebd69c4ba63a71c8d1701fbd3ea4bf685135713363836bd16cfaa9a54d",
+      "status": "pass"
+    }
+  },
+  "plot_geometry_safety": {
+    "reason": "plot_geometry_safety is not enabled in qa_policy",
+    "status": "not_applicable"
+  },
+  "readability": {
+    "limitations": "Heuristic legend/line/bar/scatter-center overlap and unboxed annotation contrast checks; no proof of complete readability or publication readiness.",
+    "status": "no_warnings",
+    "warnings": []
+  },
+  "schema": "sciplot.qa-report.v1",
+  "selected_profile": "standard",
+  "semantic_audit": {
+    "checks": {
+      "annotations": "pass",
+      "axes": "pass",
+      "coverage": "pass",
+      "data": "pass",
+      "labels": "pass",
+      "legend_mapping": "pass",
+      "mapping_validity": "pass",
+      "provenance": "pass",
+      "units": "pass"
+    },
+    "failures": [],
+    "mapping_validity": {
+      "checked_source_plots": 4,
+      "checked_uncertainty_plots": 0,
+      "failures": [],
+      "status": "pass"
+    },
+    "overall": "pass",
+    "render_integrity": {
+      "checks": {
+        "annotations": "pass",
+        "axes": "pass",
+        "coverage": "pass",
+        "data": "pass",
+        "labels": "pass",
+        "legend_mapping": "pass",
+        "provenance": "pass",
+        "units": "pass"
+      },
+      "status": "pass"
+    },
+    "render_semantics": "output/render_semantics.json",
+    "schema": "scientificfigure.semantic_audit.v2",
+    "scientific_fidelity": {
+      "annotations": "pass",
+      "axes": "pass",
+      "coverage": "pass",
+      "data": "pass",
+      "labels": "pass",
+      "legend_mapping": "pass",
+      "mapping_validity": "pass",
+      "provenance": "pass",
+      "units": "pass"
+    },
+    "spec": "visualspec.json"
+  },
+  "status": "pass",
+  "vector_validation": {
+    "pdf": {
+      "failure_reasons": [],
+      "fonts": [
+        "F1",
+        "F2"
+      ],
+      "image_objects": 0,
+      "pages": 1,
+      "parseable": true,
+      "path": "output/figure.pdf",
+      "raster_coverage_ratio": 0.0,
+      "status": "pass"
+    },
+    "representation": "semantic_vector",
+    "schema": "scientificfigure.vector_validation.v1",
+    "status": "pass",
+    "svg": {
+      "external_resources": [],
+      "failure_reasons": [],
+      "lines": 0,
+      "parseable": true,
+      "path": "output/figure.svg",
+      "paths": 22,
+      "raster_coverage_ratio": 0.0,
+      "raster_images": 0,
+      "status": "pass",
+      "text_elements": 31
+    }
+  }
+}

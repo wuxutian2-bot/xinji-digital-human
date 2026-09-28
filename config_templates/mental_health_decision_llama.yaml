@@ -1,0 +1,12 @@
+# Verified local b10964 CPU deployment; merge this section into mental_health_agent.
+# Install artifacts documented in docs/mental_health_phase_b_results.md first.
+decision:
+  enabled: false  # Keep rules until the local deployment passes its engineering checks.
+  model: 'mental-health-decision-qwen2.5-1.5b'
+  base_url: 'http://127.0.0.1:8001/v1'
+  llm_api_key: 'local-decision'
+  temperature: 0
+  timeout_seconds: 15
+  max_tokens: 300
+  response_format: 'llama_json_schema'
+  protocol_version: 2

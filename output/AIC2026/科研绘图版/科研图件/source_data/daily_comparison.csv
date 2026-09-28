@@ -1,0 +1,6 @@
+﻿case,statistic,value
+unequal_daily_frequency,record_weighted,0.938
+unequal_daily_frequency,daily_equal,0.333
+separate_sources,mixed_sources,0.4
+separate_sources,system_estimate,0.8
+separate_sources,user_report,0.0
