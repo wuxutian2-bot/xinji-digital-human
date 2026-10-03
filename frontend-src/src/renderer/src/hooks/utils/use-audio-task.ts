@@ -18,6 +18,8 @@ import * as LAppDefine from '../../../WebSDK/src/lappdefine';
 type Live2DModel = any;
 
 interface AudioTaskOptions {
+  turnId?: string;
+  segmentId?: number;
   actions?: Actions;
   audioBase64: string
   volumes: number[]
@@ -83,14 +85,19 @@ export const useAudioTask = () => {
     }
 
     const { audioBase64, displayText, expressions, forwarded } = options;
+    let receiptSent = false;
+    const receipt = (status: 'completed' | 'failed' | 'silent') => {
+      if (!receiptSent && options.turnId && options.segmentId !== undefined) {
+        receiptSent = true;
+        sendMessage({ type: 'companion-playback', turn_id: options.turnId, segment_id: options.segmentId, status });
+      }
+    };
 
     // Update display text
     if (displayText) {
       appendText(displayText.text);
-      appendAI(displayText.text, displayText.name, displayText.avatar);
-      if (audioBase64) {
-        updateSubtitle(displayText.text);
-      }
+      appendAI(displayText.text, displayText.name, displayText.avatar, options.turnId);
+      updateSubtitle(displayText.text);
       if (!forwarded) {
         sendMessage({
           type: "audio-play-start",
@@ -108,6 +115,7 @@ export const useAudioTask = () => {
         // Get Live2D manager and model
         const live2dManager = (window as any).getLive2DManager?.();
         if (!live2dManager) {
+          receipt('failed');
           console.error('Live2D manager not found');
           resolve();
           return;
@@ -115,6 +123,7 @@ export const useAudioTask = () => {
 
         const model = live2dManager.getModel(0);
         if (!model) {
+          receipt('failed');
           console.error('Live2D model not found at index 0');
           resolve();
           return;
@@ -181,6 +190,7 @@ export const useAudioTask = () => {
             );
           }
           audio.play().catch((err) => {
+            receipt('failed');
             console.error("Audio play error:", err);
             cleanup();
           });
@@ -209,20 +219,24 @@ export const useAudioTask = () => {
         }, { once: true });
 
         audio.addEventListener('ended', () => {
+          if (!isFinished && audioManager.isCurrentAudio(audio)) receipt('completed');
           console.log("Audio playback completed");
           cleanup();
         });
 
         audio.addEventListener('error', (error) => {
+          if (!isFinished) receipt('failed');
           console.error("Audio playback error:", error);
           cleanup();
         });
 
         audio.load();
       } else {
+        receipt('silent');
         resolve();
       }
     } catch (error) {
+      receipt('failed');
       console.error('Audio playback setup error:', error);
       toaster.create({
         title: `${t('error.audioPlayback')}: ${error}`,
@@ -264,7 +278,7 @@ export const useAudioTask = () => {
       return;
     }
 
-    console.log(`Adding audio task ${options.displayText?.text} to queue`);
+
     audioTaskQueue.addTask(() => handleAudioPlayback(options));
   };
 

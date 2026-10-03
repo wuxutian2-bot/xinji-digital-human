@@ -16,6 +16,7 @@ import { useConfig } from '@/context/character-config-context';
 import { useWebSocket } from '@/context/websocket-context';
 import { FaTools, FaCheck, FaTimes } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+import { ReplyControls } from '@/components/companion/companion-controls';
 
 // Main component
 function ChatHistoryPanel(): JSX.Element {
@@ -133,6 +134,7 @@ function ChatHistoryPanel(): JSX.Element {
                         userName[0].toUpperCase()
                       )}
                     </ChatAvatar>
+                    {msg.role === 'ai' && <ChatMessage.Footer><ReplyControls turnId={msg.turn_id} answer={msg.content} /></ChatMessage.Footer>}
                   </ChatMessage>
                 );
               })

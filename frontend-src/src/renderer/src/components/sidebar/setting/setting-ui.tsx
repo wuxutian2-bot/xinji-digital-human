@@ -10,18 +10,18 @@ import {
   DrawerFooter,
   DrawerBackdrop,
   DrawerCloseTrigger,
-} from '@chakra-ui/react';
-import { useState, useMemo, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { CloseButton } from '@/components/ui/close-button';
+} from "@chakra-ui/react";
+import { useState, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { CloseButton } from "@/components/ui/close-button";
 
-import { settingStyles } from './setting-styles';
-import General from './general';
-import Live2D from './live2d';
-import ASR from './asr';
-import TTS from './tts';
-import Agent from './agent';
-import About from './about';
+import { settingStyles } from "./setting-styles";
+import General from "./general";
+import Live2D from "./live2d";
+import ASR from "./asr";
+import TTS from "./tts";
+import Agent from "./agent";
+import About from "./about";
 
 interface SettingUIProps {
   open: boolean;
@@ -33,7 +33,7 @@ function SettingUI({ open, onClose }: SettingUIProps): JSX.Element {
   const { t } = useTranslation();
   const [saveHandlers, setSaveHandlers] = useState<(() => void)[]>([]);
   const [cancelHandlers, setCancelHandlers] = useState<(() => void)[]>([]);
-  const [activeTab, setActiveTab] = useState('general');
+  const [activeTab, setActiveTab] = useState("general");
 
   const handleSaveCallback = useCallback((handler: () => void) => {
     setSaveHandlers((prev) => [...prev, handler]);
@@ -68,26 +68,43 @@ function SettingUI({ open, onClose }: SettingUIProps): JSX.Element {
             onCancel={handleCancelCallback}
           />
         </Tabs.Content>
-        <Tabs.Content value="live2d" {...settingStyles.settingUI.tabs.content}>
-          <Live2D
-            onSave={handleSaveCallback}
-            onCancel={handleCancelCallback}
-          />
-        </Tabs.Content>
         <Tabs.Content value="asr" {...settingStyles.settingUI.tabs.content}>
           <ASR onSave={handleSaveCallback} onCancel={handleCancelCallback} />
         </Tabs.Content>
-        <Tabs.Content value="tts" {...settingStyles.settingUI.tabs.content}>
-          <TTS />
-        </Tabs.Content>
-        <Tabs.Content value="agent" {...settingStyles.settingUI.tabs.content}>
-          <Agent
-            onSave={handleSaveCallback}
-            onCancel={handleCancelCallback}
-          />
-        </Tabs.Content>
-        <Tabs.Content value="about" {...settingStyles.settingUI.tabs.content}>
-          <About />
+        <Tabs.Content
+          value="advanced"
+          {...settingStyles.settingUI.tabs.content}
+        >
+          <details>
+            <summary style={{ cursor: "pointer", marginBottom: 16 }}>
+              数字人显示参数
+            </summary>
+            <Live2D
+              onSave={handleSaveCallback}
+              onCancel={handleCancelCallback}
+            />
+          </details>
+          <details>
+            <summary style={{ cursor: "pointer", marginBottom: 16 }}>
+              高级对话设置
+            </summary>
+            <Agent
+              onSave={handleSaveCallback}
+              onCancel={handleCancelCallback}
+            />
+          </details>
+          <details>
+            <summary style={{ cursor: "pointer", marginBottom: 16 }}>
+              语音服务说明
+            </summary>
+            <TTS />
+          </details>
+          <details>
+            <summary style={{ cursor: "pointer", marginBottom: 16 }}>
+              项目来源
+            </summary>
+            <About />
+          </details>
         </Tabs.Content>
       </Tabs.ContentGroup>
     ),
@@ -104,7 +121,7 @@ function SettingUI({ open, onClose }: SettingUIProps): JSX.Element {
       <DrawerContent {...settingStyles.settingUI.drawerContent}>
         <DrawerHeader {...settingStyles.settingUI.drawerHeader}>
           <DrawerTitle {...settingStyles.settingUI.drawerTitle}>
-            {t('common.settings')}
+            {t("common.settings")}
           </DrawerTitle>
           <div {...settingStyles.settingUI.closeButton}>
             <DrawerCloseTrigger asChild onClick={handleCancel}>
@@ -125,37 +142,19 @@ function SettingUI({ open, onClose }: SettingUIProps): JSX.Element {
                 value="general"
                 {...settingStyles.settingUI.tabs.trigger}
               >
-                {t('settings.tabs.general')}
-              </Tabs.Trigger>
-              <Tabs.Trigger
-                value="live2d"
-                {...settingStyles.settingUI.tabs.trigger}
-              >
-                {t('settings.tabs.live2d')}
+                显示
               </Tabs.Trigger>
               <Tabs.Trigger
                 value="asr"
                 {...settingStyles.settingUI.tabs.trigger}
               >
-                {t('settings.tabs.asr')}
+                语音
               </Tabs.Trigger>
               <Tabs.Trigger
-                value="tts"
+                value="advanced"
                 {...settingStyles.settingUI.tabs.trigger}
               >
-                {t('settings.tabs.tts')}
-              </Tabs.Trigger>
-              <Tabs.Trigger
-                value="agent"
-                {...settingStyles.settingUI.tabs.trigger}
-              >
-                {t('settings.tabs.agent')}
-              </Tabs.Trigger>
-              <Tabs.Trigger
-                value="about"
-                {...settingStyles.settingUI.tabs.trigger}
-              >
-                {t('settings.tabs.about')}
+                高级
               </Tabs.Trigger>
             </Tabs.List>
 
@@ -165,10 +164,10 @@ function SettingUI({ open, onClose }: SettingUIProps): JSX.Element {
 
         <DrawerFooter>
           <Button colorPalette="red" onClick={handleCancel}>
-            {t('common.cancel')}
+            {t("common.cancel")}
           </Button>
           <Button colorPalette="blue" onClick={handleSave}>
-            {t('common.save')}
+            {t("common.save")}
           </Button>
         </DrawerFooter>
       </DrawerContent>

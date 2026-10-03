@@ -27,6 +27,9 @@ def coordinate_decision(
     elif intent.primary == "ending":
         primary, secondary = "close_supportively", "acknowledge_closure"
         reasons.append("explicit_closure")
+    elif intent.feedback == "unhelpful" and intent.source != "current_turn":
+        primary, secondary = "reflect_and_clarify", "explore_context"
+        reasons.append("negative_feedback")
     elif intent.advice_preference == "declined":
         primary, secondary = "supportive_listening", "reflect_feelings"
         reasons.append("advice_declined")

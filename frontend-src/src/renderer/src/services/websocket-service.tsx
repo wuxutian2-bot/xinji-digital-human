@@ -6,6 +6,7 @@ import { ModelInfo } from '@/context/live2d-config-context';
 import { HistoryInfo } from '@/context/websocket-context';
 import { ConfigFile } from '@/context/character-config-context';
 import { toaster } from '@/components/ui/toaster';
+import type { Mode, Turn } from '@/components/companion/types';
 
 export interface DisplayText {
   text: string;
@@ -28,6 +29,7 @@ export interface AudioPayload {
 }
 
 export interface Message {
+  turn_id?: string;
   id: string;
   content: string;
   role: "ai" | "human";
@@ -55,6 +57,10 @@ export interface Actions {
 }
 
 export interface MessageEvent {
+  turn?: Turn;
+  mode?: Mode;
+  turn_id?: string;
+  segment_id?: number;
   tool_id: any;
   tool_name: any;
   name: any;
@@ -138,9 +144,6 @@ class WebSocketService {
     });
     this.sendMessage({
       type: 'fetch-history-list',
-    });
-    this.sendMessage({
-      type: 'create-new-history',
     });
   }
 

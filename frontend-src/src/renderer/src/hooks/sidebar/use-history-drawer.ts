@@ -1,21 +1,18 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useChatHistory } from '@/context/chat-history-context';
-import { useWebSocket, HistoryInfo } from '@/context/websocket-context';
-import { toaster } from '@/components/ui/toaster';
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useChatHistory } from "@/context/chat-history-context";
+import { useWebSocket, HistoryInfo } from "@/context/websocket-context";
+import { toaster } from "@/components/ui/toaster";
 
 export const useHistoryDrawer = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const {
-    historyList,
-    currentHistoryUid,
-    setCurrentHistoryUid,
-    setHistoryList,
-    messages,
-    updateHistoryList,
-  } = useChatHistory();
+  const { historyList, currentHistoryUid, messages, updateHistoryList } =
+    useChatHistory();
   const { sendMessage } = useWebSocket();
+  useEffect(() => {
+    if (open) sendMessage({ type: "fetch-history-list" });
+  }, [open, sendMessage]);
 
   const fetchAndSetHistory = (uid: string) => {
     if (!uid || uid === currentHistoryUid) return;
@@ -25,28 +22,28 @@ export const useHistoryDrawer = () => {
       updateHistoryList(currentHistoryUid, latestMessage);
     }
 
-    setCurrentHistoryUid(uid);
     sendMessage({
-      type: 'fetch-and-set-history',
+      type: "fetch-and-set-history",
       history_uid: uid,
     });
+    setOpen(false);
   };
 
   const deleteHistory = (uid: string) => {
     if (uid === currentHistoryUid) {
       toaster.create({
-        title: t('error.cannotDeleteCurrentHistory'),
-        type: 'warning',
+        title: t("error.cannotDeleteCurrentHistory"),
+        type: "warning",
         duration: 2000,
       });
       return;
     }
 
+    if (!window.confirm("确定删除这段聊天吗？删除后无法恢复。")) return;
     sendMessage({
-      type: 'delete-history',
+      type: "delete-history",
       history_uid: uid,
     });
-    setHistoryList(historyList.filter((history) => history.uid !== uid));
   };
 
   const getLatestMessageContent = (history: HistoryInfo) => {
@@ -58,7 +55,7 @@ export const useHistoryDrawer = () => {
       };
     }
     return {
-      content: history.latest_message?.content || '',
+      content: history.latest_message?.content || "",
       timestamp: history.timestamp,
     };
   };

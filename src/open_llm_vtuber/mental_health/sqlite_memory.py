@@ -66,21 +66,23 @@ class SqlitePsychologicalMemoryService:
             tzinfo=state.timestamp.tzinfo or timezone.utc
         ).timestamp()
 
-    async def append(self, scope: str, state: PsychologicalState) -> None:
-        await to_thread(self._append, scope, state)
+    async def append(self, scope: str, state: PsychologicalState) -> str:
+        return await to_thread(self._append, scope, state)
 
     def _append(self, scope, state):
+        record_id = uuid4().hex
         with self._connect() as db:
             db.execute(
                 "INSERT INTO states VALUES (?, ?, ?, ?, ?, NULL)",
                 (
-                    uuid4().hex,
+                    record_id,
                     self.user_id,
                     scope,
                     self._timestamp(state),
                     state.model_dump_json(),
                 ),
             )
+        return record_id
 
     async def retrieve_recent(
         self, scope: str, limit: int | None = None

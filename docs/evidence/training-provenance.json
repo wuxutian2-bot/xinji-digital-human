@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-10-01",
+  "source": "existing local build reports; no raw training samples exported",
+  "reports": [
+    {
+      "report": "data_build_report.json",
+      "sha256": "c841abb9d4ac7cba6610d9951233cfd237b182ee28bacdcbee9013c5b0f508d8",
+      "counts": {
+        "source_train": 4096,
+        "machine_filtered_base": 3379,
+        "curated_target_turns": 44,
+        "final_train": 3423,
+        "frozen_validation": 128,
+        "excluded": 717
+      },
+      "limitations": [
+        "Machine filtering is not human or clinical certification.",
+        "High-risk, diagnostic and domestic-violence material is excluded for separate safety review.",
+        "Validation is frozen development data, not a blind deployment test.",
+        "A successful run still requires generation review before any deployment decision."
+      ],
+      "deployment_eligible": false,
+      "safety_training_included": false,
+      "input_sha256": {
+        "train.jsonl": "7ef41fc7fce83b1e8b91b9afeb51f77aea45114f6ac6b96df858672ef0aa3af9",
+        "train_manifest.jsonl": "ca06f685d2ff97d1011fdef422bbf77fd7b323b7dfbf9a31ab549a27e73137a0",
+        "val.jsonl": "bd358eada894ed8ee66ce5f14ef82c42b3ee90d8a2aff7244333c7012aa27ebe",
+        "val_manifest.jsonl": "f12ddb2542d8f4fd6a781839616b3067cac692f6f89b3019c9b1c8c0e5253622"
+      },
+      "file_sha256": {
+        "train.jsonl": "8fd5cbedfcd4d4fc9af2a5201f3fa785c426b3c22f346ef77fc8917359e3e868",
+        "train_manifest.jsonl": "b680fd7ea3aad311894a6bbf1555c5cbba5dfb2a4cc81959c44687b6364990e7",
+        "val.jsonl": "8cbff5d44f7b39b847ac6feb7a0b90268e95a2401973628a177b504d31c0ba2c",
+        "val_manifest.jsonl": "6150c3e31ca2dd772a78dd56a98e2d1f73c04d14ec9f9ed3b91cfa812c6c1816",
+        "excluded_manifest.jsonl": "c5c97551fed729dfae94115759f4915aa921910c7e135cdf0be90b9e99e3dead",
+        "dataset_info.json": "420e95b7c654430cf5e19133c4b065ecd0cc5de19ecb0b69088b4b6c20546f01",
+        "review_sample.jsonl": "920bda790344a3b3969baf2756caa1c6e033cc9cb8e17760e61edeb474f52e42",
+        "train.yaml": "f778c2b99346c90805eea6561828864e457fb50ffa38721fbc4560bb6c19207c"
+      }
+    },
+    {
+      "report": "build_report.json",
+      "sha256": "1c51243f43469dcc89d3f3197bd054e1a476ebea5db4e34a7fbd116e4aaa5329",
+      "counts": {
+        "total": 640,
+        "train": 576,
+        "validation": 64,
+        "review_queue": 0
+      },
+      "review_provenance": {
+        "teacher_approved": 553,
+        "human_approved": 0,
+        "ai_assisted_approved": 87,
+        "note": "AI-assisted review is not human clinical review or safety certification."
+      },
+      "file_sha256": {
+        "train.jsonl": "5f814d70f9298246b84bc93b666c1ee7af020376cc6cad9d3957cf242eb25940",
+        "val.jsonl": "7cd7d5673f2f22bc675fb17481e6c2a58792319d0440f7d7e04079677bb718c9",
+        "review_queue.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "review_queue.csv": "6084ca0f91945e56a1b724cad6872b828c9b474c88dbd3fad0209f9f919759fb",
+        "dataset_info.json": "784acfd92957643583b4727e5cd801949684573c8173b0d111a2e63305809d0b"
+      }
+    }
+  ]
+}

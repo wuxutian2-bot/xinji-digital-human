@@ -6,6 +6,9 @@
 
 # 系统设置：与服务器初始化相关的设置
 system_config:
+  trial_mode: false # Use create_trial_profile.py for isolated adult trials
+  synthetic_demo: false # Clearly label synthetic demonstration profiles
+  trial_label: "本机档案"
   frontend_dir: 'frontend' # 构建心迹前端后可改为 frontend-src/dist/web。
   conf_version: 'v1.2.1' # 配置文件版本
   host: 'localhost' # 服务器监听的地址，'0.0.0.0' 表示监听所有网络接口；如果需要安全，可以使用 '127.0.0.1'（仅本地访问）

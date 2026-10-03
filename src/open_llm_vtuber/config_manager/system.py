@@ -14,6 +14,9 @@ class SystemConfig(I18nMixin):
     tool_prompts: Dict[str, str] = Field(..., alias="tool_prompts")
     enable_proxy: bool = Field(False, alias="enable_proxy")
     frontend_dir: str = Field("frontend", min_length=1)
+    trial_mode: bool = False
+    synthetic_demo: bool = False
+    trial_label: str = Field("本机档案", min_length=1, max_length=60)
 
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
         "conf_version": Description(en="Configuration version", zh="配置文件版本"),

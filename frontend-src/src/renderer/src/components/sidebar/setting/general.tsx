@@ -57,7 +57,6 @@ function General({ onSave, onCancel }: GeneralProps): JSX.Element {
   const {
     settings,
     handleSettingChange,
-    handleCameraToggle,
     handleCharacterPresetChange,
     showSubtitle,
     setShowSubtitle,
@@ -88,83 +87,59 @@ function General({ onSave, onCancel }: GeneralProps): JSX.Element {
       />
 
       <SwitchField
-        label={t("settings.general.useCameraBackground")}
-        checked={settings.useCameraBackground}
-        onChange={handleCameraToggle}
-      />
-
-      <SwitchField
         label={t("settings.general.showSubtitle")}
         checked={showSubtitle}
         onChange={setShowSubtitle}
       />
 
-      {!settings.useCameraBackground && (
-        <>
-          <SelectField
-            label={t("settings.general.backgroundImage")}
-            value={settings.selectedBgUrl}
-            onChange={(value) => handleSettingChange("selectedBgUrl", value)}
-            collection={collections.backgrounds}
-            placeholder={t("settings.general.backgroundImage")}
-          />
+      <>
+        <SelectField
+          label={t("settings.general.backgroundImage")}
+          value={settings.selectedBgUrl}
+          onChange={(value) => handleSettingChange("selectedBgUrl", value)}
+          collection={collections.backgrounds}
+          placeholder={t("settings.general.backgroundImage")}
+        />
 
-          <InputField
-            label={t("settings.general.customBgUrl")}
-            value={settings.customBgUrl}
-            onChange={(value) => handleSettingChange("customBgUrl", value)}
-            placeholder={t("settings.general.customBgUrlPlaceholder")}
-          />
-        </>
-      )}
+        <InputField
+          label={t("settings.general.customBgUrl")}
+          value={settings.customBgUrl}
+          onChange={(value) => handleSettingChange("customBgUrl", value)}
+          placeholder={t("settings.general.customBgUrlPlaceholder")}
+        />
+      </>
 
-      <SelectField
-        label={t("settings.general.characterPreset")}
-        value={settings.selectedCharacterPreset}
-        onChange={handleCharacterPresetChange}
-        collection={collections.characterPresets}
-        placeholder={confName || t("settings.general.characterPreset")}
-      />
+      <details>
+        <summary
+          style={{ cursor: "pointer", color: "#aebfb3", marginBottom: 16 }}
+        >
+          高级连接设置
+        </summary>
+        <p style={{ fontSize: 12, color: "#aebfb3", marginBottom: 16 }}>
+          更换服务或档案后，会显示对应档案的聊天记录。
+        </p>
+        <SelectField
+          label={t("settings.general.characterPreset")}
+          value={settings.selectedCharacterPreset}
+          onChange={handleCharacterPresetChange}
+          collection={collections.characterPresets}
+          placeholder={confName || t("settings.general.characterPreset")}
+        />
 
-      <InputField
-        label={t("settings.general.wsUrl")}
-        value={settings.wsUrl}
-        onChange={(value) => handleSettingChange("wsUrl", value)}
-        placeholder="Enter WebSocket URL"
-      />
+        <InputField
+          label={t("settings.general.wsUrl")}
+          value={settings.wsUrl}
+          onChange={(value) => handleSettingChange("wsUrl", value)}
+          placeholder="Enter WebSocket URL"
+        />
 
-      <InputField
-        label={t("settings.general.baseUrl")}
-        value={settings.baseUrl}
-        onChange={(value) => handleSettingChange("baseUrl", value)}
-        placeholder="Enter Base URL"
-      />
-
-      <InputField
-        label={t("settings.general.imageCompressionQuality")}
-        value={settings.imageCompressionQuality.toString()}
-        onChange={(value) => {
-          const quality = parseFloat(value as string);
-          if (!Number.isNaN(quality) && quality >= 0.1 && quality <= 1.0) {
-            handleSettingChange("imageCompressionQuality", quality);
-          } else if (value === "") {
-            handleSettingChange("imageCompressionQuality", settings.imageCompressionQuality);
-          }
-        }}
-      />
-
-      <InputField
-        label={t("settings.general.imageMaxWidth")}
-        value={settings.imageMaxWidth.toString()}
-        onChange={(value) => {
-          const maxWidth = parseInt(value as string, 10);
-          if (!Number.isNaN(maxWidth) && maxWidth > 0) {
-            handleSettingChange("imageMaxWidth", maxWidth);
-          } else if (value === "") {
-            handleSettingChange("imageMaxWidth", settings.imageMaxWidth);
-          }
-        }}
-      />
+        <InputField
+          label={t("settings.general.baseUrl")}
+          value={settings.baseUrl}
+          onChange={(value) => handleSettingChange("baseUrl", value)}
+          placeholder="Enter Base URL"
+        />
+      </details>
     </Stack>
   );
 }

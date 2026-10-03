@@ -1,0 +1,957 @@
+{
+  "synthetic": true,
+  "generated_at": "2026-10-01T11:11:27.574344+00:00",
+  "dialogue": "fixed template; no model invocation",
+  "audio": "not generated",
+  "cases": [
+    {
+      "name": "拒绝建议后转为求助",
+      "before": {
+        "id": "57bb0b57bb2c4e9090660908974adf8c",
+        "timestamp": "2026-10-01T11:11:27.671244+00:00",
+        "record_id": "5603760889ab4bbb9f30cd4d15e29911",
+        "scope": "session:c99cea7af8384dac8ada02f042c0baae",
+        "synthetic": true,
+        "intent": {
+          "primary": "venting",
+          "advice_preference": "declined",
+          "certainty": "explicit",
+          "source": "current_turn",
+          "preference_source": "current_turn",
+          "feedback": "unspecified",
+          "feedback_source": "unknown",
+          "evidence_codes": [
+            "explicit_no_advice"
+          ]
+        },
+        "history_context": {
+          "version": "daily_v2",
+          "as_of": "2026-10-01T11:11:27.628044Z",
+          "settings": {
+            "version": "daily_v2",
+            "timezone": "Asia/Shanghai",
+            "min_observed_days": 3,
+            "min_topic_days": 3,
+            "stale_after_days": 7
+          },
+          "current_window": {
+            "start": "2026-09-25T00:00:00+08:00",
+            "end_exclusive": "2026-10-02T00:00:00+08:00"
+          },
+          "previous_window": {
+            "start": "2026-09-18T00:00:00+08:00",
+            "end_exclusive": "2026-09-25T00:00:00+08:00"
+          },
+          "sources": {
+            "system_estimate": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_report": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_correction": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            }
+          },
+          "recurring_topics": {
+            "system_estimate": [],
+            "user_report": [],
+            "user_correction": []
+          },
+          "insufficient_data": true
+        },
+        "history_invalidated": false,
+        "trace": {
+          "source": "rules",
+          "latency_ms": 0.0,
+          "fallback_reason": null,
+          "expression_fallback": false,
+          "output_safety_override": false,
+          "output_policy_override": false,
+          "protocol_version": 2,
+          "coordination": {
+            "protocol_version": 2,
+            "proposed_strategy": "supportive_listening",
+            "final_strategy": "supportive_listening",
+            "previous_strategy": null,
+            "reason_codes": [
+              "advice_declined"
+            ]
+          }
+        },
+        "final_strategy": "supportive_listening",
+        "requested_expression": {
+          "expression": "neutral",
+          "motion": "still",
+          "gaze": "attentive"
+        },
+        "requested_voice": {
+          "style": "calm",
+          "speed": 1.0,
+          "energy": 1.0
+        },
+        "support_mode": "listen",
+        "feedback": "unspecified",
+        "playback": "unconfirmed",
+        "generation": "completed",
+        "sent_segments": []
+      },
+      "after": {
+        "id": "54e58dd7b4114bc2a9eae2e61347cd33",
+        "timestamp": "2026-10-01T11:11:27.974966+00:00",
+        "record_id": "cd92b8266b7d431aabaed391d59da176",
+        "scope": "session:c99cea7af8384dac8ada02f042c0baae",
+        "synthetic": true,
+        "intent": {
+          "primary": "seeking_practical_help",
+          "advice_preference": "requested",
+          "certainty": "explicit",
+          "source": "current_turn",
+          "preference_source": "current_turn",
+          "feedback": "unspecified",
+          "feedback_source": "unknown",
+          "evidence_codes": [
+            "carried_preference",
+            "explicit_advice_request"
+          ]
+        },
+        "history_context": {
+          "version": "daily_v2",
+          "as_of": "2026-10-01T11:11:27.929246Z",
+          "settings": {
+            "version": "daily_v2",
+            "timezone": "Asia/Shanghai",
+            "min_observed_days": 3,
+            "min_topic_days": 3,
+            "stale_after_days": 7
+          },
+          "current_window": {
+            "start": "2026-09-25T00:00:00+08:00",
+            "end_exclusive": "2026-10-02T00:00:00+08:00"
+          },
+          "previous_window": {
+            "start": "2026-09-18T00:00:00+08:00",
+            "end_exclusive": "2026-09-25T00:00:00+08:00"
+          },
+          "sources": {
+            "system_estimate": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_report": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_correction": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            }
+          },
+          "recurring_topics": {
+            "system_estimate": [],
+            "user_report": [],
+            "user_correction": []
+          },
+          "insufficient_data": true
+        },
+        "history_invalidated": false,
+        "trace": {
+          "source": "rules",
+          "latency_ms": 0.0,
+          "fallback_reason": null,
+          "expression_fallback": false,
+          "output_safety_override": false,
+          "output_policy_override": false,
+          "protocol_version": 2,
+          "coordination": {
+            "protocol_version": 2,
+            "proposed_strategy": "supportive_listening",
+            "final_strategy": "collaborative_problem_solving",
+            "previous_strategy": "supportive_listening",
+            "reason_codes": [
+              "advice_requested"
+            ]
+          }
+        },
+        "final_strategy": "collaborative_problem_solving",
+        "requested_expression": {
+          "expression": "neutral",
+          "motion": "still",
+          "gaze": "attentive"
+        },
+        "requested_voice": {
+          "style": "calm",
+          "speed": 1.0,
+          "energy": 1.0
+        },
+        "support_mode": "solve",
+        "feedback": "unspecified",
+        "playback": "unconfirmed",
+        "generation": "completed",
+        "sent_segments": []
+      }
+    },
+    {
+      "name": "纠正历史状态后下一轮重新读取",
+      "before": {
+        "id": "dc983a69ddcf49bbbbe35c7a7d1769fa",
+        "timestamp": "2026-10-01T11:11:28.132640+00:00",
+        "record_id": "f54b897dac8c460ca5cf0713d32bf5dd",
+        "scope": "session:12c26bec684342ffb1517f8cd99ca6b9",
+        "synthetic": true,
+        "intent": {
+          "primary": "unknown",
+          "advice_preference": "unspecified",
+          "certainty": "unknown",
+          "source": "unknown",
+          "preference_source": "unknown",
+          "feedback": "unspecified",
+          "feedback_source": "unknown",
+          "evidence_codes": []
+        },
+        "history_context": {
+          "version": "daily_v2",
+          "as_of": "2026-10-01T11:11:28.095070Z",
+          "settings": {
+            "version": "daily_v2",
+            "timezone": "Asia/Shanghai",
+            "min_observed_days": 3,
+            "min_topic_days": 3,
+            "stale_after_days": 7
+          },
+          "current_window": {
+            "start": "2026-09-25T00:00:00+08:00",
+            "end_exclusive": "2026-10-02T00:00:00+08:00"
+          },
+          "previous_window": {
+            "start": "2026-09-18T00:00:00+08:00",
+            "end_exclusive": "2026-09-25T00:00:00+08:00"
+          },
+          "sources": {
+            "system_estimate": {
+              "stress": {
+                "mean": 0.8,
+                "change": null,
+                "observed_days": 3,
+                "coverage": 0.429,
+                "age_days": 1,
+                "status": "usable"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_report": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_correction": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            }
+          },
+          "recurring_topics": {
+            "system_estimate": [],
+            "user_report": [],
+            "user_correction": []
+          },
+          "insufficient_data": false
+        },
+        "history_invalidated": false,
+        "trace": {
+          "source": "rules",
+          "latency_ms": 0.0,
+          "fallback_reason": null,
+          "expression_fallback": false,
+          "output_safety_override": false,
+          "output_policy_override": false,
+          "protocol_version": 2,
+          "coordination": {
+            "protocol_version": 2,
+            "proposed_strategy": "reflect_and_clarify",
+            "final_strategy": "reflect_and_clarify",
+            "previous_strategy": null,
+            "reason_codes": []
+          }
+        },
+        "final_strategy": "reflect_and_clarify",
+        "requested_expression": {
+          "expression": "neutral",
+          "motion": "still",
+          "gaze": "attentive"
+        },
+        "requested_voice": {
+          "style": "calm",
+          "speed": 1.0,
+          "energy": 1.0
+        },
+        "support_mode": null,
+        "feedback": "unspecified",
+        "playback": "unconfirmed",
+        "generation": "completed",
+        "sent_segments": []
+      },
+      "after": {
+        "id": "a0df2b8063404f0da91d7a2aa6c1821e",
+        "timestamp": "2026-10-01T11:11:28.271157+00:00",
+        "record_id": "124d27fb8fff450793ec0af979f884a4",
+        "scope": "session:12c26bec684342ffb1517f8cd99ca6b9",
+        "synthetic": true,
+        "intent": {
+          "primary": "unknown",
+          "advice_preference": "unspecified",
+          "certainty": "unknown",
+          "source": "unknown",
+          "preference_source": "unknown",
+          "feedback": "unspecified",
+          "feedback_source": "unknown",
+          "evidence_codes": []
+        },
+        "history_context": {
+          "version": "daily_v2",
+          "as_of": "2026-10-01T11:11:28.223073Z",
+          "settings": {
+            "version": "daily_v2",
+            "timezone": "Asia/Shanghai",
+            "min_observed_days": 3,
+            "min_topic_days": 3,
+            "stale_after_days": 7
+          },
+          "current_window": {
+            "start": "2026-09-25T00:00:00+08:00",
+            "end_exclusive": "2026-10-02T00:00:00+08:00"
+          },
+          "previous_window": {
+            "start": "2026-09-18T00:00:00+08:00",
+            "end_exclusive": "2026-09-25T00:00:00+08:00"
+          },
+          "sources": {
+            "system_estimate": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_report": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_correction": {
+              "stress": {
+                "mean": 0.2,
+                "change": null,
+                "observed_days": 3,
+                "coverage": 0.429,
+                "age_days": 1,
+                "status": "usable"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            }
+          },
+          "recurring_topics": {
+            "system_estimate": [],
+            "user_report": [],
+            "user_correction": []
+          },
+          "insufficient_data": false
+        },
+        "history_invalidated": false,
+        "trace": {
+          "source": "rules",
+          "latency_ms": 0.0,
+          "fallback_reason": null,
+          "expression_fallback": false,
+          "output_safety_override": false,
+          "output_policy_override": false,
+          "protocol_version": 2,
+          "coordination": {
+            "protocol_version": 2,
+            "proposed_strategy": "supportive_listening",
+            "final_strategy": "supportive_listening",
+            "previous_strategy": "reflect_and_clarify",
+            "reason_codes": []
+          }
+        },
+        "final_strategy": "supportive_listening",
+        "requested_expression": {
+          "expression": "neutral",
+          "motion": "still",
+          "gaze": "attentive"
+        },
+        "requested_voice": {
+          "style": "calm",
+          "speed": 1.0,
+          "energy": 1.0
+        },
+        "support_mode": null,
+        "feedback": "unspecified",
+        "playback": "unconfirmed",
+        "generation": "completed",
+        "sent_segments": []
+      }
+    },
+    {
+      "name": "相同输入不同历史",
+      "input": "今天聊一会儿",
+      "high": {
+        "id": "8108272c620f476cb481b4a4e8a6b612",
+        "timestamp": "2026-10-01T11:11:28.389599+00:00",
+        "record_id": "6c5b41f2ecbc4e1595d9a07070cc3235",
+        "scope": "session:5442f0a1195a478b8de51c493a85c847",
+        "synthetic": true,
+        "intent": {
+          "primary": "unknown",
+          "advice_preference": "unspecified",
+          "certainty": "unknown",
+          "source": "unknown",
+          "preference_source": "unknown",
+          "feedback": "unspecified",
+          "feedback_source": "unknown",
+          "evidence_codes": []
+        },
+        "history_context": {
+          "version": "daily_v2",
+          "as_of": "2026-10-01T11:11:28.359811Z",
+          "settings": {
+            "version": "daily_v2",
+            "timezone": "Asia/Shanghai",
+            "min_observed_days": 3,
+            "min_topic_days": 3,
+            "stale_after_days": 7
+          },
+          "current_window": {
+            "start": "2026-09-25T00:00:00+08:00",
+            "end_exclusive": "2026-10-02T00:00:00+08:00"
+          },
+          "previous_window": {
+            "start": "2026-09-18T00:00:00+08:00",
+            "end_exclusive": "2026-09-25T00:00:00+08:00"
+          },
+          "sources": {
+            "system_estimate": {
+              "stress": {
+                "mean": 0.8,
+                "change": null,
+                "observed_days": 3,
+                "coverage": 0.429,
+                "age_days": 1,
+                "status": "usable"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_report": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_correction": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            }
+          },
+          "recurring_topics": {
+            "system_estimate": [],
+            "user_report": [],
+            "user_correction": []
+          },
+          "insufficient_data": false
+        },
+        "history_invalidated": false,
+        "trace": {
+          "source": "rules",
+          "latency_ms": 0.0,
+          "fallback_reason": null,
+          "expression_fallback": false,
+          "output_safety_override": false,
+          "output_policy_override": false,
+          "protocol_version": 2,
+          "coordination": {
+            "protocol_version": 2,
+            "proposed_strategy": "reflect_and_clarify",
+            "final_strategy": "reflect_and_clarify",
+            "previous_strategy": null,
+            "reason_codes": []
+          }
+        },
+        "final_strategy": "reflect_and_clarify",
+        "requested_expression": {
+          "expression": "neutral",
+          "motion": "still",
+          "gaze": "attentive"
+        },
+        "requested_voice": {
+          "style": "calm",
+          "speed": 1.0,
+          "energy": 1.0
+        },
+        "support_mode": null,
+        "feedback": "unspecified",
+        "playback": "unconfirmed",
+        "generation": "completed",
+        "sent_segments": []
+      },
+      "low": {
+        "id": "b4b2779e6084403db17ed26747cf3f8c",
+        "timestamp": "2026-10-01T11:11:28.551183+00:00",
+        "record_id": "9dd8e623d1de4823adfa771f30ca668e",
+        "scope": "session:da45d2e242184ecba55a5e837eda8367",
+        "synthetic": true,
+        "intent": {
+          "primary": "unknown",
+          "advice_preference": "unspecified",
+          "certainty": "unknown",
+          "source": "unknown",
+          "preference_source": "unknown",
+          "feedback": "unspecified",
+          "feedback_source": "unknown",
+          "evidence_codes": []
+        },
+        "history_context": {
+          "version": "daily_v2",
+          "as_of": "2026-10-01T11:11:28.509066Z",
+          "settings": {
+            "version": "daily_v2",
+            "timezone": "Asia/Shanghai",
+            "min_observed_days": 3,
+            "min_topic_days": 3,
+            "stale_after_days": 7
+          },
+          "current_window": {
+            "start": "2026-09-25T00:00:00+08:00",
+            "end_exclusive": "2026-10-02T00:00:00+08:00"
+          },
+          "previous_window": {
+            "start": "2026-09-18T00:00:00+08:00",
+            "end_exclusive": "2026-09-25T00:00:00+08:00"
+          },
+          "sources": {
+            "system_estimate": {
+              "stress": {
+                "mean": 0.2,
+                "change": null,
+                "observed_days": 3,
+                "coverage": 0.429,
+                "age_days": 1,
+                "status": "usable"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_report": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            },
+            "user_correction": {
+              "stress": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "anxiety": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              },
+              "low_mood": {
+                "mean": null,
+                "change": null,
+                "observed_days": 0,
+                "coverage": 0.0,
+                "age_days": null,
+                "status": "insufficient"
+              }
+            }
+          },
+          "recurring_topics": {
+            "system_estimate": [],
+            "user_report": [],
+            "user_correction": []
+          },
+          "insufficient_data": false
+        },
+        "history_invalidated": false,
+        "trace": {
+          "source": "rules",
+          "latency_ms": 0.0,
+          "fallback_reason": null,
+          "expression_fallback": false,
+          "output_safety_override": false,
+          "output_policy_override": false,
+          "protocol_version": 2,
+          "coordination": {
+            "protocol_version": 2,
+            "proposed_strategy": "supportive_listening",
+            "final_strategy": "supportive_listening",
+            "previous_strategy": null,
+            "reason_codes": []
+          }
+        },
+        "final_strategy": "supportive_listening",
+        "requested_expression": {
+          "expression": "neutral",
+          "motion": "still",
+          "gaze": "attentive"
+        },
+        "requested_voice": {
+          "style": "calm",
+          "speed": 1.0,
+          "energy": 1.0
+        },
+        "support_mode": null,
+        "feedback": "unspecified",
+        "playback": "unconfirmed",
+        "generation": "completed",
+        "sent_segments": []
+      }
+    }
+  ]
+}

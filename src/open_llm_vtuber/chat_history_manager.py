@@ -97,6 +97,7 @@ def store_message(
     content: str,
     name: str | None = None,
     avatar: str | None = None,
+    turn_id: str | None = None,
 ):
     """Store a message in a specific history file
 
@@ -139,6 +140,8 @@ def store_message(
         new_item["name"] = name
     if avatar is not None:
         new_item["avatar"] = avatar
+    if turn_id is not None:
+        new_item["turn_id"] = turn_id
 
     history_data.append(new_item)
 
@@ -254,7 +257,6 @@ def get_history_list(conf_uid: str) -> List[dict]:
 
     histories = []
     conf_dir = _ensure_conf_dir(conf_uid)
-    empty_history_uids = []
 
     try:
         for filename in os.listdir(conf_dir):
@@ -273,7 +275,6 @@ def get_history_list(conf_uid: str) -> List[dict]:
                         msg for msg in messages if msg["role"] != "metadata"
                     ]
                     if not actual_messages:
-                        empty_history_uids.append(history_uid)
                         continue
 
                     latest_message = actual_messages[-1]
@@ -289,15 +290,8 @@ def get_history_list(conf_uid: str) -> List[dict]:
                 logger.error(f"Error reading history file {filename}: {e}")
                 continue
 
-        # Clean up empty histories if there are other non-empty ones
-        if len(empty_history_uids) > 0 and len(os.listdir(conf_dir)) > 1:
-            for uid in empty_history_uids:
-                try:
-                    os.remove(os.path.join(conf_dir, f"{uid}.json"))
-                    logger.info(f"Removed empty history file: {uid}")
-                except Exception as e:
-                    logger.error(f"Failed to remove empty history file {uid}: {e}")
-
+        # Listing is read-only: an empty conversation may still be active in
+        # another browser tab. Only an explicit delete may remove its file.
         histories.sort(
             key=lambda x: x["timestamp"] if x["timestamp"] else "", reverse=True
         )

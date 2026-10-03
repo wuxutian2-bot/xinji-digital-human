@@ -3,8 +3,10 @@ import React, { useContext, useCallback } from 'react';
 import { wsService } from '@/services/websocket-service';
 import { useLocalStorage } from '@/hooks/utils/use-local-storage';
 
-const DEFAULT_WS_URL = 'ws://127.0.0.1:12393/client-ws';
-const DEFAULT_BASE_URL = 'http://127.0.0.1:12393';
+const webOrigin = typeof window !== 'undefined' && /^https?:$/.test(window.location.protocol)
+  ? window.location.origin : 'http://127.0.0.1:12393';
+const DEFAULT_WS_URL = `${webOrigin.replace(/^http/, 'ws')}/client-ws`;
+const DEFAULT_BASE_URL = webOrigin;
 
 export interface HistoryInfo {
   uid: string;

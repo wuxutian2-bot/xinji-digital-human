@@ -49,7 +49,10 @@ class TTSTaskManager:
             tts_engine: TTS engine instance
             websocket_send: WebSocket send function
         """
-        if len(re.sub(r'[\s.,!?，。！？\'"』」）】\s]+', "", tts_text)) == 0:
+        if (
+            getattr(tts_engine, "text_only", False)
+            or len(re.sub(r'[\s.,!?，。！？\'"』」）】\s]+', "", tts_text)) == 0
+        ):
             logger.debug("Empty TTS text, sending silent display payload")
             # Get current sequence number for silent payload
             current_sequence = self._sequence_counter
@@ -147,6 +150,8 @@ class TTSTaskManager:
             audio_file_path = await self._generate_audio(
                 tts_engine, tts_text, controls["speed"]
             )
+            if not audio_file_path:
+                raise RuntimeError("TTS returned no audio")
             payload = prepare_audio_payload(
                 audio_path=audio_file_path,
                 display_text=display_text,
@@ -163,6 +168,7 @@ class TTSTaskManager:
                 display_text=display_text,
                 actions=actions,
             )
+            payload["tts_error"] = True
             await self._payload_queue.put((payload, sequence_number))
 
         finally:

@@ -22,9 +22,10 @@ export const layoutStyles = {
     mt: isElectron ? '30px' : '0',
   },
   sidebar: {
-    position: 'relative' as const,
-    width: { base: '100%', md: '440px' },
-    height: { base: 'auto', md: '100%' },
+    position: { base: 'absolute' as const, md: 'relative' as const },
+    top: 0, left: 0, zIndex: 20,
+    width: { base: 'min(440px, calc(100vw - 24px))', md: '440px' },
+    height: { base: 'calc(100% - 164px)', md: '100%' },
     bg: 'gray.800',
     borderRight: '1px solid',
     borderColor: 'whiteAlpha.200',
@@ -52,7 +53,7 @@ export const layoutStyles = {
   },
   footer: {
     width: '100%',
-    height: { base: '100px', md: '120px' },
+    height: { base: '164px', md: '166px' },
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     willChange: 'transform',
     position: 'relative',
@@ -71,7 +72,7 @@ export const layoutStyles = {
     zIndex: 10,
   },
   canvasHeight: (isFooterCollapsed: boolean) => ({
-    height: isFooterCollapsed ? 'calc(100% - 24px)' : 'calc(100% - 120px)',
+    height: isFooterCollapsed ? 'calc(100% - 24px)' : 'calc(100% - 166px)',
   }),
   sidebarToggleButton: {
     position: 'absolute',

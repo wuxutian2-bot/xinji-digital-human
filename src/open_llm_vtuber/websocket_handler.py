@@ -96,7 +96,57 @@ class WebSocketHandler:
             "audio-play-start": self._handle_audio_play_start,
             "request-init-config": self._handle_init_config_request,
             "heartbeat": self._handle_heartbeat,
+            "companion-mode": self._handle_companion_mode,
+            "companion-playback": self._handle_companion_playback,
         }
+
+    async def _handle_companion_mode(self, websocket, client_uid, data):
+        context = self.client_contexts[client_uid]
+        agent = context.agent_engine
+        task = self.current_conversation_tasks.get(client_uid)
+        if data.get("history_uid") != context.history_uid or (task and not task.done()):
+            await websocket.send_text(
+                json.dumps(
+                    {"type": "error", "message": "请在当前回复结束后切换支持方式。"}
+                )
+            )
+            return
+        try:
+            agent.set_support_mode(data.get("mode"))
+        except (AttributeError, ValueError):
+            await websocket.send_text(
+                json.dumps({"type": "error", "message": "当前角色不支持这种陪伴方式。"})
+            )
+            return
+        await websocket.send_text(
+            json.dumps(
+                {
+                    "type": "companion-mode",
+                    "mode": agent.support_mode,
+                    "history_uid": context.history_uid,
+                }
+            )
+        )
+
+    async def _handle_companion_playback(self, websocket, client_uid, data):
+        agent = self.client_contexts[client_uid].agent_engine
+        store = getattr(agent, "companion", None)
+        if store:
+            try:
+                store.record_playback(
+                    data.get("turn_id"),
+                    data.get("segment_id"),
+                    data.get("status"),
+                    agent._psychological_memory_scope,
+                )
+            except ValueError:
+                return
+
+    async def _cancel_before_history_change(self, client_uid):
+        task = self.current_conversation_tasks.get(client_uid)
+        if task and not task.done():
+            task.cancel()
+            await asyncio.gather(task, return_exceptions=True)
 
     async def handle_new_connection(
         self, websocket: WebSocket, client_uid: str
@@ -250,6 +300,23 @@ class WebSocketHandler:
             data: Message data
         """
         msg_type = data.get("type")
+        context = self.client_contexts.get(client_uid)
+        if context and getattr(context.system_config, "trial_mode", False):
+            if msg_type in {
+                "switch-config",
+                "add-client-to-group",
+                "remove-client-from-group",
+                "ai-speak-signal",
+            }:
+                await websocket.send_text(
+                    json.dumps(
+                        {
+                            "type": "error",
+                            "message": "体验档案由操作者切换，本次体验不启用群聊或主动发言。",
+                        }
+                    )
+                )
+                return
         if not msg_type:
             logger.warning("Message received without type")
             return
@@ -413,6 +480,7 @@ class WebSocketHandler:
 
         context = self.client_contexts[client_uid]
         # Update history_uid in service context
+        await self._cancel_before_history_change(client_uid)
         context.history_uid = history_uid
         context.agent_engine.set_memory_from_history(
             conf_uid=context.character_config.conf_uid,
@@ -428,13 +496,20 @@ class WebSocketHandler:
             if msg["role"] != "system"
         ]
         await websocket.send_text(
-            json.dumps({"type": "history-data", "messages": messages})
+            json.dumps(
+                {
+                    "type": "history-data",
+                    "messages": messages,
+                    "history_uid": history_uid,
+                }
+            )
         )
 
     async def _handle_create_history(
         self, websocket: WebSocket, client_uid: str, data: WSMessage
     ) -> None:
         """Handle creation of new chat history"""
+        await self._cancel_before_history_change(client_uid)
         context = self.client_contexts[client_uid]
         history_uid = create_new_history(context.character_config.conf_uid)
         if history_uid:
@@ -461,6 +536,8 @@ class WebSocketHandler:
             return
 
         context = self.client_contexts[client_uid]
+        if history_uid == context.history_uid:
+            await self._cancel_before_history_change(client_uid)
         success = delete_history(
             context.character_config.conf_uid,
             history_uid,
@@ -476,6 +553,7 @@ class WebSocketHandler:
         )
         if history_uid == context.history_uid:
             context.history_uid = None
+            await self._handle_create_history(websocket, client_uid, {})
 
     async def _handle_audio_data(
         self, websocket: WebSocket, client_uid: str, data: WSMessage
@@ -554,7 +632,11 @@ class WebSocketHandler:
     ) -> None:
         """Handle fetching available configurations"""
         context = self.client_contexts[client_uid]
-        config_files = scan_config_alts_directory(context.system_config.config_alts_dir)
+        config_files = (
+            []
+            if context.system_config.trial_mode
+            else scan_config_alts_directory(context.system_config.config_alts_dir)
+        )
         await websocket.send_text(
             json.dumps({"type": "config-files", "configs": config_files})
         )

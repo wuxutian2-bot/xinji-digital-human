@@ -21,6 +21,7 @@ import { useLocalStorage } from '@/hooks/utils/use-local-storage';
 import { useGroup } from '@/context/group-context';
 import { useInterrupt } from '@/hooks/utils/use-interrupt';
 import { useBrowser } from '@/context/browser-context';
+import { historySelectionKey, initialHistoryRequest } from '@/utils/history-session';
 
 function WebSocketHandler({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
@@ -31,12 +32,14 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
   const { setModelInfo } = useLive2DConfig();
   const { setSubtitleText } = useSubtitle();
   const { clearResponse, setForceNewMessage, appendHumanMessage, appendOrUpdateToolCallMessage } = useChatHistory();
-  const { addAudioTask } = useAudioTask();
+  const { addAudioTask, stopCurrentAudioAndLipSync } = useAudioTask();
   const bgUrlContext = useBgUrl();
   const { confUid, setConfName, setConfUid, setConfigFiles } = useConfig();
   const [pendingModelInfo, setPendingModelInfo] = useState<ModelInfo | undefined>(undefined);
   const { setSelfUid, setGroupMembers, setIsOwner } = useGroup();
-  const { startMic, stopMic, autoStartMicOnConvEnd } = useVAD();
+  const { startMic, stopMic, autoStartMicOn, autoStartMicOnConvEnd } = useVAD();
+  const autoStartMicOnRef = useRef(autoStartMicOn);
+  autoStartMicOnRef.current = autoStartMicOn;
   const autoStartMicOnConvEndRef = useRef(autoStartMicOnConvEnd);
   const { interrupt } = useInterrupt();
   const { setBrowserViewData } = useBrowser();
@@ -53,14 +56,23 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
   }, [pendingModelInfo, setModelInfo, confUid]);
 
   const {
-    setCurrentHistoryUid, setMessages, setHistoryList,
+    currentHistoryUid, setCurrentHistoryUid, setMessages, setHistoryList,
   } = useChatHistory();
+
+  const historyRef = useRef(currentHistoryUid);
+  historyRef.current = currentHistoryUid;
+  const awaitingHistory = useRef(true);
+  const profileRef = useRef<string | null>(null);
+  const rememberHistory = (uid: string) => {
+    if (!profileRef.current) return;
+    try { sessionStorage.setItem(historySelectionKey(wsUrl, profileRef.current), uid); } catch { /* Storage may be disabled. */ }
+  };
 
   const handleControlMessage = useCallback((controlText: string) => {
     switch (controlText) {
       case 'start-mic':
         console.log('Starting microphone...');
-        startMic();
+        if (autoStartMicOnRef.current) startMic();
         break;
       case 'stop-mic':
         console.log('Stopping microphone...');
@@ -92,8 +104,12 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
   }, [setAiState, clearResponse, setForceNewMessage, startMic, stopMic]);
 
   const handleWebSocketMessage = useCallback((message: MessageEvent) => {
-    console.log('Received message from server:', message);
+    if (message.turn_id && message.history_uid && historyRef.current && message.history_uid !== historyRef.current) return;
     switch (message.type) {
+      case 'companion-mode':
+      case 'companion-turn':
+      case 'companion-refresh':
+        break;
       case 'control':
         if (message.text) {
           handleControlMessage(message.text);
@@ -105,8 +121,15 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
           setConfName(message.conf_name);
         }
         if (message.conf_uid) {
+          if (message.conf_uid !== profileRef.current) {
+            profileRef.current = message.conf_uid;
+            awaitingHistory.current = true;
+            historyRef.current = null;
+            setCurrentHistoryUid(null);
+            setMessages([]);
+            setHistoryList([]);
+          }
           setConfUid(message.conf_uid);
-          console.log('confUid', message.conf_uid);
         }
         if (message.client_uid) {
           setSelfUid(message.client_uid);
@@ -124,7 +147,7 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
         break;
       case 'full-text':
         if (message.text) {
-          setSubtitleText(message.text);
+          setSubtitleText(message.text === 'Connection established' ? '你好，我在。' : message.text);
         }
         break;
       case 'config-files':
@@ -133,6 +156,9 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
         }
         break;
       case 'config-switched':
+        stopCurrentAudioAndLipSync();
+        audioTaskQueue.clearQueue();
+        clearResponse();
         setAiState('idle');
         setSubtitleText(t('notification.characterLoaded'));
 
@@ -144,8 +170,11 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
 
         // setModelInfo(undefined);
 
+        awaitingHistory.current = true;
+        historyRef.current = null;
+        setCurrentHistoryUid(null);
+        setMessages([]);
         wsService.sendMessage({ type: 'fetch-history-list' });
-        wsService.sendMessage({ type: 'create-new-history' });
         break;
       case 'background-files':
         if (message.files) {
@@ -154,9 +183,9 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
         break;
       case 'audio':
         if (aiState === 'interrupted' || aiState === 'listening') {
-          console.log('Audio playback intercepted. Sentence:', message.display_text?.text);
+          // Interrupted audio is intentionally discarded.
         } else {
-          console.log("actions", message.actions);
+
           addAudioTask({
             audioBase64: message.audio || '',
             volumes: message.volumes || [],
@@ -165,25 +194,39 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
             expressions: message.actions?.expressions || null,
             actions: message.actions,
             forwarded: message.forwarded || false,
+            turnId: message.turn_id,
+            segmentId: message.segment_id,
           });
         }
         break;
       case 'history-data':
+        stopCurrentAudioAndLipSync();
+        audioTaskQueue.clearQueue();
+        clearResponse();
+        setAiState('idle');
+        setSubtitleText('已打开这段聊天，可以继续说。');
+        if (message.history_uid) {
+          historyRef.current = message.history_uid;
+          setCurrentHistoryUid(message.history_uid);
+          awaitingHistory.current = false;
+          rememberHistory(message.history_uid);
+        }
         if (message.messages) {
           setMessages(message.messages);
         }
-        toaster.create({
-          title: t('notification.historyLoaded'),
-          type: 'success',
-          duration: 2000,
-        });
         break;
       case 'new-history-created':
+        stopCurrentAudioAndLipSync();
+        audioTaskQueue.clearQueue();
+        clearResponse();
         setAiState('idle');
         setSubtitleText(t('notification.newConversation'));
         // No need to open mic here
         if (message.history_uid) {
+          awaitingHistory.current = false;
+          historyRef.current = message.history_uid;
           setCurrentHistoryUid(message.history_uid);
+          rememberHistory(message.history_uid);
           setMessages([]);
           const newHistory: HistoryInfo = {
             uid: message.history_uid,
@@ -191,14 +234,12 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
             timestamp: new Date().toISOString(),
           };
           setHistoryList((prev: HistoryInfo[]) => [newHistory, ...prev]);
-          toaster.create({
-            title: t('notification.newChatHistory'),
-            type: 'success',
-            duration: 2000,
-          });
         }
         break;
       case 'history-deleted':
+        if (message.success && message.history_uid) {
+          setHistoryList((prev: HistoryInfo[]) => prev.filter((history) => history.uid !== message.history_uid));
+        }
         toaster.create({
           title: message.success
             ? t('notification.historyDeleteSuccess')
@@ -210,13 +251,16 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
       case 'history-list':
         if (message.histories) {
           setHistoryList(message.histories);
-          if (message.histories.length > 0) {
-            setCurrentHistoryUid(message.histories[0].uid);
+          if (awaitingHistory.current && profileRef.current) {
+            awaitingHistory.current = false;
+            let preferred: string | null = null;
+            try { preferred = sessionStorage.getItem(historySelectionKey(wsUrl, profileRef.current)); } catch { /* Use latest history if storage is disabled. */ }
+            wsService.sendMessage(initialHistoryRequest(message.histories, preferred));
           }
         }
         break;
       case 'user-input-transcription':
-        console.log('user-input-transcription: ', message.text);
+
         if (message.text) {
           appendHumanMessage(message.text);
         }
@@ -290,14 +334,28 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
       default:
         console.warn('Unknown message type:', message.type);
     }
-  }, [aiState, addAudioTask, appendHumanMessage, baseUrl, bgUrlContext, setAiState, setConfName, setConfUid, setConfigFiles, setCurrentHistoryUid, setHistoryList, setMessages, setModelInfo, setSubtitleText, startMic, stopMic, setSelfUid, setGroupMembers, setIsOwner, backendSynthComplete, setBackendSynthComplete, clearResponse, handleControlMessage, appendOrUpdateToolCallMessage, interrupt, setBrowserViewData, t]);
+  }, [wsUrl, aiState, addAudioTask, stopCurrentAudioAndLipSync, appendHumanMessage, baseUrl, bgUrlContext, setAiState, setConfName, setConfUid, setConfigFiles, setCurrentHistoryUid, setHistoryList, setMessages, setModelInfo, setSubtitleText, startMic, stopMic, setSelfUid, setGroupMembers, setIsOwner, backendSynthComplete, setBackendSynthComplete, clearResponse, handleControlMessage, appendOrUpdateToolCallMessage, interrupt, setBrowserViewData, t]);
 
   useEffect(() => {
     wsService.connect(wsUrl);
   }, [wsUrl]);
 
   useEffect(() => {
-    const stateSubscription = wsService.onStateChange(setWsState);
+    const stateSubscription = wsService.onStateChange((state) => {
+      setWsState(state);
+      if (state === 'CLOSED') {
+        awaitingHistory.current = true;
+        stopCurrentAudioAndLipSync();
+        audioTaskQueue.clearQueue();
+        clearResponse();
+        setMessages([]);
+        setHistoryList([]);
+        setCurrentHistoryUid(null);
+        historyRef.current = null;
+        setSubtitleText('连接已断开，请重新连接。');
+        setAiState('idle');
+      }
+    });
     const messageSubscription = wsService.onMessage(handleWebSocketMessage);
     return () => {
       stateSubscription.unsubscribe();

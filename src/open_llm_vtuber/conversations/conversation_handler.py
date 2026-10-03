@@ -137,7 +137,15 @@ async def handle_individual_interrupt(
         except Exception as e:
             logger.error(f"Error handling interrupt: {e}")
 
-        if context.history_uid:
+        trial = bool(
+            getattr(getattr(context, "system_config", None), "trial_mode", False)
+        )
+        companion = getattr(context.agent_engine, "companion", None)
+        consent = companion.get("consent", "current") if companion else None
+        retain = not trial or bool(
+            consent and consent.get("accepted") and consent.get("retain_conversation")
+        )
+        if context.history_uid and retain:
             store_message(
                 conf_uid=context.character_config.conf_uid,
                 history_uid=context.history_uid,

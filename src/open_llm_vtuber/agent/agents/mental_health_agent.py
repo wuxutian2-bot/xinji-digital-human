@@ -28,6 +28,9 @@ from ...mental_health.interfaces import (
     SafetyGuard,
 )
 from ...mental_health.memory_service import format_memory_context
+from ...mental_health.companion_store import companion_for, utc_now
+from ...mental_health.long_term import trend_for_model
+from ...mental_health.support_controls import MODES, resolve_support_intent
 from ...mental_health.schemas import (
     DecisionCapabilities,
     DecisionContext,
@@ -77,9 +80,14 @@ class MentalHealthAgent(BasicMemoryAgent):
         self._decision_client = decision_client
         self._state_estimator = state_estimator
         self._psychological_memory = memory_service
+        self.companion = companion_for(self)
+        self.support_mode = None
+        self._last_product_turn = None
+        self._consumed_feedback = None
         self._psychological_memory_scope = f"session:{uuid4().hex}"
         self._intent_estimator = IntentEstimator()
         self._interaction_session = {"intent": None, "strategy": None}
+
         self._decision_protocol_version = decision_protocol_version
         self._expression_enabled = expression_enabled
         self._decision_capabilities = DecisionCapabilities(
@@ -113,11 +121,77 @@ class MentalHealthAgent(BasicMemoryAgent):
             interrupt_method=interrupt_method,
         )
 
+    def set_support_mode(self, mode):
+        if mode is not None and mode not in MODES:
+            raise ValueError("Unknown support preference")
+        self.support_mode = mode
+        self._interaction_session["intent"] = None
+
+    def _pending_feedback(self):
+        if not self.companion or not self._last_product_turn:
+            return "unspecified"
+        turn = self.companion.get("turn", self._last_product_turn)
+        if not turn or turn.get("scope") != self._psychological_memory_scope:
+            return "unspecified"
+        marker = turn.get("feedback_updated_at")
+        if marker and marker != self._consumed_feedback:
+            self._consumed_feedback = marker
+            return turn.get("feedback", "unspecified")
+        return "unspecified"
+
+    def _record_product_turn(
+        self,
+        input_data,
+        record_id,
+        state,
+        decision,
+        trend=None,
+        *,
+        scope=None,
+        generation="completed",
+    ):
+        metadata = input_data.metadata or {}
+        turn_id = metadata.get("companion_turn_id")
+        if not self.companion or not turn_id:
+            return
+        invalidated = bool(
+            (self.companion.get("turn", turn_id) or {}).get("history_invalidated")
+        )
+        self.companion.put(
+            "turn",
+            turn_id,
+            {
+                "id": turn_id,
+                "timestamp": utc_now(),
+                "record_id": record_id,
+                "scope": scope or self._psychological_memory_scope,
+                "synthetic": bool(metadata.get("synthetic_demo", False)),
+                "intent": state.interaction_intent.model_dump(mode="json"),
+                "history_context": trend_for_model(trend.model_dump(mode="json"))
+                if trend and not invalidated
+                else None,
+                "history_invalidated": invalidated,
+                "trace": state.decision_trace.model_dump(mode="json"),
+                "final_strategy": decision.strategy.primary,
+                "requested_expression": decision.behavior.model_dump(mode="json"),
+                "requested_voice": decision.voice.model_dump(mode="json"),
+                "support_mode": self.support_mode,
+                "feedback": "unspecified",
+                "playback": "unconfirmed",
+                "generation": generation,
+                "sent_segments": [],
+            },
+        )
+        self._last_product_turn = turn_id
+
     def set_memory_from_history(self, conf_uid: str, history_uid: str) -> None:
         """Load chat history and select a separate psychological-memory scope."""
         super().set_memory_from_history(conf_uid, history_uid)
         self._psychological_memory_scope = f"{conf_uid}:{history_uid}"
         self._interaction_session = {"intent": None, "strategy": None}
+        self.support_mode = None
+        self._last_product_turn = None
+        self._consumed_feedback = None
 
     async def _load_recent_state(self, scope: str):
         try:
@@ -130,7 +204,7 @@ class MentalHealthAgent(BasicMemoryAgent):
 
     async def _store_state(self, scope: str, state) -> None:
         try:
-            await self._psychological_memory.append(scope, state)
+            return await self._psychological_memory.append(scope, state)
         except (OSError, ValueError, sqlite3.Error) as error:
             logger.error(
                 "Failed to store psychological state memory ({})", type(error).__name__
@@ -181,6 +255,11 @@ class MentalHealthAgent(BasicMemoryAgent):
             )
             current_state = await self._state_estimator.estimate(intent_text, pre_check)
             intent = self._intent_estimator.estimate(intent_text, session["intent"])
+            intent, selected_mode = resolve_support_intent(
+                intent, self.support_mode, self._pending_feedback()
+            )
+            if session is self._interaction_session:
+                self.support_mode = selected_mode
             current_state.interaction_intent = intent
 
             if pre_check.action == SafetyAction.ESCALATE:
@@ -201,7 +280,14 @@ class MentalHealthAgent(BasicMemoryAgent):
                     ),
                 )
                 self._add_message(response, "assistant")
-                await self._store_state(scope, current_state)
+                record_id = await self._store_state(scope, current_state)
+                self._record_product_turn(
+                    input_data,
+                    record_id,
+                    current_state,
+                    decision_holder["value"],
+                    scope=scope,
+                )
                 self._remember_interaction(
                     scope, session, intent, "crisis_support", pre_check
                 )
@@ -237,6 +323,16 @@ class MentalHealthAgent(BasicMemoryAgent):
             decision.trace.protocol_version = self._decision_protocol_version
             decision_holder["value"] = decision
             current_state.interaction_strategy = decision.strategy.primary
+            current_state.decision_trace = decision.trace.model_copy(deep=True)
+            self._record_product_turn(
+                input_data,
+                None,
+                current_state,
+                decision,
+                trend,
+                scope=scope,
+                generation="pending",
+            )
 
             contextual_system = (
                 f"{self._system}\n\n"
@@ -295,7 +391,15 @@ class MentalHealthAgent(BasicMemoryAgent):
             ].strategy.primary
             current_state.decision_trace = decision.trace.model_copy(deep=True)
             self._add_message(response, "assistant")
-            await self._store_state(scope, current_state)
+            record_id = await self._store_state(scope, current_state)
+            self._record_product_turn(
+                input_data,
+                record_id,
+                current_state,
+                decision_holder["value"],
+                trend,
+                scope=scope,
+            )
             self._remember_interaction(
                 scope, session, intent, current_state.interaction_strategy, pre_check
             )

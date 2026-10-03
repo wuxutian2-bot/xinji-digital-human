@@ -2,7 +2,7 @@
 import {
   Box, Textarea, IconButton, HStack,
 } from '@chakra-ui/react';
-import { BsMicFill, BsMicMuteFill, BsPaperclip } from 'react-icons/bs';
+import { BsMicFill, BsMicMuteFill } from 'react-icons/bs';
 import { IoHandRightSharp } from 'react-icons/io5';
 import { FiChevronDown } from 'react-icons/fi';
 import { memo } from 'react';
@@ -11,6 +11,7 @@ import { InputGroup } from '@/components/ui/input-group';
 import { footerStyles } from './footer-styles';
 import AIStateIndicator from './ai-state-indicator';
 import { useFooter } from '@/hooks/footer/use-footer';
+import { SupportChoices } from '@/components/companion/companion-controls';
 
 // Type definitions
 interface FooterProps {
@@ -56,6 +57,7 @@ ToggleButton.displayName = 'ToggleButton';
 const ActionButtons = memo(({ micOn, onMicToggle, onInterrupt }: ActionButtonsProps) => (
   <HStack gap={2}>
     <IconButton
+      aria-label={micOn ? '关闭麦克风' : '开启麦克风'}
       bg={micOn ? 'green.500' : 'red.500'}
       {...footerStyles.footer.actionButton}
       onClick={onMicToggle}
@@ -63,7 +65,7 @@ const ActionButtons = memo(({ micOn, onMicToggle, onInterrupt }: ActionButtonsPr
       {micOn ? <BsMicFill /> : <BsMicMuteFill />}
     </IconButton>
     <IconButton
-      aria-label="Raise hand"
+      aria-label="打断回应"
       bg="yellow.500"
       {...footerStyles.footer.actionButton}
       onClick={onInterrupt}
@@ -87,13 +89,6 @@ const MessageInput = memo(({
   return (
     <InputGroup flex={1}>
       <Box position="relative" width="100%">
-        <IconButton
-          aria-label="Attach file"
-          variant="ghost"
-          {...footerStyles.footer.attachButton}
-        >
-          <BsPaperclip size="24" />
-        </IconButton>
         <Textarea
           value={value}
           onChange={onChange}
@@ -126,6 +121,7 @@ function Footer({ isCollapsed = false, onToggle }: FooterProps): JSX.Element {
   return (
     <Box {...footerStyles.footer.container(isCollapsed)}>
       <ToggleButton isCollapsed={isCollapsed} onToggle={onToggle} />
+      <SupportChoices />
 
       <Box pt="0" px="4">
         <HStack width="100%" gap={4}>

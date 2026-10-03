@@ -29,9 +29,11 @@ import Background from "./components/canvas/background";
 import WebSocketStatus from "./components/canvas/ws-status";
 import Subtitle from "./components/canvas/subtitle";
 import { ModeProvider, useMode } from "./context/mode-context";
+import { CompanionProvider } from './components/companion/companion-context';
+import { CompanionPanel } from './components/companion/companion-panel';
 
 function AppContent(): JSX.Element {
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(() => window.innerWidth >= 768);
   const [isFooterCollapsed, setIsFooterCollapsed] = useState(false);
   const { mode } = useMode();
   const isElectron = window.api !== undefined;
@@ -126,7 +128,7 @@ function AppContent(): JSX.Element {
               </Box>
               <Box
                 position="absolute"
-                bottom={isFooterCollapsed ? "39px" : "135px"}
+                bottom={isFooterCollapsed ? "39px" : "181px"}
                 left="50%"
                 transform="translateX(-50%)"
                 zIndex={10}
@@ -184,7 +186,10 @@ function AppWithGlobalStyles(): JSX.Element {
                             <BrowserProvider>
                               <WebSocketHandler>
                                 <Toaster />
-                                <AppContent />
+                                <CompanionProvider>
+                                  <AppContent />
+                                  <CompanionPanel />
+                                </CompanionProvider>
                               </WebSocketHandler>
                             </BrowserProvider>
                           </GroupProvider>

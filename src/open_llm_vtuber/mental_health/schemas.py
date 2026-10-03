@@ -90,10 +90,10 @@ class InteractionIntent(BaseModel):
     ] = "unknown"
     advice_preference: Literal["requested", "declined", "unspecified"] = "unspecified"
     certainty: Literal["explicit", "inferred", "unknown"] = "unknown"
-    source: Literal["current_turn", "unknown"] = "unknown"
+    source: Literal["current_turn", "user_control", "unknown"] = "unknown"
     preference_source: Literal["current_turn", "recent_turn", "unknown"] = "unknown"
     feedback: Literal["helpful", "unhelpful", "unspecified"] = "unspecified"
-    feedback_source: Literal["current_turn", "user_correction", "unknown"] = "unknown"
+    feedback_source: Literal["current_turn", "user_correction", "user_control", "unknown"] = "unknown"
     evidence_codes: list[
         Literal[
             "explicit_listen_request",

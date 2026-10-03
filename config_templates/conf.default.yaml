@@ -1,5 +1,8 @@
 # System Settings: Setting related to the initialization of the server
 system_config:
+  trial_mode: false # Use create_trial_profile.py for isolated adult trials
+  synthetic_demo: false # Clearly label synthetic demonstration profiles
+  trial_label: "本机档案"
   frontend_dir: 'frontend' # Set frontend-src/dist/web after building the Xinji frontend.
   conf_version: 'v1.2.1'
   host: 'localhost' # use 0.0.0.0 if you want other devices to access this page

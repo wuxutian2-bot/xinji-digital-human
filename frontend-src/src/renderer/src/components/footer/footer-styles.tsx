@@ -51,7 +51,7 @@ export const footerStyles: {
       height: '80px',
       borderRadius: '12px',
       fontSize: '18px',
-      pl: '12',
+      pl: '4',
       pr: '4',
       color: 'whiteAlpha.900',
       _placeholder: {

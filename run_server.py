@@ -25,8 +25,14 @@ def get_version() -> str:
     return pyproject["project"]["version"]
 
 
-def init_logger(console_log_level: str = "INFO") -> None:
+def init_logger(console_log_level: str = "INFO", trial_mode: bool = False) -> None:
     logger.remove()
+    if trial_mode:
+        # Legacy engines log prompts/tokens. Only explicitly marked operational
+        # notices reach sinks during a participant session; events live in SQLite.
+        logger.add(sys.stderr, level="INFO", diagnose=False, backtrace=False,
+                   filter=lambda record: record["extra"].get("trial_safe", False))
+        return
     # Console output
     logger.add(
         sys.stderr,
@@ -110,6 +116,7 @@ def check_frontend_submodule(lang=None):
 def parse_args():
     parser = argparse.ArgumentParser(description="Open-LLM-VTuber Server")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
+    parser.add_argument("--config", default="conf.yaml", help="Server configuration; custom files are never auto-upgraded")
     parser.add_argument(
         "--hf_mirror", action="store_true", help="Use Hugging Face mirror"
     )
@@ -117,26 +124,29 @@ def parse_args():
 
 
 @logger.catch
-def run(console_log_level: str):
-    init_logger(console_log_level)
+def run(console_log_level: str, config_path: str = "conf.yaml"):
+    config: Config = validate_config(read_yaml(config_path))
+    init_logger(console_log_level, config.system_config.trial_mode)
     logger.info(f"Open-LLM-VTuber, version v{get_version()}")
 
     # Get selected language
     lang = upgrade_manager.lang
 
     # Check if the frontend submodule is initialized
-    check_frontend_submodule(lang)
+    if config.system_config.frontend_dir == "frontend":
+        check_frontend_submodule(lang)
 
     # Sync user config with default config
     try:
-        upgrade_manager.sync_user_config()
+        if Path(config_path).resolve() == Path("conf.yaml").resolve():
+            upgrade_manager.sync_user_config()
     except Exception as e:
         logger.error(f"Error syncing user config: {e}")
 
     atexit.register(WebSocketServer.clean_cache)
 
     # Load configurations from yaml file
-    config: Config = validate_config(read_yaml("conf.yaml"))
+    config = validate_config(read_yaml(config_path))
     server_config = config.system_config
 
     if server_config.enable_proxy:
@@ -156,11 +166,14 @@ def run(console_log_level: str):
 
     # Run the Uvicorn server
     logger.info(f"Starting server on {server_config.host}:{server_config.port}")
+    if server_config.trial_mode:
+        logger.bind(trial_safe=True).info("心迹体验服务启动：{}:{}；内容日志关闭", server_config.host, server_config.port)
     uvicorn.run(
         app=server.app,
         host=server_config.host,
         port=server_config.port,
-        log_level=console_log_level.lower(),
+        log_level="warning" if server_config.trial_mode else console_log_level.lower(),
+        access_log=not server_config.trial_mode,
     )
 
 
@@ -175,4 +188,4 @@ if __name__ == "__main__":
         )
     if args.hf_mirror:
         os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
-    run(console_log_level=console_log_level)
+    run(console_log_level=console_log_level, config_path=args.config)
