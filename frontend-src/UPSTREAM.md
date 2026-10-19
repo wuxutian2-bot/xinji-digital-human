@@ -13,3 +13,5 @@ the `frontend` submodule remains the original build for fallback. Build web with
 Local changes: bounded procedural nod and gaze, Actions transport, interruption
 cleanup. The nod uses ParamAngleY; gaze uses ParamEyeBallX/Y only when the actual
 model contains these parameters. Unsupported controls leave the model unchanged.
+
+2026-10-01 companion product: source-separated status reports/trends and corrections, session support choices and reply feedback, user-confirmed action cards, execution replay and isolated trial consent. New components are under `src/renderer/src/components/companion/`; WebSocket/history/audio integration and responsive sidebar fixes are local changes. See `../docs/companion_product.md` for reproduction and limits.

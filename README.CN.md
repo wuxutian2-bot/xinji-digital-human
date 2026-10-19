@@ -1,3 +1,5 @@
+> 心迹项目（2026-10-01）：[新功能与运行入口](docs/companion_product.md) · [试用手册](docs/companion_trial_protocol.md) · [本轮验收](docs/companion_acceptance.md) · [提交索引](docs/companion_submission.md)。以下保留上游 Open-LLM-VTuber 文档。
+
 
 ![](./assets/banner.cn.jpg)
 
