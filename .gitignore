@@ -78,3 +78,9 @@ mcp_servers.json
 
 .vscode/
 .npm-cache/
+
+# Competition deliverables and scratch work (archived separately)
+/output/
+/work/
+.ruff_cache/
+.uv-cache/
