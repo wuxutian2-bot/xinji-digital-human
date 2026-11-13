@@ -7,6 +7,7 @@ import { HistoryInfo } from '@/context/websocket-context';
 import { ConfigFile } from '@/context/character-config-context';
 import { toaster } from '@/components/ui/toaster';
 import type { Mode, Turn } from '@/components/companion/types';
+import type { CrisisResource } from '@/utils/crisis-support';
 
 export interface DisplayText {
   text: string;
@@ -45,6 +46,9 @@ export interface Message {
 }
 
 export interface Actions {
+  strategy?: { primary: string; secondary?: string | null; avoid?: string[] };
+  crisis_resources?: CrisisResource[];
+  crisis_id?: string;
   motion?: 'still' | 'gentle_nod';
   gaze?: 'attentive' | 'soft';
   voice_speed?: number;

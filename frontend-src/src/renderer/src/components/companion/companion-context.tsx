@@ -19,9 +19,13 @@ import type {
 } from "./types";
 import "./companion.css";
 import { toaster } from "@/components/ui/toaster";
+import { useCrisis } from "./crisis-context";
+import type { CrisisNotice } from "@/utils/crisis-support";
 
 type Tab = "overview" | "trend" | "records" | "actions" | "replay" | "trial";
 interface CompanionContextValue {
+  crisis: CrisisNotice | null;
+  acknowledgeCrisis: () => void;
   profile: Profile | null;
   records: StateRecord[];
   trend: Trend | null;
@@ -53,6 +57,7 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
   const { baseUrl, sendMessage } = useWebSocket();
   const { currentHistoryUid } = useChatHistory();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const { crisis, dismiss } = useCrisis();
   const [records, setRecords] = useState<StateRecord[]>([]);
   const [trend, setTrend] = useState<Trend | null>(null);
   const [review, setReview] = useState<string[]>([]);
@@ -214,6 +219,19 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
       mode: next,
       history_uid: currentHistoryUid,
     });
+  const acknowledgeCrisis = () => {
+    const notice = crisis;
+    if (!notice) return;
+    // This is a UI acknowledgement, never a change to the Safety risk state.
+    dismiss(notice);
+    void api("/events", "POST", { name: "crisis_ack" }).catch(() => {
+      toaster.create({
+        title: "已关闭安全提示，但确认记录未保存。",
+        type: "error",
+        duration: 5000,
+      });
+    });
+  };
   const show = (next: Tab = "overview") => {
     setTab(
       profile?.trial_mode && !profile.consent?.accepted && next !== "replay"
@@ -226,6 +244,8 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
   return (
     <Context.Provider
       value={{
+        crisis,
+        acknowledgeCrisis,
         profile,
         records,
         trend,

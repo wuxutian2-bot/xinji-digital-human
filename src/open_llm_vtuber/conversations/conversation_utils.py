@@ -58,6 +58,15 @@ async def process_agent_output(
 
     full_response = ""
     try:
+        if output.actions and output.actions.crisis_resources:
+            # Deliver safety UI before translation/TTS, including TTS failures.
+            # The same crisis_id on the later audio payload prevents reopening
+            # a card that the user has already acknowledged.
+            await websocket_send(
+                json.dumps(
+                    {"type": "crisis-support", "actions": output.actions.to_dict()}
+                )
+            )
         if isinstance(output, SentenceOutput):
             full_response = await handle_sentence_output(
                 output,

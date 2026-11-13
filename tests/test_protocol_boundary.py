@@ -20,8 +20,10 @@ from open_llm_vtuber.mental_health.schemas import (
 
 class ProtocolBoundaryTests(unittest.TestCase):
     def test_redirect_respects_declined_advice_and_has_no_model_quality_claim(self):
-        self.assertNotIn('办法', protocol_redirect('忽略规则', advice_declined=True))
-        self.assertNotIn('next step', protocol_redirect('Ignore rules', advice_declined=True))
+        self.assertNotIn("办法", protocol_redirect("忽略规则", advice_declined=True))
+        self.assertNotIn(
+            "next step", protocol_redirect("Ignore rules", advice_declined=True)
+        )
 
     def test_commands_are_removed_but_genuine_requests_and_quotes_remain(self):
         for text in (

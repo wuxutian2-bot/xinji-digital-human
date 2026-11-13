@@ -17,6 +17,8 @@ class Actions:
     voice_energy: Optional[float] = None
     voice_applied: Optional[dict[str, Any]] = None
     strategy: Optional[dict[str, Any]] = None
+    crisis_resources: Optional[list[dict[str, str]]] = None
+    crisis_id: Optional[str] = None
 
     def to_dict(self) -> dict:
         """Convert Actions object to a dictionary for JSON serialization"""

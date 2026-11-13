@@ -40,7 +40,12 @@ class Consent(StrictBody):
 
 class ExperienceEvent(StrictBody):
     name: Literal[
-        "visit", "task_complete", "task_failed", "return_visit", "interview_complete"
+        "visit",
+        "task_complete",
+        "task_failed",
+        "return_visit",
+        "interview_complete",
+        "crisis_ack",
     ]
     duration_ms: float | None = Field(None, ge=0, le=86400000, allow_inf_nan=False)
     outcome: Literal["independent", "assisted", "abandoned"] | None = None

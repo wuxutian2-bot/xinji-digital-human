@@ -10,6 +10,7 @@ from loguru import logger
 
 from ...config_manager import TTSPreprocessorConfig
 from ...mental_health.dialogue_client import DialogueClient
+from ...mental_health.crisis_resources import crisis_resources_payload
 from ...mental_health.intent_estimator import IntentEstimator, format_intent_context
 from ...mental_health.decision_coordinator import coordinate_decision
 from ...mental_health.context_signals import (
@@ -413,13 +414,23 @@ class MentalHealthAgent(BasicMemoryAgent):
             first_sentence = True
             async for sentence in chat_with_safety(input_data, decision_holder):
                 decision = decision_holder["value"]
+                # Safety UI is independent of avatar/voice expression controls.
+                crisis_actions = {}
+                if first_sentence and decision.strategy.primary == "crisis_support":
+                    crisis_actions = {
+                        "strategy": decision.strategy.model_dump(),
+                        "crisis_resources": crisis_resources_payload(),
+                        "crisis_id": uuid4().hex,
+                    }
                 if not self._expression_enabled:
-                    yield sentence, Actions()
+                    first_sentence = False
+                    yield sentence, Actions(**crisis_actions)
                     continue
                 actions = Actions(
                     voice_style=decision.voice.style,
                     voice_speed=decision.voice.speed,
                     voice_energy=decision.voice.energy,
+                    **crisis_actions,
                 )
                 if first_sentence:
                     expression = self._live2d_model.emo_map.get(

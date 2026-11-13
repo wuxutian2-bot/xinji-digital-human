@@ -31,6 +31,8 @@ import Subtitle from "./components/canvas/subtitle";
 import { ModeProvider, useMode } from "./context/mode-context";
 import { CompanionProvider } from './components/companion/companion-context';
 import { CompanionPanel } from './components/companion/companion-panel';
+import { CrisisSupport } from './components/companion/crisis-card';
+import { CrisisProvider } from './components/companion/crisis-context';
 
 function AppContent(): JSX.Element {
   const [showSidebar, setShowSidebar] = useState(() => window.innerWidth >= 768);
@@ -184,13 +186,16 @@ function AppWithGlobalStyles(): JSX.Element {
                         <BgUrlProvider>
                           <GroupProvider>
                             <BrowserProvider>
-                              <WebSocketHandler>
-                                <Toaster />
-                                <CompanionProvider>
-                                  <AppContent />
-                                  <CompanionPanel />
-                                </CompanionProvider>
-                              </WebSocketHandler>
+                              <CrisisProvider>
+                                <WebSocketHandler>
+                                  <Toaster />
+                                  <CompanionProvider>
+                                    <AppContent />
+                                    <CompanionPanel />
+                                    <CrisisSupport />
+                                  </CompanionProvider>
+                                </WebSocketHandler>
+                              </CrisisProvider>
                             </BrowserProvider>
                           </GroupProvider>
                         </BgUrlProvider>

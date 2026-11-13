@@ -3,6 +3,7 @@
 import re
 from typing import ClassVar
 
+from .crisis_resources import CRISIS_CONTACT_TEXT
 from .schemas import RiskLevel, SafetyAction, SafetyCheckResult
 
 
@@ -49,7 +50,7 @@ class RuleBasedSafetyGuard:
 
     _CRISIS_RESPONSE = (
         "我很重视你刚才说的内容。你现在是否正准备伤害自己或他人，或者已经采取了行动？"
-        "如果是，请立即联系当地急救服务或危机热线，并尽快让一位可信任的人来到你身边；"
+        f"{CRISIS_CONTACT_TEXT}请尽快让一位可信任的人来到你身边；"
         "同时远离可能造成伤害的物品，前往有人陪伴的安全地点。请告诉我：你现在安全吗？"
     )
     _CRISIS_RESPONSE_EN = (
@@ -61,8 +62,7 @@ class RuleBasedSafetyGuard:
     )
     _BLOCKED_OUTPUT_RESPONSE = (
         "我不能提供或强化可能造成伤害的建议。你的安全更重要。"
-        "如果你现在有立即伤害自己或他人的危险，请马上联系当地急救服务、危机热线，"
-        "或请一位可信任的人陪在你身边。"
+        f"{CRISIS_CONTACT_TEXT}请一位可信任的人陪在你身边。"
     )
     _BLOCKED_OUTPUT_RESPONSE_EN = (
         "I cannot provide or reinforce advice that could cause harm. Your safety "

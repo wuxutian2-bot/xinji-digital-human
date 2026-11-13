@@ -22,6 +22,7 @@ import { useGroup } from '@/context/group-context';
 import { useInterrupt } from '@/hooks/utils/use-interrupt';
 import { useBrowser } from '@/context/browser-context';
 import { historySelectionKey, initialHistoryRequest } from '@/utils/history-session';
+import { useCrisis } from '@/components/companion/crisis-context';
 
 function WebSocketHandler({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
@@ -43,6 +44,13 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
   const autoStartMicOnConvEndRef = useRef(autoStartMicOnConvEnd);
   const { interrupt } = useInterrupt();
   const { setBrowserViewData } = useBrowser();
+  const { crisis } = useCrisis();
+  const crisisRef = useRef(crisis);
+  crisisRef.current = crisis;
+
+  useEffect(() => {
+    if (crisis) stopMic();
+  }, [crisis, stopMic]);
 
   useEffect(() => {
     autoStartMicOnConvEndRef.current = autoStartMicOnConvEnd;
@@ -72,7 +80,7 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
     switch (controlText) {
       case 'start-mic':
         console.log('Starting microphone...');
-        if (autoStartMicOnRef.current) startMic();
+        if (autoStartMicOnRef.current && !crisisRef.current) startMic();
         break;
       case 'stop-mic':
         console.log('Stopping microphone...');
@@ -88,7 +96,7 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
           setAiState((currentState: AiState) => {
             if (currentState === 'thinking-speaking') {
               // Auto start mic if enabled
-              if (autoStartMicOnConvEndRef.current) {
+              if (autoStartMicOnConvEndRef.current && !crisisRef.current) {
                 startMic();
               }
               return 'idle';
@@ -106,6 +114,10 @@ function WebSocketHandler({ children }: { children: React.ReactNode }) {
   const handleWebSocketMessage = useCallback((message: MessageEvent) => {
     if (message.turn_id && message.history_uid && historyRef.current && message.history_uid !== historyRef.current) return;
     switch (message.type) {
+      case 'crisis-support':
+        // CompanionProvider opens the safety card before the audio arrives.
+        stopMic();
+        break;
       case 'companion-mode':
       case 'companion-turn':
       case 'companion-refresh':
