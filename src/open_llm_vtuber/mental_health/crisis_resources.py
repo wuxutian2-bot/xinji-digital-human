@@ -1,9 +1,12 @@
 """Single source for the mainland-China crisis resource card.
 
-Candidate numbers come from docs/plans/2026-11-13-交接执行手册.md (2026-11-13).
-Human verification date: pending. Official source: pending human verification
-against the National Health Commission / each service operator before release.
-Do not interpret the implementation date as a verification date or assume 24/7
+Human number verification: 2026-11-13 / 人工核实, reported by the user.
+Official sources supplied in that verification record:
+- 全国统一心理援助热线: 国家卫生健康委.
+- 希望24热线: 希望24热线官网.
+- 急救: 国家卫健委《院前医疗急救管理办法》.
+- 报警: 公安部.
+Service hours and source URLs were not supplied. Do not assume 24/7
 availability from a service's name. See docs/mental_health_crisis_support.md.
 """
 
@@ -15,7 +18,7 @@ class CrisisResource:
     name: str
     number: str
     description: str
-    available: str = "服务时间待人工核实"
+    available: str = "接听时段以服务方公布为准"
 
 
 PSYCHOLOGICAL_SUPPORT = CrisisResource(
