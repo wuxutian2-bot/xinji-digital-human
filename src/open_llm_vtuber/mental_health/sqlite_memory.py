@@ -11,10 +11,12 @@ from uuid import uuid4
 
 from .long_term import (
     DailyStateTrend,
+    DailyStateTrendV3,
     StateTrend,
     TrendSettings,
     observation_source,
     summarize_daily_trend,
+    summarize_daily_trend_v3,
     summarize_trend,
 )
 from .schemas import InteractionIntent, PsychologicalMemoryEntry, PsychologicalState
@@ -118,14 +120,14 @@ class SqlitePsychologicalMemoryService:
 
     async def retrieve_trend(
         self, now: datetime | None = None
-    ) -> StateTrend | DailyStateTrend:
+    ) -> StateTrend | DailyStateTrend | DailyStateTrendV3:
         now = now or datetime.now(timezone.utc)
         if now.tzinfo is None or now.utcoffset() is None:
             raise ValueError("Reference time requires a timezone")
 
         def read():
             with self._connect() as db:
-                if self.trend_settings.version == "daily_v2":
+                if self.trend_settings.version in {"daily_v2", "daily_v3"}:
                     # Stream one user's history to preserve last-observed evidence
                     # older than both windows. No persistent aggregate cache.
                     rows = db.execute(
@@ -140,7 +142,12 @@ class SqlitePsychologicalMemoryService:
                                 payload["timestamp_known"] = False
                             yield PsychologicalState.model_validate(payload)
 
-                    return summarize_daily_trend(states(), now, self.trend_settings)
+                    summarize = (
+                        summarize_daily_trend_v3
+                        if self.trend_settings.version == "daily_v3"
+                        else summarize_daily_trend
+                    )
+                    return summarize(states(), now, self.trend_settings)
                 rows = db.execute(
                     "SELECT payload FROM states WHERE user_id=? AND timestamp BETWEEN ? AND ? ORDER BY timestamp",
                     (

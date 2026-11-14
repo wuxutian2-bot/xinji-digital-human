@@ -21,7 +21,24 @@ from .context_signals import protocol_boundary
 from .long_term import trend_for_model
 
 
+def history_is_rising(trend: dict) -> bool:
+    return trend.get("version") == "daily_v3" and any(
+        metric["status"] == "usable" and metric["alert"] == "rising"
+        for metric in trend_for_model(trend)["decision_dimensions"].values()
+    )
+
+
 def history_supports_clarification(trend: dict) -> bool:
+    if trend.get("version") == "daily_v3":
+        return any(
+            metric["status"] == "usable"
+            and (
+                metric["alert"] == "rising"
+                or metric["mean"] is not None
+                and metric["mean"] >= 0.6
+            )
+            for metric in trend_for_model(trend)["decision_dimensions"].values()
+        )
     if trend.get("version") == "daily_v2":
         return any(
             metric["status"] == "usable"
@@ -71,6 +88,14 @@ class RuleBasedDecisionClient:
                 voice=VoiceDecision(style="warm", speed=0.9, energy=0.8),
             )
 
+        intent = context.interaction_intent
+        if (context.long_term_trend or {}).get("version") == "daily_v3" and (
+            intent.primary != "unknown"
+            or intent.certainty == "explicit"
+            or intent.advice_preference != "unspecified"
+            or intent.feedback == "unhelpful"
+        ):
+            return DecisionResult()
         if history_supports_clarification(context.long_term_trend or {}):
             return DecisionResult(
                 strategy=StrategyDecision(
@@ -176,7 +201,7 @@ JSON schema (defaults do NOT permit omitted fields):
                 or boundary.detected,
             }
         )
-        if (context.long_term_trend or {}).get("version") == "daily_v2":
+        if (context.long_term_trend or {}).get("version") in {"daily_v2", "daily_v3"}:
             context = context.model_copy(
                 update={
                     "long_term_trend": trend_for_model(context.long_term_trend),
@@ -203,11 +228,14 @@ JSON schema (defaults do NOT permit omitted fields):
                 "type": "json_object",
                 "schema": self._generation_schema,
             }
+        system_prompt = self._system_prompt
+        if (context.long_term_trend or {}).get("version") == "daily_v3":
+            system_prompt += "\nFor daily_v3, use only usable decision_dimensions for history. Respect the selected source on disagreements. Rising is a history signal. Explicit intent and current Safety take priority."
         completion = await asyncio.wait_for(
             self._client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": self._system_prompt},
+                    {"role": "system", "content": system_prompt},
                     {
                         "role": "user",
                         # Local diagnostics are never model input.

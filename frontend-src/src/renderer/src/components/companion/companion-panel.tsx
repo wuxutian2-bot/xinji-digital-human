@@ -1,3 +1,4 @@
+import { TrendChart, TrendSignals } from "./trend-chart";
 import { useEffect, useRef, useState } from "react";
 import { useCompanion } from "./companion-context";
 import { dimensions, sources } from "./types";
@@ -173,80 +174,8 @@ function Trends() {
           <p className="xj-muted">连接后显示你的记录。</p>
         ) : (
           <>
-            <svg
-              className="xj-chart"
-              viewBox="0 0 660 190"
-              role="img"
-              aria-label={`${dimensions[dimension]}近14天趋势。空白为没有记录，详细数值见下表。`}
-            >
-              {[0, 5, 10].map((value) => (
-                <g key={value}>
-                  <line
-                    x1="38"
-                    x2="640"
-                    y1={145 - value * 12}
-                    y2={145 - value * 12}
-                    stroke="#e4e9e4"
-                  />
-                  <text x="10" y={149 - value * 12}>
-                    {value}
-                  </text>
-                </g>
-              ))}
-              <line
-                x1="338"
-                x2="338"
-                y1="15"
-                y2="150"
-                stroke="#bdc9c0"
-                strokeDasharray="4 5"
-              />
-              <text x="150" y="182">
-                前一周
-              </text>
-              <text x="465" y="182">
-                本周
-              </text>
-              {Object.keys(sources).map((key) => {
-                const s = key as Source,
-                  metric = trend.sources[s].dimensions[dimension];
-                const vals = dailyValues(
-                  days,
-                  metric.previous_daily_means,
-                  metric.daily_means,
-                );
-                return (
-                  <g key={s}>
-                    {vals.map((value, i) =>
-                      value === null ? null : (
-                        <g key={days[i]}>
-                          {i > 0 && vals[i - 1] !== null && (
-                            <line
-                              x1={40 + (i - 1) * 46}
-                              y1={145 - vals[i - 1]! * 120}
-                              x2={40 + i * 46}
-                              y2={145 - value * 120}
-                              stroke={colors[s]}
-                              strokeWidth="2"
-                            />
-                          )}
-                          <circle
-                            cx={40 + i * 46}
-                            cy={145 - value * 120}
-                            r="4"
-                            fill={colors[s]}
-                          >
-                            <title>
-                              {days[i]} {sources[s]} {value * 10}/10
-                            </title>
-                          </circle>
-                        </g>
-                      ),
-                    )}
-                  </g>
-                );
-              })}
-            </svg>
+            <TrendChart trend={trend} dimension={dimension} />
+            <TrendSignals trend={trend} dimension={dimension} />
             <div className="xj-metrics">
               {Object.entries(sources).map(([key, label]) => {
                 const metric =
@@ -328,6 +257,14 @@ function Trends() {
           Object.entries(sources).map(([source, label]) => {
             const metric =
               trend.sources[source as Source].dimensions[dimension];
+            const summaryMean =
+              trend.version === "daily_v3"
+                ? (metric.weighted_mean ?? null)
+                : metric.mean;
+            const summaryChange =
+              trend.version === "daily_v3"
+                ? (metric.weighted_change ?? null)
+                : metric.change;
             return (
               <p className="xj-week-note" key={source}>
                 <strong>{label}</strong>
@@ -338,12 +275,12 @@ function Trends() {
                   {metric.observed_days > 0 &&
                     (metric.stale
                       ? "最近没有新记录，先不判断变化。"
-                      : !metric.eligible_for_decision || metric.mean === null
+                      : !metric.eligible_for_decision || summaryMean === null
                         ? "再多记录几天，就能更好地回顾。"
-                        : `按每天的平均分计算，本周平均 ${(metric.mean * 10).toFixed(1)} 分（满分 10 分）。`)}
+                        : `${trend.version === "daily_v3" ? "按日平滑计算，本周平滑值" : "按每天的平均分计算，本周平均"} ${(summaryMean * 10).toFixed(1)} 分（满分 10 分）。`)}
                   {metric.eligible_for_decision &&
-                    metric.change !== null &&
-                    `与前一周相比${Math.abs(metric.change * 10) < 0.05 ? "基本持平。" : `${metric.change > 0 ? "高" : "低"}了 ${Math.abs(metric.change * 10).toFixed(1)} 分。`}`}
+                    summaryChange !== null &&
+                    `与前一周相比${Math.abs(summaryChange * 10) < 0.05 ? "基本持平。" : `${summaryChange > 0 ? "高" : "低"}了 ${Math.abs(summaryChange * 10).toFixed(1)} 分。`}`}
                 </span>
               </p>
             );

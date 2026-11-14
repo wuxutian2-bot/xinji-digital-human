@@ -25,3 +25,21 @@ export function dailyValues(
     Object.prototype.hasOwnProperty.call(values, day) ? values[day] : null,
   );
 }
+
+export function intervalBands(
+  days: string[],
+  intervals: Record<string, [number, number]>,
+) {
+  const runs: { index: number; lower: number; upper: number }[][] = [];
+  let run: { index: number; lower: number; upper: number }[] = [];
+  days.forEach((day, index) => {
+    const bounds = intervals[day];
+    if (bounds) run.push({ index, lower: bounds[0], upper: bounds[1] });
+    else if (run.length) {
+      runs.push(run);
+      run = [];
+    }
+  });
+  if (run.length) runs.push(run);
+  return runs;
+}

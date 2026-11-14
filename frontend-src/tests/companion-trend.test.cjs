@@ -15,7 +15,7 @@ new Function(
     compilerOptions: { module: ts.ModuleKind.CommonJS },
   }).outputText,
 )(moduleValue, moduleValue.exports);
-const { calendarDays, dailyValues } = moduleValue.exports;
+const { calendarDays, dailyValues, intervalBands } = moduleValue.exports;
 test("calendar labels use report timezone across DST, without missing days", () => {
   const days = calendarDays("2026-03-07T00:00:00-05:00", "America/New_York");
   assert.equal(days.length, 14);
@@ -28,4 +28,21 @@ test("explicit zero remains zero, gaps remain unknown", () => {
     null,
     0.7,
   ]);
+});
+test("interval bands preserve zero bounds and split at missing calendar days", () => {
+  assert.deepEqual(
+    intervalBands(["a", "b", "c", "d"], {
+      a: [0, 0.2],
+      b: [0.1, 0.3],
+      d: [0.4, 0.6],
+    }),
+    [
+      [
+        { index: 0, lower: 0, upper: 0.2 },
+        { index: 1, lower: 0.1, upper: 0.3 },
+      ],
+      [{ index: 3, lower: 0.4, upper: 0.6 }],
+    ],
+  );
+  assert.deepEqual(intervalBands(["a"], {}), []);
 });

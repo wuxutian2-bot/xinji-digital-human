@@ -139,6 +139,8 @@ ProposalEvidence = Literal[
     "negative_feedback",
     "feedback_unspecified",
     "history_distress",
+    "history_rising",
+    "source_disagreement",
     "history_insufficient",
     "decision_model_proposal",
     "rule_proposal",
@@ -178,6 +180,7 @@ class CoordinationTrace(BaseModel):
             "output_safety_block_midstream",
             "protocol_control_ignored",
             "protocol_boundary_response",
+            "history_rising",
         ]
     ] = Field(default_factory=list, max_length=8)
 

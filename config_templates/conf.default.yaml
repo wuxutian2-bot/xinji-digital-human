@@ -102,6 +102,13 @@ character_config:
           # Cross-history aggregation in local_user mode; absent legacy config uses rolling_v1.
           trend:
             version: 'daily_v2'
+            # daily_v3 enables smoothing, intervals and rising signals.
+            # daily_v3:
+            #   half_life_days: 3.0
+            #   bootstrap_samples: 1000
+            #   cusum_k: 0.03
+            #   cusum_threshold: 0.35
+            #   cusum_min_run_days: 3
             timezone: 'Asia/Shanghai'
             min_observed_days: 3
             min_topic_days: 3

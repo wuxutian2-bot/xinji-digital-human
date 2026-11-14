@@ -35,13 +35,25 @@ export interface Metric {
   eligible_for_decision: boolean;
   daily_means: Record<string, number>;
   previous_daily_means: Record<string, number>;
+  weighted_mean?: number | null;
+  weighted_change?: number | null;
+  interval80?: [number, number] | null;
+  daily_smoothed?: Record<string, number>;
+  daily_intervals?: Record<string, [number, number]>;
+  alert?: "rising" | null;
+  alert_started_at?: string | null;
+  source_disagreement?: boolean;
+  disagreement_days?: string[];
 }
 export interface Trend {
+  version?: "daily_v2" | "daily_v3";
   as_of: string;
   settings: { timezone: string };
   previous_window: { start: string };
   current_window: { start: string };
   sources: Record<Source, { dimensions: Record<Dimension, Metric> }>;
+  preferred_sources?: Record<Dimension, Source | null>;
+  source_disagreement?: Record<Dimension, string[]>;
 }
 export interface StateRecord {
   id: string;
@@ -164,6 +176,8 @@ export const reasonLabels: Record<string, string> = {
   negative_feedback: "回应没有帮助",
   feedback_unspecified: "本轮没有负面反馈提议",
   history_distress: "有效历史中有持续困扰信号",
+  history_rising: "有效近期记录出现持续上升信号",
+  source_disagreement: "系统估计与自报存在分歧，优先参考自报",
   history_insufficient: "历史未形成调整提议",
   decision_model_proposal: "模型给出策略提议",
   rule_proposal: "规则给出策略提议",
@@ -218,7 +232,9 @@ export function responseExplanation(turn?: Turn): string {
   if (c?.winner_role === "history")
     return turn.history_invalidated
       ? "这条回复当时参考的历史已被修改，请以当前记录为准。"
-      : "可参考的近期记录提示你可能持续感到困扰，所以我先陪你理清近况。";
+      : c.reason_codes.includes("history_rising")
+        ? "近期连续记录出现了上升信号，所以我先陪你梳理近况。"
+        : "可参考的近期记录提示你可能持续感到困扰，所以我先陪你理清近况。";
   if (c?.winner_role === "state")
     return "本轮的压力或情绪困扰信号较强，所以我先回应你的感受。";
   if (c?.winner_role === "decision_model")

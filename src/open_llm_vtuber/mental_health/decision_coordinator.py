@@ -10,7 +10,7 @@ from .schemas import (
     StrategyDecision,
 )
 from .context_signals import protocol_boundary
-from .decision_client import history_supports_clarification
+from .decision_client import history_supports_clarification, history_is_rising
 
 
 def collect_proposals(
@@ -45,8 +45,20 @@ def collect_proposals(
         intent_strategy, intent_code = "reflect_and_clarify", "clarification_requested"
     try:
         history = history_supports_clarification(context.long_term_trend or {})
+        rising = history_is_rising(context.long_term_trend or {})
     except (KeyError, TypeError, ValueError):
         history = False
+        rising = False
+    history_codes = [
+        "history_rising"
+        if rising
+        else "history_distress"
+        if history
+        else "history_insufficient"
+    ]
+    conflicts = (context.long_term_trend or {}).get("source_disagreement", {})
+    if isinstance(conflicts, dict) and any(conflicts.values()):
+        history_codes.append("source_disagreement")
     state_codes = ["observed_" + dim for dim in state.observed_dimensions]
     state_codes.append(
         "state_elevated"
@@ -103,7 +115,7 @@ def collect_proposals(
         AgentProposal(
             role="history",
             suggested_strategy="reflect_and_clarify" if history else None,
-            evidence_codes=["history_distress" if history else "history_insufficient"],
+            evidence_codes=history_codes,
             confidence="low" if history else None,
         ),
         AgentProposal(
@@ -205,6 +217,8 @@ def coordinate_decision(
         result.strategy = StrategyDecision(
             primary=primary, secondary=secondary, avoid=list(proposed.strategy.avoid)
         )
+    if winner_role == "history" and history_is_rising(context.long_term_trend or {}):
+        reasons.append("history_rising")
     result.trace.coordination = CoordinationTrace(
         proposed_strategy=proposed.strategy.primary,
         final_strategy=result.strategy.primary,

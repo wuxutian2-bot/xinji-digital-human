@@ -29,10 +29,10 @@ class Config(I18nMixin, BaseModel):
                 or not settings
                 or not settings.memory.enabled
                 or settings.memory.mode != "local_user"
-                or settings.memory.trend.version != "daily_v2"
+                or settings.memory.trend.version not in {"daily_v2", "daily_v3"}
             ):
                 raise ValueError(
-                    "Trial mode requires loopback, no proxy, and mental_health_agent with local_user daily_v2 memory"
+                    "Trial mode requires loopback, no proxy, and mental_health_agent with local_user daily_v2 or daily_v3 memory"
                 )
         return self
 

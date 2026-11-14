@@ -58,6 +58,33 @@ def weekly_review(trend):
         "user_report": "你的自报",
         "user_correction": "你的纠正",
     }
+    if trend.get("version") == "daily_v3":
+        lines = []
+        for source in SOURCES:
+            for dim in DIMENSIONS:
+                metric = trend["sources"][source]["dimensions"][dim]
+                if not metric["observed_days"]:
+                    continue
+                line = f"{origins[source]}·{labels[dim]} 本周记录 {metric['observed_days']}/7 天"
+                if (
+                    metric["eligible_for_decision"]
+                    and metric["weighted_mean"] is not None
+                ):
+                    line += f"，按日平滑值 {metric['weighted_mean'] * 10:.1f}/10"
+                    if metric["interval80"] is not None:
+                        low, high = metric["interval80"]
+                        line += f"，80%重采样区间 {low * 10:.1f}～{high * 10:.1f}"
+                else:
+                    line += "，记录不足或已过期，暂不推断变化"
+                if metric["alert"] == "rising":
+                    line += f"，连续上升信号起点 {metric['alert_started_at']}"
+                lines.append(line + "。")
+        for dim, days in trend["source_disagreement"].items():
+            if days:
+                lines.append(
+                    f"{labels[dim]}在 {len(days)} 天存在来源分歧，本维度历史判断优先参考自报。"
+                )
+        return lines or ["还没有足够记录，未填写的维度保持未知。"]
     lines = []
     for source in SOURCES:
         for dim in DIMENSIONS:
@@ -166,8 +193,8 @@ def init_product_routes(context):
     @router.get("/trend")
     async def trend():
         result = await store().memory.retrieve_trend()
-        if result.version != "daily_v2":
-            raise HTTPException(409, "请为当前档案配置 daily_v2 趋势。")
+        if result.version not in {"daily_v2", "daily_v3"}:
+            raise HTTPException(409, "请为当前档案配置 daily_v2 或 daily_v3 趋势。")
         data = result.model_dump(mode="json")
         return {"trend": data, "review": weekly_review(data)}
 

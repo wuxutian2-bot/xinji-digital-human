@@ -1,0 +1,469 @@
+{
+  "synthetic": true,
+  "purpose": "14-day deterministic input fixture for UI and source-isolation checks; not a real participant trajectory or efficacy evidence",
+  "created_at": "2026-10-03T07:08:32.613766+00:00",
+  "current_window_days": {
+    "system_estimate": 7,
+    "user_report": 4,
+    "user_correction": 3
+  },
+  "records": [
+    {
+      "day_index": 1,
+      "timestamp": "2026-09-20T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.42,
+      "record_id": "8a27e5399ae449eaaf582337f237d31f",
+      "synthetic": true
+    },
+    {
+      "day_index": 1,
+      "timestamp": "2026-09-20T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.35,
+      "record_id": "8752ef83faf2442a85d64db4114f1181",
+      "synthetic": true
+    },
+    {
+      "day_index": 2,
+      "timestamp": "2026-09-21T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.45,
+      "record_id": "29e1b87994744135888ffd4557078439",
+      "synthetic": true
+    },
+    {
+      "day_index": 2,
+      "timestamp": "2026-09-21T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.39,
+      "record_id": "07674f710d924d6c911e0cbebabd1304",
+      "synthetic": true
+    },
+    {
+      "day_index": 3,
+      "timestamp": "2026-09-22T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.61,
+      "record_id": "c1f01043abd4447c917287de15712c9a",
+      "synthetic": true
+    },
+    {
+      "day_index": 3,
+      "timestamp": "2026-09-22T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.47,
+      "record_id": "f8426224885441028dd06b1af7e02025",
+      "synthetic": true
+    },
+    {
+      "day_index": 4,
+      "timestamp": "2026-09-23T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.7,
+      "record_id": "acdac12815394384923567250aae4570",
+      "synthetic": true
+    },
+    {
+      "day_index": 4,
+      "timestamp": "2026-09-23T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.58,
+      "record_id": "d02663756a544417abdab02e08c0a22e",
+      "synthetic": true
+    },
+    {
+      "day_index": 5,
+      "timestamp": "2026-09-24T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.66,
+      "record_id": "6cc05737c793489faf97de25e5bcaeb3",
+      "synthetic": true
+    },
+    {
+      "day_index": 5,
+      "timestamp": "2026-09-24T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.52,
+      "record_id": "67a6edb7a15741ad8ed9f1fb8fc19652",
+      "synthetic": true
+    },
+    {
+      "day_index": 6,
+      "timestamp": "2026-09-25T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.58,
+      "record_id": "59152b60474744e5876e3aa5cab5d8da",
+      "synthetic": true
+    },
+    {
+      "day_index": 6,
+      "timestamp": "2026-09-25T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.46,
+      "record_id": "e6c8e8730cc547b0937b7e8a6a6b4f1e",
+      "synthetic": true
+    },
+    {
+      "day_index": 7,
+      "timestamp": "2026-09-26T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.54,
+      "record_id": "1985ff5ece8145b0a14fa5c5645f2a1c",
+      "synthetic": true
+    },
+    {
+      "day_index": 7,
+      "timestamp": "2026-09-26T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.41,
+      "record_id": "a22d3f9ec2864593b0dac27d894ac19e",
+      "synthetic": true
+    },
+    {
+      "day_index": 8,
+      "timestamp": "2026-09-27T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.64,
+      "record_id": "d74125a467b44d29b3bfacf907d663ab",
+      "synthetic": true
+    },
+    {
+      "day_index": 8,
+      "timestamp": "2026-09-27T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.5,
+      "record_id": "591fc304471440d6ae2bb85978788eba",
+      "synthetic": true
+    },
+    {
+      "day_index": 9,
+      "timestamp": "2026-09-28T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.73,
+      "record_id": "d531a599b3804208998fd30641c2fd7c",
+      "synthetic": true
+    },
+    {
+      "day_index": 9,
+      "timestamp": "2026-09-28T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.59,
+      "record_id": "372120093f5e421a8e89a93656f7e7f8",
+      "synthetic": true,
+      "correction": 0.5
+    },
+    {
+      "day_index": 10,
+      "timestamp": "2026-09-29T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.69,
+      "record_id": "9d56f6abc45346e8bd99fb5f8a83e390",
+      "synthetic": true
+    },
+    {
+      "day_index": 10,
+      "timestamp": "2026-09-29T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.54,
+      "record_id": "a88ac578570046719031c5d6b05eb8bd",
+      "synthetic": true
+    },
+    {
+      "day_index": 11,
+      "timestamp": "2026-09-30T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.55,
+      "record_id": "38f104f58de94685ad257316af520156",
+      "synthetic": true
+    },
+    {
+      "day_index": 11,
+      "timestamp": "2026-09-30T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.44,
+      "record_id": "81f2f52a865f4af38bba837c2941d275",
+      "synthetic": true,
+      "correction": 0.36
+    },
+    {
+      "day_index": 12,
+      "timestamp": "2026-10-01T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.49,
+      "record_id": "eb81bec97d1144119e2af2d3e25e1503",
+      "synthetic": true
+    },
+    {
+      "day_index": 12,
+      "timestamp": "2026-10-01T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.38,
+      "record_id": "30f01640a72240be93fe6a1f3db6e4f1",
+      "synthetic": true
+    },
+    {
+      "day_index": 13,
+      "timestamp": "2026-10-02T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.57,
+      "record_id": "6d892c7ddcc54da89edaebd4204a2fcd",
+      "synthetic": true
+    },
+    {
+      "day_index": 13,
+      "timestamp": "2026-10-02T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.45,
+      "record_id": "60b81430d2cf4bec97380ee28a4b80c1",
+      "synthetic": true,
+      "correction": 0.4
+    },
+    {
+      "day_index": 14,
+      "timestamp": "2026-10-03T06:58:32.166048+00:00",
+      "source": "context_v2",
+      "stress_input": 0.46,
+      "record_id": "21be0f44b15f4f37b7741e7accdb0786",
+      "synthetic": true
+    },
+    {
+      "day_index": 14,
+      "timestamp": "2026-10-03T06:58:32.166048+00:00",
+      "source": "user_report",
+      "stress_input": 0.36,
+      "record_id": "706964a04c0240599ae64e85f6fb41b8",
+      "synthetic": true
+    }
+  ],
+  "trend": {
+    "version": "daily_v2",
+    "settings": {
+      "version": "daily_v2",
+      "timezone": "Asia/Shanghai",
+      "min_observed_days": 3,
+      "min_topic_days": 3,
+      "stale_after_days": 7
+    },
+    "as_of": "2026-10-03T07:08:32.571859Z",
+    "current_window": {
+      "start": "2026-09-27T00:00:00+08:00",
+      "end_exclusive": "2026-10-04T00:00:00+08:00"
+    },
+    "previous_window": {
+      "start": "2026-09-20T00:00:00+08:00",
+      "end_exclusive": "2026-09-27T00:00:00+08:00"
+    },
+    "primary_source": "system_estimate",
+    "sample_count": 14,
+    "previous_sample_count": 14,
+    "excluded_records": {
+      "unknown_time": 0,
+      "unknown_source": 0,
+      "future": 0
+    },
+    "sources": {
+      "system_estimate": {
+        "dimensions": {
+          "stress": {
+            "mean": 0.59,
+            "previous_mean": 0.566,
+            "change": 0.024,
+            "observed_days": 7,
+            "previous_observed_days": 7,
+            "coverage": 1.0,
+            "previous_coverage": 1.0,
+            "last_observed_at": "2026-10-03T06:58:32.166048Z",
+            "age_days": 0,
+            "stale": false,
+            "eligible_for_decision": true,
+            "daily_means": {
+              "2026-09-27": 0.64,
+              "2026-09-28": 0.73,
+              "2026-09-29": 0.69,
+              "2026-09-30": 0.55,
+              "2026-10-01": 0.49,
+              "2026-10-02": 0.57,
+              "2026-10-03": 0.46
+            },
+            "previous_daily_means": {
+              "2026-09-20": 0.42,
+              "2026-09-21": 0.45,
+              "2026-09-22": 0.61,
+              "2026-09-23": 0.7,
+              "2026-09-24": 0.66,
+              "2026-09-25": 0.58,
+              "2026-09-26": 0.54
+            }
+          },
+          "anxiety": {
+            "mean": null,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 0,
+            "previous_observed_days": 0,
+            "coverage": 0.0,
+            "previous_coverage": 0.0,
+            "last_observed_at": null,
+            "age_days": null,
+            "stale": false,
+            "eligible_for_decision": false,
+            "daily_means": {},
+            "previous_daily_means": {}
+          },
+          "low_mood": {
+            "mean": null,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 0,
+            "previous_observed_days": 0,
+            "coverage": 0.0,
+            "previous_coverage": 0.0,
+            "last_observed_at": null,
+            "age_days": null,
+            "stale": false,
+            "eligible_for_decision": false,
+            "daily_means": {},
+            "previous_daily_means": {}
+          }
+        },
+        "topic_observed_days": {},
+        "topic_age_days": {},
+        "recurring_topics": []
+      },
+      "user_report": {
+        "dimensions": {
+          "stress": {
+            "mean": 0.445,
+            "previous_mean": 0.454,
+            "change": -0.009,
+            "observed_days": 4,
+            "previous_observed_days": 7,
+            "coverage": 0.571,
+            "previous_coverage": 1.0,
+            "last_observed_at": "2026-10-03T06:58:32.166048Z",
+            "age_days": 0,
+            "stale": false,
+            "eligible_for_decision": true,
+            "daily_means": {
+              "2026-09-27": 0.5,
+              "2026-09-29": 0.54,
+              "2026-10-01": 0.38,
+              "2026-10-03": 0.36
+            },
+            "previous_daily_means": {
+              "2026-09-20": 0.35,
+              "2026-09-21": 0.39,
+              "2026-09-22": 0.47,
+              "2026-09-23": 0.58,
+              "2026-09-24": 0.52,
+              "2026-09-25": 0.46,
+              "2026-09-26": 0.41
+            }
+          },
+          "anxiety": {
+            "mean": null,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 0,
+            "previous_observed_days": 0,
+            "coverage": 0.0,
+            "previous_coverage": 0.0,
+            "last_observed_at": null,
+            "age_days": null,
+            "stale": false,
+            "eligible_for_decision": false,
+            "daily_means": {},
+            "previous_daily_means": {}
+          },
+          "low_mood": {
+            "mean": null,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 0,
+            "previous_observed_days": 0,
+            "coverage": 0.0,
+            "previous_coverage": 0.0,
+            "last_observed_at": null,
+            "age_days": null,
+            "stale": false,
+            "eligible_for_decision": false,
+            "daily_means": {},
+            "previous_daily_means": {}
+          }
+        },
+        "topic_observed_days": {},
+        "topic_age_days": {},
+        "recurring_topics": []
+      },
+      "user_correction": {
+        "dimensions": {
+          "stress": {
+            "mean": 0.42,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 3,
+            "previous_observed_days": 0,
+            "coverage": 0.429,
+            "previous_coverage": 0.0,
+            "last_observed_at": "2026-10-02T06:58:32.166048Z",
+            "age_days": 1,
+            "stale": false,
+            "eligible_for_decision": true,
+            "daily_means": {
+              "2026-09-28": 0.5,
+              "2026-09-30": 0.36,
+              "2026-10-02": 0.4
+            },
+            "previous_daily_means": {}
+          },
+          "anxiety": {
+            "mean": null,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 0,
+            "previous_observed_days": 0,
+            "coverage": 0.0,
+            "previous_coverage": 0.0,
+            "last_observed_at": null,
+            "age_days": null,
+            "stale": false,
+            "eligible_for_decision": false,
+            "daily_means": {},
+            "previous_daily_means": {}
+          },
+          "low_mood": {
+            "mean": null,
+            "previous_mean": null,
+            "change": null,
+            "observed_days": 0,
+            "previous_observed_days": 0,
+            "coverage": 0.0,
+            "previous_coverage": 0.0,
+            "last_observed_at": null,
+            "age_days": null,
+            "stale": false,
+            "eligible_for_decision": false,
+            "daily_means": {},
+            "previous_daily_means": {}
+          }
+        },
+        "topic_observed_days": {},
+        "topic_age_days": {},
+        "recurring_topics": []
+      }
+    },
+    "means": {
+      "stress": 0.59,
+      "anxiety": null,
+      "low_mood": null
+    },
+    "changes": {
+      "stress": 0.024,
+      "anxiety": null,
+      "low_mood": null
+    },
+    "recurring_topics": [],
+    "insufficient_data": false
+  }
+}

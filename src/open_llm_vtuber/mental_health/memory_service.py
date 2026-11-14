@@ -103,7 +103,7 @@ def format_memory_context(
     ]
     if current.topics:
         lines.append("Current topics: " + ", ".join(current.topics) + ".")
-    if recent and getattr(trend, "version", None) != "daily_v2":
+    if recent and getattr(trend, "version", None) not in {"daily_v2", "daily_v3"}:
         observed = {}
         for dimension in ("stress", "anxiety", "low_mood"):
             values = [
