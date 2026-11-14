@@ -1,4 +1,5 @@
 import { TrendChart, TrendSignals } from "./trend-chart";
+import { DataExport } from "./data-export";
 import { useEffect, useRef, useState } from "react";
 import { useCompanion } from "./companion-context";
 import { dimensions, sources } from "./types";
@@ -578,6 +579,8 @@ function Trial() {
       <p>
         可以联系你信任的人或学校心理咨询中心。如有紧迫安全风险，请联系当地急救服务。心迹不会自动替你联系任何人。
       </p>
+      <hr />
+      <DataExport />
     </section>
   );
 }

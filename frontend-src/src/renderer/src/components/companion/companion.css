@@ -88,6 +88,10 @@
   color: #fff;
   border-color: var(--xj-green);
 }
+.xj .xj-export-button:hover:not(:disabled) {
+  background: #1b5848;
+  border-color: #1b5848;
+}
 .xj h2,
 .xj h3,
 .xj p {

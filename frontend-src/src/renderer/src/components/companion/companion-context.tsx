@@ -21,6 +21,7 @@ import "./companion.css";
 import { toaster } from "@/components/ui/toaster";
 import { useCrisis } from "./crisis-context";
 import type { CrisisNotice } from "@/utils/crisis-support";
+import { downloadCompanionExport } from "@/utils/companion-export";
 
 type Tab = "overview" | "trend" | "records" | "actions" | "replay" | "trial";
 interface CompanionContextValue {
@@ -46,6 +47,7 @@ interface CompanionContextValue {
   refresh: () => Promise<void>;
   selectMode: (mode: Mode) => void;
   mutate: (path: string, method: string, body?: unknown) => Promise<boolean>;
+  exportData: () => Promise<boolean>;
 }
 const Context = createContext<CompanionContextValue | null>(null);
 export function useCompanion() {
@@ -213,6 +215,22 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
     },
     [api, refresh],
   );
+  const exportData = useCallback(async () => {
+    setBusy(true);
+    setError("");
+    try {
+      await downloadCompanionExport(baseUrl);
+      return true;
+    } catch (e) {
+      const message =
+        e instanceof Error ? e.message : "导出未完成，请稍后重试。";
+      setError(message);
+      toaster.create({ title: message, type: "error", duration: 5000 });
+      return false;
+    } finally {
+      setBusy(false);
+    }
+  }, [baseUrl]);
   const selectMode = (next: Mode) =>
     sendMessage({
       type: "companion-mode",
@@ -266,6 +284,7 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
         refresh,
         selectMode,
         mutate,
+        exportData,
       }}
     >
       {children}

@@ -154,9 +154,27 @@ class CompanionStore:
 
     def turns(self, limit=100):
         turns = self.list("turn", limit)
+        receipt_ids = [
+            f"{turn['id']}:{segment['id']}"
+            for turn in turns
+            for segment in turn.get("sent_segments", [])
+        ]
+        receipts = {}
+        if receipt_ids:
+            with self.memory._connect() as db:
+                rows = db.execute(
+                    "SELECT id,payload FROM companion_items WHERE user_id=? "
+                    "AND kind='playback' AND id IN (SELECT value FROM json_each(?))",
+                    (self.user_id, json.dumps(receipt_ids)),
+                ).fetchall()
+            receipts = {row["id"]: json.loads(row["payload"]) for row in rows}
+        return self._with_playback(turns, receipts)
+
+    @staticmethod
+    def _with_playback(turns, receipts):
         for turn in turns:
             for segment in turn.get("sent_segments", []):
-                receipt = self.get("playback", f"{turn['id']}:{segment['id']}")
+                receipt = receipts.get(f"{turn['id']}:{segment['id']}")
                 segment["playback"] = receipt["status"] if receipt else "unconfirmed"
             audio = [s for s in turn.get("sent_segments", []) if s["has_audio"]]
             if turn.get("playback") != "interrupted":
@@ -175,11 +193,58 @@ class CompanionStore:
                 )
         return turns
 
+    def export(self):
+        # One read transaction gives all collections the same SQLite snapshot.
+        # No pagination limit; user ownership comes only from the bound store.
+        with self.memory._connect() as db:
+            db.execute("BEGIN")
+            state_rows = db.execute(
+                "SELECT id,history_scope,payload FROM states WHERE user_id=? "
+                "ORDER BY timestamp DESC,rowid DESC",
+                (self.user_id,),
+            ).fetchall()
+            item_rows = db.execute(
+                "SELECT kind,id,payload FROM companion_items WHERE user_id=? "
+                "AND kind IN ('turn','action','playback') ORDER BY rowid DESC",
+                (self.user_id,),
+            ).fetchall()
+        turns, actions, receipts = [], [], {}
+        for row in item_rows:
+            payload = json.loads(row["payload"])
+            if row["kind"] == "turn":
+                turns.append(payload)
+            elif row["kind"] == "action":
+                actions.append(payload)
+            else:
+                receipts[row["id"]] = payload
+        return {
+            "schema_version": 1,
+            "exported_at": utc_now(),
+            "user_id": self.user_id,
+            "states": [
+                {
+                    "id": row["id"],
+                    "history_scope": row["history_scope"],
+                    "state": json.loads(row["payload"]),
+                }
+                for row in state_rows
+            ],
+            "turns": self._with_playback(turns, receipts),
+            "actions": actions,
+        }
+
 
 def companion_for(agent):
     memory = getattr(agent, "_psychological_memory", None)
-    return (
-        CompanionStore(memory)
-        if isinstance(memory, SqlitePsychologicalMemoryService)
-        else None
-    )
+    if not isinstance(memory, SqlitePsychologicalMemoryService):
+        if agent is not None and hasattr(agent, "companion"):
+            agent.companion = None
+        return None
+    cached = getattr(agent, "companion", None)
+    if not (
+        isinstance(cached, CompanionStore)
+        and cached.memory is memory
+        and cached.user_id == memory.user_id
+    ):
+        agent.companion = CompanionStore(memory)
+    return agent.companion

@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from .companion_store import companion_for, utc_now
@@ -114,7 +115,9 @@ def init_product_routes(context):
     )
 
     def store():
-        result = companion_for(getattr(context, "agent_engine", None))
+        agent = getattr(context, "agent_engine", None)
+        # Reuse agent.companion while its memory and user binding still match.
+        result = companion_for(agent)
         if result is None:
             raise HTTPException(503, "我的心迹需要本机 SQLite 档案模式。")
         return result
@@ -154,6 +157,20 @@ def init_product_routes(context):
         )
         s.event("consent_updated")
         return result
+
+    @router.get("/export")
+    def export():
+        data = store().export()
+        data["synthetic_demo"] = context.system_config.synthetic_demo
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        return JSONResponse(
+            data,
+            headers={
+                "Content-Disposition": f'attachment; filename="xinji-data-{stamp}.json"',
+                "Cache-Control": "no-store",
+                "X-Content-Type-Options": "nosniff",
+            },
+        )
 
     @router.get("/states")
     def records(limit: int = Query(100, ge=1, le=1000)):

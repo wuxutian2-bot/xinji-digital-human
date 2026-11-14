@@ -1,0 +1,21 @@
+{
+  "synthetic": true,
+  "user_id": "synthetic-browser",
+  "counts": {
+    "states": 10,
+    "turns": 1,
+    "actions": 1
+  },
+  "other_user_excluded": true,
+  "download_matches_database": true,
+  "sha256": "f62e0b8b8505bda09c0f2f94e98305edf6960cfe92766ab296f0d302a65aaa37",
+  "desktop_viewport": [
+    1440,
+    1080
+  ],
+  "mobile_viewport": [
+    390,
+    844
+  ],
+  "mobile_document_width": 390
+}
