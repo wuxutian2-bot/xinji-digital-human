@@ -1,0 +1,5239 @@
+{
+  "dataset": "开发者构建的虚构句库",
+  "labels": "independent_reviewers",
+  "model": "mental-health-orpo",
+  "metrics": {
+    "dev": {
+      "rule": {
+        "n": 224,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.18181818181818182,
+            "mae": 0.30000000000000004,
+            "paired_n": 6
+          },
+          "anxiety": {
+            "observed_f1": 0.46153846153846156,
+            "mae": 0.3333333333333333,
+            "paired_n": 18
+          },
+          "low_mood": {
+            "observed_f1": 0.0,
+            "mae": null,
+            "paired_n": 0
+          }
+        },
+        "observed_macro_f1": 0.21445221445221446,
+        "intent_macro_f1": 0.037037037037037035,
+        "intent_accuracy": 0.125,
+        "advice_preference_accuracy": 0.7321428571428571
+      },
+      "llm": {
+        "n": 224,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.6619718309859155,
+            "mae": 0.28085106382978725,
+            "paired_n": 47
+          },
+          "anxiety": {
+            "observed_f1": 0.6911764705882353,
+            "mae": 0.32978723404255317,
+            "paired_n": 47
+          },
+          "low_mood": {
+            "observed_f1": 0.875,
+            "mae": 0.36428571428571427,
+            "paired_n": 42
+          }
+        },
+        "observed_macro_f1": 0.7427161005247169,
+        "intent_macro_f1": 0.5604334333380955,
+        "intent_accuracy": 0.6696428571428571,
+        "advice_preference_accuracy": 0.9017857142857143
+      }
+    },
+    "holdout": {
+      "rule": {
+        "n": 88,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.4,
+            "mae": 0.15000000000000002,
+            "paired_n": 6
+          },
+          "anxiety": {
+            "observed_f1": 0.8571428571428571,
+            "mae": 0.20000000000000004,
+            "paired_n": 18
+          },
+          "low_mood": {
+            "observed_f1": 0.0,
+            "mae": null,
+            "paired_n": 0
+          }
+        },
+        "observed_macro_f1": 0.41904761904761906,
+        "intent_macro_f1": 0.027098479841374753,
+        "intent_accuracy": 0.03409090909090909,
+        "advice_preference_accuracy": 0.6818181818181818
+      },
+      "llm": {
+        "n": 88,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.8,
+            "mae": 0.41666666666666663,
+            "paired_n": 24
+          },
+          "anxiety": {
+            "observed_f1": 0.8135593220338984,
+            "mae": 0.3708333333333333,
+            "paired_n": 24
+          },
+          "low_mood": {
+            "observed_f1": 0.7272727272727273,
+            "mae": 0.35,
+            "paired_n": 12
+          }
+        },
+        "observed_macro_f1": 0.7802773497688752,
+        "intent_macro_f1": 0.544702211368878,
+        "intent_accuracy": 0.6704545454545454,
+        "advice_preference_accuracy": 0.8181818181818182
+      }
+    }
+  },
+  "fallbacks": {},
+  "calibration": {
+    "stress": {
+      "paired_days": 0,
+      "status": "样本不足或无变异",
+      "pearson": null,
+      "spearman": null,
+      "mean_bias": null
+    },
+    "anxiety": {
+      "paired_days": 0,
+      "status": "样本不足或无变异",
+      "pearson": null,
+      "spearman": null,
+      "mean_bias": null
+    },
+    "low_mood": {
+      "paired_days": 0,
+      "status": "样本不足或无变异",
+      "pearson": null,
+      "spearman": null,
+      "mean_bias": null
+    }
+  },
+  "predictions": {
+    "dev": {
+      "rule": [
+        {
+          "id": "SI001",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI002",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI003",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI004",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI005",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI006",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI007",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI008",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI009",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI010",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI011",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI012",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI013",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI014",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI015",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI016",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI017",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI018",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI019",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI020",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI021",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI022",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI023",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI024",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI025",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI026",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI027",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI028",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI029",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI030",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI031",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI032",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI033",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI034",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI035",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI036",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI037",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI038",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI039",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI040",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI041",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI042",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI043",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI044",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI045",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI046",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI047",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI048",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI049",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI050",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI051",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI052",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI053",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI054",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI055",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI056",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI057",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI058",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI059",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI060",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI061",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI062",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI063",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI064",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI065",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI066",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI067",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI068",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI069",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI070",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI071",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI072",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI073",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI074",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI075",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI076",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI077",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI078",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI079",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI080",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI081",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI082",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI083",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI084",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI085",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI086",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI087",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI088",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI089",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI090",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI091",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI092",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI093",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI094",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI095",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI096",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI097",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI098",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI099",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI100",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI101",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI102",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI103",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI104",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI105",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI106",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI107",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI108",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI109",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI110",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI111",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI112",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI113",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI114",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI115",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI116",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI117",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI118",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI119",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI120",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.35,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI121",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI122",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI123",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI124",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI125",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI126",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI127",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI128",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI129",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI130",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI131",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI132",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI133",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI134",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI135",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI136",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI137",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI138",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI139",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI140",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI141",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI142",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI143",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI144",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI145",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI146",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI147",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI148",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI149",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI150",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI151",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI152",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI153",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI154",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI155",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI156",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI157",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI158",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI159",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI160",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI161",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI162",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI163",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI164",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI165",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI166",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI167",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI168",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI169",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI170",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI171",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI172",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI173",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI174",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI175",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI176",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI177",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI178",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI179",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI180",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI181",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI182",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI183",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI184",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI185",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI186",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI187",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI188",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI189",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI190",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI191",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI192",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI193",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI194",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI195",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI196",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI197",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI198",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI199",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI200",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI201",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI202",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI203",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI204",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI205",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI206",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI207",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI208",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI209",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI210",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI211",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI212",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI213",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI214",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI215",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI216",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI301",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI302",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI303",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI304",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI305",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI306",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI307",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI308",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        }
+      ],
+      "llm": [
+        {
+          "id": "SI001",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI002",
+          "stress": 0.8,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI003",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI004",
+          "stress": 0.3,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI005",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI006",
+          "stress": 0.8,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI007",
+          "stress": 0.5,
+          "anxiety": 0.5,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI008",
+          "stress": 0.5,
+          "anxiety": 0.5,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI009",
+          "stress": 0.5,
+          "anxiety": 0.5,
+          "low_mood": 1.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI010",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 1.0,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI011",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI012",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI013",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI014",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI015",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI016",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI017",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI018",
+          "stress": 1.0,
+          "anxiety": 0.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI019",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI020",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI021",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI022",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI023",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI024",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI025",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI026",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI027",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI028",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI029",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI030",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI031",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI032",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI033",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI034",
+          "stress": null,
+          "anxiety": 0.5,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI035",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI036",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI037",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI038",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI039",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI040",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI041",
+          "stress": 1.0,
+          "anxiety": 0.0,
+          "low_mood": 0.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI042",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI043",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI044",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI045",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI046",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI047",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI048",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI049",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI050",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI051",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI052",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI053",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI054",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI055",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI056",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI057",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI058",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI059",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI060",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI061",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI062",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI063",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI064",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI065",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI066",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI067",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI068",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI069",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI070",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI071",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI072",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI073",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI074",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI075",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.8,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI076",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI077",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.7,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI078",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.7,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI079",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI080",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI081",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI082",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI083",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI084",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI085",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI086",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI087",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI088",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI089",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI090",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI091",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI092",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI093",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI094",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI095",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI096",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI097",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI098",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI099",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI100",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI101",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI102",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI103",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI104",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI105",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI106",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI107",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI108",
+          "stress": null,
+          "anxiety": 0.3,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI109",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI110",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI111",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI112",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI113",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI114",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI115",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI116",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI117",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI118",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI119",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI120",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI121",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI122",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI123",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI124",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI125",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI126",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI127",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI128",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI129",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI130",
+          "stress": null,
+          "anxiety": 0.5,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI131",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI132",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI133",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.3,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI134",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.8,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI135",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.7,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI136",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI137",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI138",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI139",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI140",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI141",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI142",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI143",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI144",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI145",
+          "stress": 0.5,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI146",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI147",
+          "stress": 0.5,
+          "anxiety": 0.3,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI148",
+          "stress": 0.3,
+          "anxiety": 0.2,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI149",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI150",
+          "stress": 0.5,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI151",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI152",
+          "stress": null,
+          "anxiety": 0.5,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI153",
+          "stress": null,
+          "anxiety": 0.5,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI154",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI155",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI156",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI157",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI158",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI159",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI160",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI161",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI162",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI163",
+          "stress": 0.3,
+          "anxiety": 0.8,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI164",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI165",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI166",
+          "stress": 0.3,
+          "anxiety": 0.8,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI167",
+          "stress": 0.3,
+          "anxiety": 0.8,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI168",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI169",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI170",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.8,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI171",
+          "stress": 0.3,
+          "anxiety": 0.2,
+          "low_mood": 0.7,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI172",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI173",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI174",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI175",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI176",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI177",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI178",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI179",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI180",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI181",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI182",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI183",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI184",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI185",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI186",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI187",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI188",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI189",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI190",
+          "stress": null,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI191",
+          "stress": null,
+          "anxiety": 0.8,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI192",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI193",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI194",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI195",
+          "stress": 0.0,
+          "anxiety": 0.0,
+          "low_mood": 1.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI196",
+          "stress": 0.0,
+          "anxiety": 0.0,
+          "low_mood": 1.0,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI197",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI198",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.8,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI199",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI200",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI201",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI202",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI203",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI204",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI205",
+          "stress": 0.5,
+          "anxiety": 0.5,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI206",
+          "stress": 0.8,
+          "anxiety": 0.9,
+          "low_mood": 0.3,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI207",
+          "stress": 0.8,
+          "anxiety": 0.6,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI208",
+          "stress": 0.5,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI209",
+          "stress": 0.5,
+          "anxiety": 0.5,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI210",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI211",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI212",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI213",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI214",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI215",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI216",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI301",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI302",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI303",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI304",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI305",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI306",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI307",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI308",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        }
+      ]
+    },
+    "holdout": {
+      "rule": [
+        {
+          "id": "SI217",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI218",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI219",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI220",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI221",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI222",
+          "stress": 0.35,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI223",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI224",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI225",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI226",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI227",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI228",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI229",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI230",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI231",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI232",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI233",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI234",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI235",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI236",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI237",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI238",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI239",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI240",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI241",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI242",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI243",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI244",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI245",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI246",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI247",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI248",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI249",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI250",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI251",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI252",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI253",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI254",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI255",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI256",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI257",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI258",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI259",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI260",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI261",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI262",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI263",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI264",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI265",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI266",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI267",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI268",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI269",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI270",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI271",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI272",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI273",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI274",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI275",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI276",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI277",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI278",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI279",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI280",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI281",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI282",
+          "stress": null,
+          "anxiety": 0.35,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI283",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI284",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI285",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI286",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI287",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI288",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI289",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI290",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI291",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI292",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI293",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI294",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI295",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI296",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI297",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI298",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI299",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI300",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI309",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI310",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI311",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI312",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "other",
+          "advice_preference": "unspecified"
+        }
+      ],
+      "llm": [
+        {
+          "id": "SI217",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI218",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI219",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI220",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI221",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI222",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI223",
+          "stress": 0.3,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI224",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI225",
+          "stress": 0.3,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI226",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI227",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI228",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI229",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI230",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.7,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI231",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.7,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI232",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI233",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.7,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI234",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 0.5,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI235",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI236",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI237",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI238",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI239",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI240",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI241",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI242",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI243",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI244",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI245",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI246",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI247",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI248",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "declined"
+        },
+        {
+          "id": "SI249",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI250",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI251",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI252",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI253",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI254",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI255",
+          "stress": 1.0,
+          "anxiety": 0.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI256",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI257",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI258",
+          "stress": 0.8,
+          "anxiety": 0.3,
+          "low_mood": 0.1,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI259",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI260",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI261",
+          "stress": 0.8,
+          "anxiety": 0.9,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI262",
+          "stress": 0.8,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI263",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI264",
+          "stress": 0.5,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI265",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI266",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI267",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI268",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI269",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI270",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": 1.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI271",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI272",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI273",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI274",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI275",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI276",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI277",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI278",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI279",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI280",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI281",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI282",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI283",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI284",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI285",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI286",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI287",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "ending",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI288",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI289",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI290",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI291",
+          "stress": 1.0,
+          "anxiety": 0.0,
+          "low_mood": 0.0,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI292",
+          "stress": 1.0,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI293",
+          "stress": 1.0,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI294",
+          "stress": 1.0,
+          "anxiety": 0.0,
+          "low_mood": 0.0,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI295",
+          "stress": 0.3,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "venting",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI296",
+          "stress": 0.3,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI297",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "requested"
+        },
+        {
+          "id": "SI298",
+          "stress": null,
+          "anxiety": 1.0,
+          "low_mood": null,
+          "intent": "seeking_clarification",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI299",
+          "stress": 0.3,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI300",
+          "stress": 0.3,
+          "anxiety": 0.7,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI309",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "seeking_practical_help",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI310",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI311",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        },
+        {
+          "id": "SI312",
+          "stress": null,
+          "anxiety": null,
+          "low_mood": null,
+          "intent": "small_talk",
+          "advice_preference": "unspecified"
+        }
+      ]
+    }
+  },
+  "reference_metrics": {
+    "dev": {
+      "rule": {
+        "n": 224,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.18181818181818182,
+            "mae": 0.30000000000000004,
+            "paired_n": 6
+          },
+          "anxiety": {
+            "observed_f1": 0.46153846153846156,
+            "mae": 0.3333333333333333,
+            "paired_n": 18
+          },
+          "low_mood": {
+            "observed_f1": 0.0,
+            "mae": null,
+            "paired_n": 0
+          }
+        },
+        "observed_macro_f1": 0.21445221445221446,
+        "intent_macro_f1": 0.037037037037037035,
+        "intent_accuracy": 0.125,
+        "advice_preference_accuracy": 0.7321428571428571
+      },
+      "llm": {
+        "n": 224,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.6619718309859155,
+            "mae": 0.26170212765957446,
+            "paired_n": 47
+          },
+          "anxiety": {
+            "observed_f1": 0.6911764705882353,
+            "mae": 0.32340425531914896,
+            "paired_n": 47
+          },
+          "low_mood": {
+            "observed_f1": 0.875,
+            "mae": 0.37142857142857144,
+            "paired_n": 42
+          }
+        },
+        "observed_macro_f1": 0.7427161005247169,
+        "intent_macro_f1": 0.5604334333380955,
+        "intent_accuracy": 0.6696428571428571,
+        "advice_preference_accuracy": 0.9017857142857143
+      }
+    },
+    "holdout": {
+      "rule": {
+        "n": 88,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.4,
+            "mae": 0.15000000000000002,
+            "paired_n": 6
+          },
+          "anxiety": {
+            "observed_f1": 0.8571428571428571,
+            "mae": 0.2166666666666667,
+            "paired_n": 18
+          },
+          "low_mood": {
+            "observed_f1": 0.0,
+            "mae": null,
+            "paired_n": 0
+          }
+        },
+        "observed_macro_f1": 0.41904761904761906,
+        "intent_macro_f1": 0.027098479841374753,
+        "intent_accuracy": 0.03409090909090909,
+        "advice_preference_accuracy": 0.6818181818181818
+      },
+      "llm": {
+        "n": 88,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.8,
+            "mae": 0.39166666666666666,
+            "paired_n": 24
+          },
+          "anxiety": {
+            "observed_f1": 0.8135593220338984,
+            "mae": 0.3583333333333333,
+            "paired_n": 24
+          },
+          "low_mood": {
+            "observed_f1": 0.7272727272727273,
+            "mae": 0.35,
+            "paired_n": 12
+          }
+        },
+        "observed_macro_f1": 0.7802773497688752,
+        "intent_macro_f1": 0.544702211368878,
+        "intent_accuracy": 0.6704545454545454,
+        "advice_preference_accuracy": 0.8181818181818182
+      }
+    }
+  }
+}

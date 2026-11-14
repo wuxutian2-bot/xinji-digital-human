@@ -55,7 +55,7 @@ def coordinate_decision(
         primary = (
             "validate_and_ground"
             if context.current_state.risk_level == RiskLevel.ELEVATED
-            or max(context.current_state.emotion.model_dump().values()) >= 0.7
+            or context.current_state.emotion.peak() >= 0.7
             else "supportive_listening"
         )
         secondary = "explore_context"

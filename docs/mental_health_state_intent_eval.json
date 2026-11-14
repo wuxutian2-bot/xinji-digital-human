@@ -1,0 +1,143 @@
+{
+  "dataset": "开发者构建的虚构句库",
+  "labels": "adjudicated",
+  "date": "2026-11-15",
+  "model": "mental-health-orpo",
+  "prediction_method": "rescore_frozen_predictions",
+  "prediction_source": "mental_health_state_intent_human_eval.json",
+  "provenance": {
+    "predictions_sha256": "edc4da1c6836ac9c6cff87f49d05d27f98dcb4f854db9ed3291d7615725af7e8",
+    "labels_sha256": "4f7ba9104c61835906f5ed3e9d5ec3c8bc0f8b3350a4f0ba17a517b4df1280d3",
+    "adjudication_xlsx_sha256": "6deff125563b6d1407e4b855f36e8072f62a531a340145dc4340611fc1c320d3"
+  },
+  "metrics": {
+    "dev": {
+      "rule": {
+        "n": 224,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.18181818181818182,
+            "mae": 0.30000000000000004,
+            "paired_n": 6
+          },
+          "anxiety": {
+            "observed_f1": 0.46153846153846156,
+            "mae": 0.3333333333333333,
+            "paired_n": 18
+          },
+          "low_mood": {
+            "observed_f1": 0.0,
+            "mae": null,
+            "paired_n": 0
+          }
+        },
+        "observed_macro_f1": 0.21445221445221446,
+        "intent_macro_f1": 0.037037037037037035,
+        "intent_accuracy": 0.125,
+        "advice_preference_accuracy": 0.7321428571428571
+      },
+      "llm": {
+        "n": 224,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.6619718309859155,
+            "mae": 0.2680851063829787,
+            "paired_n": 47
+          },
+          "anxiety": {
+            "observed_f1": 0.6911764705882353,
+            "mae": 0.325531914893617,
+            "paired_n": 47
+          },
+          "low_mood": {
+            "observed_f1": 0.875,
+            "mae": 0.36428571428571427,
+            "paired_n": 42
+          }
+        },
+        "observed_macro_f1": 0.7427161005247169,
+        "intent_macro_f1": 0.5604334333380955,
+        "intent_accuracy": 0.6696428571428571,
+        "advice_preference_accuracy": 0.9017857142857143
+      }
+    },
+    "holdout": {
+      "rule": {
+        "n": 88,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.4,
+            "mae": 0.15000000000000002,
+            "paired_n": 6
+          },
+          "anxiety": {
+            "observed_f1": 0.8571428571428571,
+            "mae": 0.20000000000000004,
+            "paired_n": 18
+          },
+          "low_mood": {
+            "observed_f1": 0.0,
+            "mae": null,
+            "paired_n": 0
+          }
+        },
+        "observed_macro_f1": 0.41904761904761906,
+        "intent_macro_f1": 0.027098479841374753,
+        "intent_accuracy": 0.03409090909090909,
+        "advice_preference_accuracy": 0.6818181818181818
+      },
+      "llm": {
+        "n": 88,
+        "dimensions": {
+          "stress": {
+            "observed_f1": 0.8,
+            "mae": 0.4041666666666667,
+            "paired_n": 24
+          },
+          "anxiety": {
+            "observed_f1": 0.8135593220338984,
+            "mae": 0.3708333333333333,
+            "paired_n": 24
+          },
+          "low_mood": {
+            "observed_f1": 0.7272727272727273,
+            "mae": 0.35,
+            "paired_n": 12
+          }
+        },
+        "observed_macro_f1": 0.7802773497688752,
+        "intent_macro_f1": 0.544702211368878,
+        "intent_accuracy": 0.6704545454545454,
+        "advice_preference_accuracy": 0.8181818181818182
+      }
+    }
+  },
+  "fallbacks": {},
+  "calibration": {
+    "stress": {
+      "paired_days": 0,
+      "status": "样本不足或无变异",
+      "pearson": null,
+      "spearman": null,
+      "mean_bias": null
+    },
+    "anxiety": {
+      "paired_days": 0,
+      "status": "样本不足或无变异",
+      "pearson": null,
+      "spearman": null,
+      "mean_bias": null
+    },
+    "low_mood": {
+      "paired_days": 0,
+      "status": "样本不足或无变异",
+      "pearson": null,
+      "spearman": null,
+      "mean_bias": null
+    }
+  },
+  "acceptance": {
+    "observed_macro_f1": true,
+    "intent_macro_f1": true
+  }
+}

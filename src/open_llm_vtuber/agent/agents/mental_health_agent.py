@@ -14,6 +14,7 @@ from ...mental_health.dialogue_client import DialogueClient
 from ...mental_health.crisis_resources import crisis_resources_payload
 from ...mental_health.streaming_output import delta_text, safety_units
 from ...utils.sentence_divider import SentenceDivider, SentenceWithTags
+from ...mental_health.llm_estimator import resolve_estimated_intent
 from ...mental_health.intent_estimator import IntentEstimator, format_intent_context
 from ...mental_health.decision_coordinator import coordinate_decision
 from ...mental_health.context_signals import (
@@ -125,6 +126,10 @@ class MentalHealthAgent(BasicMemoryAgent):
             use_mcpp=False,
             interrupt_method=interrupt_method,
         )
+
+    async def close(self):
+        if hasattr(self._state_estimator, "aclose"):
+            await self._state_estimator.aclose()
 
     def set_support_mode(self, mode):
         if mode is not None and mode not in MODES:
@@ -267,6 +272,7 @@ class MentalHealthAgent(BasicMemoryAgent):
             )
             current_state = await self._state_estimator.estimate(intent_text, pre_check)
             intent = self._intent_estimator.estimate(intent_text, session["intent"])
+            intent = resolve_estimated_intent(intent, current_state.interaction_intent)
             intent, selected_mode = resolve_support_intent(
                 intent, self.support_mode, self._pending_feedback()
             )

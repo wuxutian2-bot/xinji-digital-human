@@ -56,6 +56,9 @@ character_config:
 
     agent_settings:
       mental_health_agent:
+        estimator: rule
+        estimator_connection: null  # llm: {base_url, model, llm_api_key}; null uses dialogue
+        estimator_timeout: 6.0
         streaming_output: true # 逐句检查并输出；false 表示收齐整段后统一检查。
         expression_enabled: true
         context_version: 2 # 上下文风险/状态规则；设为 1 可回退旧关键词规则

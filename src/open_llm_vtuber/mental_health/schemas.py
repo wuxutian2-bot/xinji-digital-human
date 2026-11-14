@@ -59,9 +59,14 @@ class SafetyCheckResult(BaseModel):
 
 
 class EmotionEstimate(BaseModel):
-    stress: float = Field(0.0, ge=0.0, le=1.0)
-    anxiety: float = Field(0.0, ge=0.0, le=1.0)
-    low_mood: float = Field(0.0, ge=0.0, le=1.0)
+    stress: float | None = Field(0.0, ge=0.0, le=1.0)
+    anxiety: float | None = Field(0.0, ge=0.0, le=1.0)
+    low_mood: float | None = Field(0.0, ge=0.0, le=1.0)
+
+    def peak(self) -> float:
+        return max(
+            (v for v in self.model_dump().values() if v is not None), default=0.0
+        )
 
 
 StrategyName = Literal[
@@ -191,8 +196,11 @@ class PsychologicalState(BaseModel):
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     schema_version: Literal[1, 2, 3, 4] = 1
     estimator_source: Literal[
-        "legacy", "keyword_v1", "context_v2", "user_correction", "user_report"
+        "legacy", "keyword_v1", "context_v2", "llm_v1", "user_correction", "user_report"
     ] = "legacy"
+    estimator_fallback_reason: (
+        Literal["timeout", "api_error", "invalid_response"] | None
+    ) = None
     # Optional provenance extends older schemas without rewriting old records.
     timestamp_known: bool = True
     dimension_sources: dict[DimensionName, ObservationSource] = Field(
@@ -212,6 +220,12 @@ class PsychologicalState(BaseModel):
     decision_trace: DecisionTrace | None = None
     interaction_intent: InteractionIntent | None = None
     context_evidence: list[ContextEvidence] | None = Field(default=None, max_length=64)
+
+    @model_validator(mode="after")
+    def require_observed_scores(self):
+        if any(getattr(self.emotion, dim) is None for dim in self.observed_dimensions):
+            raise ValueError("Observed dimensions require numeric scores")
+        return self
 
 
 class PsychologicalMemoryEntry(BaseModel):

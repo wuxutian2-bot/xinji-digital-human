@@ -137,6 +137,7 @@ def observation_source(state: PsychologicalState) -> str:
     return {
         "keyword_v1": "system_estimate",
         "context_v2": "system_estimate",
+        "llm_v1": "system_estimate",
         "user_report": "user_report",
         "user_correction": "user_correction",
     }.get(state.estimator_source, "unknown")

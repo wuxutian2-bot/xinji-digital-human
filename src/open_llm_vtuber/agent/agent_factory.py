@@ -18,6 +18,7 @@ from ..mental_health.sqlite_memory import SqlitePsychologicalMemoryService
 from ..mental_health.safety_guard import RuleBasedSafetyGuard
 from ..mental_health.state_estimator import KeywordStateEstimator
 from ..mental_health.context_safety import ContextSafetyGuard
+from ..mental_health.llm_estimator import LLMStateIntentEstimator
 from ..mental_health.context_state import ContextStateEstimator
 from .agents.agent_interface import AgentInterface
 from .agents.basic_memory_agent import BasicMemoryAgent
@@ -98,15 +99,20 @@ class AgentFactory:
                     ),
                     recent_limit=memory_settings.get("recent_limit", 5),
                 )
+            estimator = ContextStateEstimator() if settings.get("context_version", 1) == 2 else KeywordStateEstimator()
+            if settings.get("estimator") == "llm":
+                connection = settings.get("estimator_connection") or dialogue_settings
+                estimator = LLMStateIntentEstimator(
+                    base_url=connection["base_url"], model=connection["model"],
+                    llm_api_key=connection["llm_api_key"], timeout=settings.get("estimator_timeout",6.0),
+                )
             return MentalHealthAgent(
                 dialogue_client=dialogue_client,
                 decision_client=decision_client,
                 safety_guard=ContextSafetyGuard()
                 if settings.get("context_version", 1) == 2
                 else RuleBasedSafetyGuard(),
-                state_estimator=ContextStateEstimator()
-                if settings.get("context_version", 1) == 2
-                else KeywordStateEstimator(),
+                state_estimator=estimator,
                 memory_service=memory_service,
                 system=system_prompt,
                 live2d_model=live2d_model,

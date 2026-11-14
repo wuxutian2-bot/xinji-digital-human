@@ -87,14 +87,16 @@ def format_memory_context(
     current: PsychologicalState, recent: list[PsychologicalState], trend=None
 ) -> str:
     """Create compact model context without exposing raw user messages."""
+    dimensions = ", ".join(
+        f"{k}={v:.2f}" if v is not None else f"{k}=null"
+        for k, v in current.emotion.model_dump().items()
+    )
     lines = [
         "The following values are interaction estimates, not diagnoses.",
         "A zero keyword score without an observed dimension is unknown, not evidence of wellbeing.",
         (
             "Current estimate: "
-            f"stress={current.emotion.stress:.2f}, "
-            f"anxiety={current.emotion.anxiety:.2f}, "
-            f"low_mood={current.emotion.low_mood:.2f}, "
+            f"{dimensions}, "
             f"risk={current.risk_level.value}, "
             f"strategy={current.interaction_strategy}."
         ),

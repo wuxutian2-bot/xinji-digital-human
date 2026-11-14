@@ -167,6 +167,9 @@ class MentalHealthAgentConfig(I18nMixin, BaseModel):
     """Configuration for the mental health Agent."""
 
     dialogue: MentalHealthDialogueConfig = Field(..., alias="dialogue")
+    estimator: Literal["rule", "llm"] = "rule"
+    estimator_connection: MentalHealthDialogueConfig | None = None
+    estimator_timeout: float = Field(6.0, gt=0, le=120)
     streaming_output: bool = True
     expression_enabled: bool = True
     context_version: Literal[1, 2] = 1

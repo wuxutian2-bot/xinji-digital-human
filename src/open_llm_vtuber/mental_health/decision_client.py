@@ -26,11 +26,7 @@ class RuleBasedDecisionClient:
 
     async def decide(self, context: DecisionContext) -> DecisionResult:
         state = context.current_state
-        peak_emotion = max(
-            state.emotion.stress,
-            state.emotion.anxiety,
-            state.emotion.low_mood,
-        )
+        peak_emotion = state.emotion.peak()
 
         if state.risk_level in {RiskLevel.HIGH, RiskLevel.CRITICAL}:
             return DecisionResult(
