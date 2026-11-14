@@ -19,6 +19,7 @@ class ContextBaselineTests(unittest.TestCase):
             )
         )["cases"]
         validate_cases(cases)
+        cases = [c for c in cases if c["split"] in {"dev", "holdout"}]
         self.assertEqual(len(cases), 80)
         self.assertEqual(sum(c["split"] == "holdout" for c in cases), 40)
         self.assertTrue(any(c.get("prior") for c in cases))

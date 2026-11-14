@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "status": "Frozen before first real layered-model run; synthetic draft labels only",
+  "fixtures_sha256": "d774d6462ef140e24274f536bd84e4a70d7b04151415ae7b74c20327a7ead4ee",
+  "legacy_case_count": 80,
+  "legacy_cases_sha256": "14fb4b5d1a706e6149436c0a893de9eecc19dca04a6ec87a53da8b5f1e868019",
+  "legacy_manifest_sha256": "f2b20305b87ce88ba23dbf6ea099ac7808eb7c482403667ced6efa72776a82f3",
+  "baseline_source_sha256": {
+    "src/open_llm_vtuber/mental_health/safety_guard.py": "5b2c43359d4b40bac5dd7547015a1cb029e23c53e47ee62bfb6bd3b72a134124",
+    "src/open_llm_vtuber/mental_health/state_estimator.py": "3eadc96ffb84654a11ad579042a3a50317307bee26018c9bb854fba6a663f749",
+    "src/open_llm_vtuber/mental_health/context_safety.py": "ac9ed4ed896a29c3871c650b6f1648a8671a2acd3ceeb18a02456cb551e21acc",
+    "src/open_llm_vtuber/mental_health/context_signals.py": "a3db1ffea08ec37df09237a54f7972274fa52239e9ff2fb823656dc123b23536"
+  },
+  "judge_prompt_sha256": "502397b320a341391ba5cfc655d905bb59087c5ab3f11ab2a3cec6a7612f736e",
+  "hash_normalization": "lf"
+}

@@ -163,6 +163,14 @@ class MentalHealthDecisionConfig(I18nMixin, BaseModel):
     }
 
 
+class MentalHealthSafetyLLMConfig(BaseModel):
+    """Upgrade-only classifier; null connection uses the dialogue endpoint."""
+
+    enabled: bool = False
+    connection: MentalHealthDialogueConfig | None = None
+    timeout_seconds: float = Field(3.0, gt=0, le=30, allow_inf_nan=False)
+
+
 class MentalHealthAgentConfig(I18nMixin, BaseModel):
     """Configuration for the mental health Agent."""
 
@@ -173,6 +181,9 @@ class MentalHealthAgentConfig(I18nMixin, BaseModel):
     streaming_output: bool = True
     expression_enabled: bool = True
     context_version: Literal[1, 2] = 1
+    safety_llm: MentalHealthSafetyLLMConfig = Field(
+        default_factory=MentalHealthSafetyLLMConfig
+    )
     decision: MentalHealthDecisionConfig = Field(
         default_factory=MentalHealthDecisionConfig, alias="decision"
     )

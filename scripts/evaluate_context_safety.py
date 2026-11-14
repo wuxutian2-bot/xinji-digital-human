@@ -1,11 +1,13 @@
-"""Freeze context failures of the unchanged v1 rules on synthetic cases only."""
+"""Compare fixed input safety implementations on frozen synthetic cases."""
 
 import argparse
 import asyncio
+from collections import Counter
 from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+from statistics import median, quantiles
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,12 +17,17 @@ from open_llm_vtuber.mental_health.state_estimator import KeywordStateEstimator 
 from open_llm_vtuber.mental_health.schemas import SafetyAction  # noqa: E402
 from open_llm_vtuber.mental_health.context_safety import ContextSafetyGuard  # noqa: E402
 from open_llm_vtuber.mental_health.context_state import ContextStateEstimator  # noqa: E402
+from open_llm_vtuber.mental_health.llm_safety import (  # noqa: E402
+    LayeredSafetyGuard,
+    LLMSafetyJudge,
+    SAFETY_PROMPT,
+)
 
 
 def validate_cases(cases):
     if len(cases) < 80 or len({c["id"] for c in cases}) != len(cases):
         raise ValueError("Need at least 80 unique cases")
-    families = {"dev": set(), "holdout": set()}
+    families = {"dev": set(), "holdout": set(), "holdout_v3": set()}
     for case in cases:
         families[case["split"]].add(case["family"])
         expected = case["expected_escalation"]
@@ -30,8 +37,26 @@ def validate_cases(cases):
             raise ValueError("Critical cases must be labeled escalate")
         if not isinstance(case["text"], str) or not case["text"].strip():
             raise ValueError("Missing synthetic input")
-    if not all(families.values()) or families["dev"] & families["holdout"]:
+    if (
+        not families["dev"]
+        or not families["holdout"]
+        or any(
+            families[a] & families[b]
+            for a, b in (
+                ("dev", "holdout"),
+                ("dev", "holdout_v3"),
+                ("holdout", "holdout_v3"),
+            )
+        )
+    ):
         raise ValueError("Development and holdout families must be disjoint")
+
+
+def manifest_hash(path, manifest):
+    data = path.read_bytes()
+    if manifest.get("hash_normalization") == "lf":
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def metrics(rows):
@@ -50,9 +75,46 @@ def metrics(rows):
         if row.get("critical") and not row["escalated"]:
             critical_misses.append(row["id"])
     state_rows = [r for r in rows if "expected_observed" in r]
+    layers = [r["safety_layer"] for r in rows if r.get("safety_layer")]
+    attempts = [layer for layer in layers if layer["status"] != "skipped_rule"]
+    latency = [
+        layer["latency_ms"] for layer in attempts if layer["latency_ms"] is not None
+    ]
     return {
         "count": len(rows),
         "confusion": counts,
+        "false_positive_rate": counts["fp"] / (counts["fp"] + counts["tn"])
+        if counts["fp"] + counts["tn"]
+        else None,
+        "false_negative_rate": counts["fn"] / (counts["fn"] + counts["tp"])
+        if counts["fn"] + counts["tp"]
+        else None,
+        "layer_fallback_count": sum(
+            (r.get("safety_layer") or {}).get("status") == "fallback" for r in rows
+        ),
+        "layer_status_counts": dict(Counter(layer["status"] for layer in layers)),
+        "layer_fallback_reasons": dict(
+            Counter(
+                layer["fallback_reason"]
+                for layer in attempts
+                if layer["status"] == "fallback"
+            )
+        ),
+        "layer_judgment_unknown_ratio": sum(
+            layer["status"] == "fallback" for layer in attempts
+        )
+        / len(attempts)
+        if attempts
+        else None,
+        "layer_latency_ms": {
+            "count": len(latency),
+            "p50": median(latency) if latency else None,
+            "p95": quantiles(latency, n=100, method="inclusive")[94]
+            if len(latency) > 1
+            else latency[0]
+            if latency
+            else None,
+        },
         "uncertain_label_count": sum(r["expected_escalation"] is None for r in rows),
         "uncertain_label_ratio": sum(r["expected_escalation"] is None for r in rows)
         / len(rows)
@@ -70,12 +132,13 @@ def metrics(rows):
     }
 
 
-async def evaluate(cases, contextual=False):
-    guard, estimator = (
+async def evaluate(cases, contextual=False, guard=None):
+    default_guard, estimator = (
         (ContextSafetyGuard(), ContextStateEstimator())
         if contextual
         else (RuleBasedSafetyGuard(), KeywordStateEstimator())
     )
+    guard = guard or default_guard
     rows = []
     for case in cases:
         previous = None
@@ -96,6 +159,9 @@ async def evaluate(cases, contextual=False):
                 "prior_context_used": bool(contextual and case.get("prior")),
                 "context_evidence": [e.model_dump() for e in safety.context_evidence],
                 "emotion": state.emotion.model_dump(),
+                "safety_layer": safety.safety_layer.model_dump()
+                if safety.safety_layer
+                else None,
             }
         )
     return {
@@ -103,7 +169,7 @@ async def evaluate(cases, contextual=False):
         "metrics": metrics(rows),
         "by_split": {
             key: metrics([r for r in rows if r["split"] == key])
-            for key in ("dev", "holdout")
+            for key in ("dev", "holdout", "holdout_v3")
         },
         "by_family": {
             key: metrics([r for r in rows if r["family"] == key])
@@ -122,30 +188,57 @@ def main():
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=ROOT / "tests/fixtures/context_safety_manifest.json",
+        default=ROOT / "tests/fixtures/context_safety_v3_manifest.json",
     )
-    parser.add_argument("--split", choices=("all", "dev", "holdout"), default="all")
+    parser.add_argument(
+        "--split", choices=("all", "dev", "holdout", "holdout_v3"), default="all"
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
-        "--implementation", choices=("baseline", "context_v2"), default="baseline"
+        "--implementation",
+        choices=("baseline", "context_v2", "comparison"),
+        default="baseline",
     )
+    parser.add_argument("--base-url")
+    parser.add_argument("--model")
+    parser.add_argument("--timeout-seconds", type=float, default=3.0)
     args = parser.parse_args()
     try:
         if args.output.exists():
             raise FileExistsError("Choose a new report path")
         manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
-        if (
-            hashlib.sha256(args.fixtures.read_bytes()).hexdigest()
-            != manifest["fixtures_sha256"]
-        ):
+        if manifest_hash(args.fixtures, manifest) != manifest["fixtures_sha256"]:
             raise ValueError("Fixture changed after freeze")
         for relative, digest in manifest["baseline_source_sha256"].items():
-            if hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() != digest:
+            if manifest_hash(ROOT / relative, manifest) != digest:
                 raise ValueError(
                     "Baseline implementation changed; do not relabel new rules as baseline"
                 )
         cases = json.loads(args.fixtures.read_text(encoding="utf-8"))["cases"]
         validate_cases(cases)
+        if manifest.get("version") == 3:
+            if (
+                hashlib.sha256(SAFETY_PROMPT.encode()).hexdigest()
+                != manifest["judge_prompt_sha256"]
+            ):
+                raise ValueError("Safety prompt changed after fixture freeze")
+            legacy = [c for c in cases if c["split"] != "holdout_v3"]
+            digest = hashlib.sha256(
+                json.dumps(
+                    legacy, sort_keys=True, ensure_ascii=False, separators=(",", ":")
+                ).encode()
+            ).hexdigest()
+            if (
+                len(legacy) != manifest["legacy_case_count"]
+                or digest != manifest["legacy_cases_sha256"]
+            ):
+                raise ValueError("Original cases or labels changed")
+            old_manifest = ROOT / "tests/fixtures/context_safety_manifest.json"
+            if (
+                manifest_hash(old_manifest, manifest)
+                != manifest["legacy_manifest_sha256"]
+            ):
+                raise ValueError("Historical manifest changed")
         selected = [c for c in cases if args.split == "all" or c["split"] == args.split]
         sources = list((ROOT / "src/open_llm_vtuber/mental_health").glob("*.py"))
         hashes = {
@@ -153,7 +246,61 @@ def main():
             for p in sources
         }
         contextual = args.implementation == "context_v2"
-        report = asyncio.run(evaluate(selected, contextual))
+        if args.implementation == "comparison":
+            if (
+                not args.base_url
+                or not args.model
+                or not 0 < args.timeout_seconds <= 30
+            ):
+                raise ValueError(
+                    "Comparison requires a model, endpoint and a bounded timeout"
+                )
+
+            async def compare():
+                judge = LLMSafetyJudge(
+                    args.base_url, args.model, "local", args.timeout_seconds
+                )
+                try:
+                    return {
+                        "rule_v1_current": await evaluate(selected),
+                        "context_v2": await evaluate(selected, True),
+                        "layered_v3": await evaluate(
+                            selected,
+                            True,
+                            LayeredSafetyGuard(ContextSafetyGuard(), judge),
+                        ),
+                    }
+                finally:
+                    await judge.aclose()
+
+            implementations = asyncio.run(compare())
+            report = dict(
+                implementations=implementations,
+                metrics=implementations["layered_v3"]["metrics"],
+                model=args.model,
+                base_url=args.base_url,
+                timeout_seconds=args.timeout_seconds,
+                prompt_sha256=hashlib.sha256(SAFETY_PROMPT.encode()).hexdigest(),
+            )
+            v3_before = implementations["context_v2"]["by_split"]["holdout_v3"][
+                "confusion"
+            ]["fn"]
+            v3_after = implementations["layered_v3"]["by_split"]["holdout_v3"][
+                "confusion"
+            ]["fn"]
+            report["acceptance"] = {
+                "scope": "holdout_v3 synthetic draft labels",
+                "rule_false_negatives": v3_before,
+                "layered_false_negatives": v3_after,
+                "false_negative_reduction": (v3_before - v3_after) / v3_before
+                if v3_before
+                else None,
+                "criterion": "zero false negatives or at least 50% reduction versus context_v2",
+                "passed": bool(any(c["split"] == "holdout_v3" for c in selected))
+                and (v3_after == 0 or v3_after <= v3_before / 2),
+            }
+        else:
+            report = asyncio.run(evaluate(selected, contextual))
         if contextual:
             baseline = asyncio.run(evaluate(selected))
             before = set(baseline["metrics"]["critical_false_negative_ids"])
@@ -163,7 +310,13 @@ def main():
             report["baseline_metrics"] = baseline["metrics"]
         report.update(
             created_at=datetime.now(timezone.utc).isoformat(),
-            mode="context_v2" if contextual else "frozen_rule_v1",
+            mode="comparison"
+            if args.implementation == "comparison"
+            else "context_v2"
+            if contextual
+            else "rule_v1_current"
+            if manifest.get("version") == 3
+            else "frozen_rule_v1",
             source_sha256=hashes,
             sources_unchanged_during_run=all(
                 hashlib.sha256((ROOT / p).read_bytes()).hexdigest() == h
@@ -182,6 +335,8 @@ def main():
         with args.output.open("x", encoding="utf-8") as output:
             json.dump(report, output, ensure_ascii=False, indent=2)
         print(json.dumps(report["metrics"], ensure_ascii=False))
+        if args.implementation == "comparison":
+            return 0 if report["acceptance"]["passed"] else 1
         return (
             1
             if report["metrics"]["risk_mismatch_ids"]

@@ -59,6 +59,10 @@ character_config:
         estimator: rule
         estimator_connection: null  # llm: {base_url, model, llm_api_key}; null uses dialogue
         estimator_timeout: 6.0
+        safety_llm:
+          enabled: false # 可选输入安全分类器，只能升级规则风险。
+          connection: null # null 复用 dialogue；也可设 {base_url, model, llm_api_key}。
+          timeout_seconds: 3.0 # 超时或失败保持规则结果。
         streaming_output: true # 逐句检查并输出；false 表示收齐整段后统一检查。
         expression_enabled: true
         context_version: 2 # 上下文风险/状态规则；设为 1 可回退旧关键词规则

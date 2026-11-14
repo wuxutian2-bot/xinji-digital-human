@@ -58,6 +58,10 @@ character_config:
         estimator: rule
         estimator_connection: null  # llm: {base_url, model, llm_api_key}; null uses dialogue
         estimator_timeout: 6.0
+        safety_llm:
+          enabled: false # Optional input classifier; can only upgrade rule risk.
+          connection: null # Uses dialogue when null; or {base_url, model, llm_api_key}.
+          timeout_seconds: 3.0 # Timeout/failure preserves the rule result.
         streaming_output: true # Set false to check the entire reply before output.
         expression_enabled: true
         context_version: 2 # Context risk/state rules; 1 retains the legacy baseline.

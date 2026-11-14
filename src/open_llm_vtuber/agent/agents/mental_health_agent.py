@@ -132,6 +132,8 @@ class MentalHealthAgent(BasicMemoryAgent):
         )
 
     async def close(self):
+        if hasattr(self._safety_guard, "aclose"):
+            await self._safety_guard.aclose()
         if hasattr(self._state_estimator, "aclose"):
             await self._state_estimator.aclose()
 
@@ -234,6 +236,8 @@ class MentalHealthAgent(BasicMemoryAgent):
             return []
 
     async def _store_state(self, scope: str, state) -> None:
+        if state.decision_trace is not None and state.safety_layer is not None:
+            state.decision_trace.safety_layer = state.safety_layer.model_copy(deep=True)
         try:
             return await self._psychological_memory.append(scope, state)
         except (OSError, ValueError, sqlite3.Error) as error:
@@ -285,6 +289,7 @@ class MentalHealthAgent(BasicMemoryAgent):
                 if item.source == TextSource.INPUT
             )
             current_state = await self._state_estimator.estimate(intent_text, pre_check)
+            current_state.safety_layer = pre_check.safety_layer
             intent = self._intent_estimator.estimate(intent_text, session["intent"])
             intent = resolve_estimated_intent(intent, current_state.interaction_intent)
             intent, selected_mode = resolve_support_intent(

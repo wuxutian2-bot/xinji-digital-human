@@ -48,12 +48,26 @@ class ContextEvidence(BaseModel):
     ] = Field(default_factory=list, max_length=12)
 
 
+class SafetyLayerTrace(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    status: Literal["skipped_rule", "checked", "upgraded", "fallback"]
+    model_risk: Literal["none", "elevated", "high", "critical"] | None = None
+    evidence_codes: list[str] = Field(default_factory=list, max_length=4)
+    fallback_reason: (
+        Literal["timeout", "api_error", "invalid_response", "internal_error"] | None
+    ) = None
+    latency_ms: float | None = None
+
+
 class SafetyCheckResult(BaseModel):
     action: SafetyAction
     risk_level: RiskLevel = RiskLevel.LOW
     signals: list[str] = Field(default_factory=list)
     reason: str = ""
     safe_response: str | None = None
+    safety_layer: SafetyLayerTrace | None = Field(
+        None, exclude_if=lambda value: value is None
+    )
     context_version: Literal[2] | None = None
     context_evidence: list[ContextEvidence] = Field(default_factory=list, max_length=64)
 
@@ -197,6 +211,10 @@ class CoordinationTrace(BaseModel):
 class DecisionTrace(BaseModel):
     """Local execution facts; never accepted from the decision model."""
 
+    safety_layer: SafetyLayerTrace | None = Field(
+        None, exclude_if=lambda value: value is None
+    )
+
     source: Literal["rules", "model", "fallback", "safety_gate"] = "rules"
     latency_ms: float = Field(0.0, ge=0.0)
     fallback_reason: (
@@ -246,6 +264,10 @@ class UserStateReport(BaseModel):
 
 class PsychologicalState(BaseModel):
     """Estimated interaction state; this is not a clinical diagnosis."""
+
+    safety_layer: SafetyLayerTrace | None = Field(
+        None, exclude_if=lambda value: value is None
+    )
 
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     schema_version: Literal[1, 2, 3, 4] = 1
