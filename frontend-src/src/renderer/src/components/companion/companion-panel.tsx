@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useCompanion } from "./companion-context";
-import { dimensions, sources, strategyLabels } from "./types";
+import { dimensions, sources } from "./types";
+import { ArbitrationSteps } from "./arbitration-details";
 import type { Dimension, Feedback, Source, StateRecord, Turn } from "./types";
 import { calendarDays, dailyValues } from "@/utils/companion-trend";
 
@@ -16,22 +17,13 @@ const feedbackLabel: Record<Feedback, string> = {
 };
 const sourceLabel = (value: string) =>
   sources[value as Source] ||
-  { keyword_v1: "系统估计", context_v2: "系统估计", legacy: "来源未知" }[
-    value
-  ] ||
+  {
+    keyword_v1: "系统估计",
+    context_v2: "系统估计",
+    llm_v1: "模型估计",
+    legacy: "来源未知",
+  }[value] ||
   value;
-const reasonLabels: Record<string, string> = {
-  safety_priority: "安全优先",
-  explicit_closure: "用户明确结束",
-  advice_declined: "用户拒绝建议",
-  listen_requested: "用户希望倾诉",
-  advice_requested: "用户主动求助",
-  clarification_requested: "用户希望梳理",
-  negative_feedback: "回应没有帮助",
-  output_safety_override: "输出安全调整",
-  protocol_control_ignored: "忽略协议操控",
-  protocol_boundary_response: "采用边界澄清回复",
-};
 
 function Scores({
   values,
@@ -379,16 +371,13 @@ function RecordCard({ record }: { record: StateRecord }) {
       </div>
       <div className="xj-record-values">
         {Object.entries(dimensions).map(([key, label]) => {
-          const dim = key as Dimension,
-            observed = record.state.observed_dimensions.includes(dim);
+          const dim = key as Dimension;
+          const value = record.state.emotion[dim];
+          const observed =
+            record.state.observed_dimensions.includes(dim) && value !== null;
           return (
             <span key={key}>
-              {label}{" "}
-              <b>
-                {observed
-                  ? `${(record.state.emotion[dim] * 10).toFixed(1)}/10`
-                  : "—"}
-              </b>
+              {label} <b>{observed ? `${(value * 10).toFixed(1)}/10` : "—"}</b>
               <small>
                 {observed
                   ? sourceLabel(
@@ -541,69 +530,7 @@ function Replay({ turn }: { turn: Turn }) {
         </span>
       </div>
       <ol className="xj-flow">
-        <li>
-          <b>用户诉求</b>
-          <span>
-            {{
-              venting: "倾诉",
-              seeking_clarification: "梳理问题",
-              seeking_practical_help: "寻求办法",
-              ending: "结束交流",
-              small_talk: "闲聊",
-              seeking_information: "了解信息",
-              unknown: "未明确",
-            }[turn.intent.primary] || turn.intent.primary}{" "}
-            · 偏好：
-            {{
-              requested: "希望建议",
-              declined: "拒绝建议",
-              unspecified: "未指定",
-            }[turn.intent.advice_preference] || turn.intent.advice_preference}
-          </span>
-        </li>
-        <li>
-          <b>历史依据</b>
-          <span>
-            {turn.history_invalidated
-              ? "记录已纠正或删除，旧快照已失效"
-              : turn.history_context
-                ? "按来源、有效天数与新鲜度读取"
-                : "本轮未读取历史"}
-          </span>
-          {turn.history_context && (
-            <details>
-              <summary>查看来源与覆盖</summary>
-              {Object.entries(turn.history_context.sources).map(
-                ([source, metrics]) => (
-                  <p key={source}>
-                    {sourceLabel(source)}：
-                    {Object.entries(metrics)
-                      .map(
-                        ([dim, m]) =>
-                          `${dimensions[dim as Dimension] || dim} ${m.observed_days}天（${m.status === "usable" ? "可参考" : m.status === "stale" ? "过期" : "不足"}）`,
-                      )
-                      .join("；")}
-                  </p>
-                ),
-              )}
-            </details>
-          )}
-        </li>
-        <li>
-          <b>决策与协调</b>
-          <span>
-            {strategyLabels[turn.trace.coordination?.proposed_strategy || ""] ||
-              "未记录提议"}{" "}
-            → {strategyLabels[turn.final_strategy] || turn.final_strategy}
-          </span>
-          <small>
-            {turn.trace.coordination?.reason_codes
-              .map((r) => reasonLabels[r] || r)
-              .join("、") || "保留原提议"}
-            {turn.trace.fallback_reason &&
-              `；回退原因：${turn.trace.fallback_reason}`}
-          </small>
-        </li>
+        <ArbitrationSteps turn={turn} />
         <li>
           <b>生成状态</b>
           <span>

@@ -21,6 +21,23 @@ from .context_signals import protocol_boundary
 from .long_term import trend_for_model
 
 
+def history_supports_clarification(trend: dict) -> bool:
+    if trend.get("version") == "daily_v2":
+        return any(
+            metric["status"] == "usable"
+            and metric["mean"] is not None
+            and metric["mean"] >= 0.6
+            for source in trend_for_model(trend)["sources"].values()
+            for metric in source.values()
+        )
+    return not trend.get("insufficient_data", True) and any(
+        value is not None
+        and value >= 0.6
+        and trend.get("observed_counts", {}).get(dimension, 0) >= 3
+        for dimension, value in trend.get("means", {}).items()
+    )
+
+
 class RuleBasedDecisionClient:
     """Local deterministic fallback that keeps dialogue available."""
 
@@ -54,23 +71,7 @@ class RuleBasedDecisionClient:
                 voice=VoiceDecision(style="warm", speed=0.9, energy=0.8),
             )
 
-        trend = context.long_term_trend or {}
-        if trend.get("version") == "daily_v2":
-            history_distress = any(
-                metric["status"] == "usable"
-                and metric["mean"] is not None
-                and metric["mean"] >= 0.6
-                for source in trend_for_model(trend)["sources"].values()
-                for metric in source.values()
-            )
-        else:
-            history_distress = not trend.get("insufficient_data", True) and any(
-                value is not None
-                and value >= 0.6
-                and trend.get("observed_counts", {}).get(dimension, 0) >= 3
-                for dimension, value in trend.get("means", {}).items()
-            )
-        if history_distress:
+        if history_supports_clarification(context.long_term_trend or {}):
             return DecisionResult(
                 strategy=StrategyDecision(
                     primary="reflect_and_clarify",

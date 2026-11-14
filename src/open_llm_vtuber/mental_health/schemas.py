@@ -117,12 +117,54 @@ class InteractionIntent(BaseModel):
     ] = Field(default_factory=list, max_length=10)
 
 
+AgentRole = Literal[
+    "safety", "state", "intent", "feedback", "history", "decision_model"
+]
+ProposalEvidence = Literal[
+    "safety_priority",
+    "input_safety_clear",
+    "input_boundary_response",
+    "state_elevated",
+    "state_unobserved",
+    "state_observed",
+    "observed_stress",
+    "observed_anxiety",
+    "observed_low_mood",
+    "explicit_closure",
+    "advice_declined",
+    "listen_requested",
+    "advice_requested",
+    "clarification_requested",
+    "intent_unspecified",
+    "negative_feedback",
+    "feedback_unspecified",
+    "history_distress",
+    "history_insufficient",
+    "decision_model_proposal",
+    "rule_proposal",
+    "model_fallback",
+    "protocol_control_ignored",
+    "protocol_boundary_response",
+    "output_safety_override",
+]
+
+
+class AgentProposal(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    role: AgentRole
+    suggested_strategy: StrategyName | None = None
+    evidence_codes: list[ProposalEvidence] = Field(default_factory=list, max_length=8)
+    confidence: Literal["low", "medium", "high"] | None = None
+
+
 class CoordinationTrace(BaseModel):
     model_config = ConfigDict(extra="forbid")
     protocol_version: Literal[2] = 2
     proposed_strategy: StrategyName
     final_strategy: StrategyName
     previous_strategy: StrategyName | None = None
+    proposals: list[AgentProposal] = Field(default_factory=list, max_length=12)
+    winner_role: AgentRole | None = None
     reason_codes: list[
         Literal[
             "safety_priority",
@@ -138,6 +180,15 @@ class CoordinationTrace(BaseModel):
             "protocol_boundary_response",
         ]
     ] = Field(default_factory=list, max_length=8)
+
+    def matches_recorded(self, recorded: dict) -> bool:
+        """Audit older records while checking every saved proposal field."""
+        type(self).model_validate(recorded)
+        expected = self.model_dump()
+        for field in ("proposals", "winner_role"):
+            if field not in recorded:
+                expected.pop(field)
+        return expected == recorded
 
 
 class DecisionTrace(BaseModel):

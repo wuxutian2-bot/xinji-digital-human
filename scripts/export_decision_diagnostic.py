@@ -86,11 +86,11 @@ def validate(directory):
                 raise ValueError("Incorrect raw proposal match")
         elif row["proposed_match"] is not None:
             raise ValueError("Fallback cannot count as a model proposal match")
+        proposed.trace.source = row["source"]
         final = coordinate_decision(proposed, context)
-        if (
-            final.model_dump() != row["final"]
-            or final.trace.coordination.model_dump() != row["coordination"]
-        ):
+        if final.model_dump() != row[
+            "final"
+        ] or not final.trace.coordination.matches_recorded(row["coordination"]):
             raise ValueError("Recorded arbitration differs from the local coordinator")
         if row["final_match"] != (final.strategy.primary in row["expected"]):
             raise ValueError("Incorrect final match")

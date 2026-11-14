@@ -181,6 +181,7 @@ async def run_case(sdk, case, context, variant):
         row["error_type"] = type(error).__name__
         proposed = await RuleBasedDecisionClient().decide(context)
         row["source"] = "fallback"
+    proposed.trace.source = row["source"]
     final = coordinate_decision(proposed, context)
     row.update(
         calls=recorder.calls,

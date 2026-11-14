@@ -1,3 +1,4 @@
+import { ResponseReason } from "./arbitration-details";
 import { useRef, useState } from "react";
 import { useAiState } from "@/context/ai-state-context";
 import { useCompanion } from "./companion-context";
@@ -100,9 +101,18 @@ export function ReplyControls({
   const turn = c.turns.find((t) => t.id === turnId);
   const [text, setText] = useState("");
   const dialog = useRef<HTMLDialogElement>(null);
-  if (!turn || !turnId) return null;
+  if (!turn || !turnId)
+    return (
+      <div
+        className="xj xj-reply-controls"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <ResponseReason />
+      </div>
+    );
   return (
     <div className="xj xj-reply-controls" onClick={(e) => e.stopPropagation()}>
+      <ResponseReason turn={turn} />
       {(["helpful", "unhelpful"] as Feedback[]).map((value) => (
         <button
           key={value}

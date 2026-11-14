@@ -159,10 +159,11 @@ def validate(directory):
                 raise ValueError("Raw proposal mismatch")
         elif row["proposed_match"] is not None:
             raise ValueError("Fallback counted as proposal match")
+        proposed.trace.source = row["source"]
         final = coordinate_decision(proposed, context)
         if (
             final.model_dump() != row["final"]
-            or final.trace.coordination.model_dump() != row["coordination"]
+            or not final.trace.coordination.matches_recorded(row["coordination"])
             or row["final_match"] != (final.strategy.primary in row["expected"])
         ):
             raise ValueError("Arbitration mismatch")

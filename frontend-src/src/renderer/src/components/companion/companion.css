@@ -494,6 +494,48 @@
 .xj-flow small {
   color: #6d7a71;
 }
+.xj-flow .xj-proposals {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.xj-flow .xj-proposals li {
+  border: 1px solid var(--xj-line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 0;
+  counter-increment: none;
+}
+.xj-flow .xj-proposals li::before {
+  content: none;
+}
+.xj-proposals strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.xj-response-reason {
+  flex-basis: 100%;
+  min-width: 0;
+  font-size: 12px;
+  background: var(--xj-paper);
+  color: var(--xj-ink);
+  border: 1px solid var(--xj-line);
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+.xj-response-reason summary {
+  cursor: pointer;
+  padding: 5px 0;
+}
+.xj-response-reason p {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+  margin: 6px 0 12px;
+}
 .xj-check {
   display: flex;
   gap: 10px;

@@ -16,7 +16,10 @@ from ...mental_health.streaming_output import delta_text, safety_units
 from ...utils.sentence_divider import SentenceDivider, SentenceWithTags
 from ...mental_health.llm_estimator import resolve_estimated_intent
 from ...mental_health.intent_estimator import IntentEstimator, format_intent_context
-from ...mental_health.decision_coordinator import coordinate_decision
+from ...mental_health.decision_coordinator import (
+    coordinate_decision,
+    record_output_override,
+)
 from ...mental_health.context_signals import (
     protocol_boundary,
     protocol_redirect,
@@ -44,6 +47,7 @@ from ...mental_health.schemas import (
     SafetyAction,
     StrategyDecision,
     CoordinationTrace,
+    AgentProposal,
 )
 from ..input_types import BatchInput, TextSource
 from ..output_types import Actions
@@ -178,6 +182,16 @@ class MentalHealthAgent(BasicMemoryAgent):
             else None,
             "history_invalidated": invalidated,
             "trace": state.decision_trace.model_dump(mode="json"),
+            "state_estimate": {
+                "risk_level": state.risk_level.value,
+                "estimator_source": state.estimator_source,
+                "observed_dimensions": list(state.observed_dimensions),
+                "emotion": {
+                    key: value if key in state.observed_dimensions else None
+                    for key, value in state.emotion.model_dump().items()
+                },
+                "fallback_reason": state.estimator_fallback_reason,
+            },
             "final_strategy": decision.strategy.primary,
             "requested_expression": decision.behavior.model_dump(mode="json"),
             "requested_voice": decision.voice.model_dump(mode="json"),
@@ -300,6 +314,19 @@ class MentalHealthAgent(BasicMemoryAgent):
                         final_strategy=primary,
                         previous_strategy=session["strategy"],
                         reason_codes=["safety_priority"],
+                        winner_role="safety",
+                        proposals=[
+                            AgentProposal(
+                                role="safety",
+                                suggested_strategy=primary,
+                                evidence_codes=[
+                                    "safety_priority"
+                                    if pre_check.action == SafetyAction.ESCALATE
+                                    else "input_boundary_response"
+                                ],
+                                confidence="high",
+                            )
+                        ],
                     ),
                 )
                 current_state.interaction_strategy = primary
@@ -389,9 +416,11 @@ class MentalHealthAgent(BasicMemoryAgent):
                     return
                 decision_holder["value"] = DecisionResult()
                 decision.trace.output_safety_override = True
-                decision.trace.coordination.final_strategy = decision_holder[
-                    "value"
-                ].strategy.primary
+                record_output_override(
+                    decision.trace.coordination,
+                    decision_holder["value"].strategy.primary,
+                    "output_safety_override",
+                )
                 decision.trace.coordination.reason_codes.append(
                     "output_safety_override"
                 )
@@ -503,7 +532,11 @@ class MentalHealthAgent(BasicMemoryAgent):
                     user_text, intent.advice_preference == "declined"
                 )
                 decision_holder["value"] = DecisionResult()
-                decision.trace.coordination.final_strategy = "supportive_listening"
+                record_output_override(
+                    decision.trace.coordination,
+                    "supportive_listening",
+                    "protocol_boundary_response",
+                )
                 decision.trace.output_policy_override = True
                 decision.trace.coordination.reason_codes.append(
                     "protocol_boundary_response"
