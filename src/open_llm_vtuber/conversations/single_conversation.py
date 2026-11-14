@@ -1,3 +1,4 @@
+from contextlib import AsyncExitStack
 from typing import Union, List, Dict, Any, Optional
 import asyncio
 import json
@@ -194,38 +195,42 @@ async def process_single_conversation(
             # agent.chat yields Union[SentenceOutput, Dict[str, Any]]
             agent_output_stream = context.agent_engine.chat(batch_input)
 
-            async for output_item in agent_output_stream:
-                if (
-                    isinstance(output_item, dict)
-                    and output_item.get("type") == "tool_call_status"
-                ):
-                    # Handle tool status event: send WebSocket message
-                    output_item["name"] = context.character_config.character_name
-                    logger.debug(f"Sending tool status update: {output_item}")
+            async with AsyncExitStack() as stack:
+                close = getattr(agent_output_stream, "aclose", None)
+                if close is not None:
+                    stack.push_async_callback(close)
+                async for output_item in agent_output_stream:
+                    if (
+                        isinstance(output_item, dict)
+                        and output_item.get("type") == "tool_call_status"
+                    ):
+                        # Handle tool status event: send WebSocket message
+                        output_item["name"] = context.character_config.character_name
+                        logger.debug(f"Sending tool status update: {output_item}")
 
-                    await websocket_send(json.dumps(output_item))
+                        await websocket_send(json.dumps(output_item))
 
-                elif isinstance(output_item, (SentenceOutput, AudioOutput)):
-                    # Handle SentenceOutput or AudioOutput
-                    response_part = await process_agent_output(
-                        output=output_item,
-                        character_config=context.character_config,
-                        live2d_model=context.live2d_model,
-                        tts_engine=context.tts_engine,
-                        websocket_send=websocket_send,  # Pass websocket_send for audio/tts messages
-                        tts_manager=tts_manager,
-                        translate_engine=context.translate_engine,
-                    )
-                    # Ensure response_part is treated as a string before concatenation
-                    response_part_str = (
-                        str(response_part) if response_part is not None else ""
-                    )
-                    full_response += response_part_str  # Accumulate text response
-                else:
-                    logger.warning(
-                        f"Received unexpected item type from agent chat stream: {type(output_item)}"
-                    )
-                    logger.debug(f"Unexpected item content: {output_item}")
+                    elif isinstance(output_item, (SentenceOutput, AudioOutput)):
+                        # Handle SentenceOutput or AudioOutput
+                        response_part = await process_agent_output(
+                            output=output_item,
+                            character_config=context.character_config,
+                            live2d_model=context.live2d_model,
+                            tts_engine=context.tts_engine,
+                            websocket_send=websocket_send,  # Pass websocket_send for audio/tts messages
+                            tts_manager=tts_manager,
+                            translate_engine=context.translate_engine,
+                        )
+                        # Ensure response_part is treated as a string before concatenation
+                        response_part_str = (
+                            str(response_part) if response_part is not None else ""
+                        )
+                        full_response += response_part_str  # Accumulate text response
+                    else:
+                        logger.warning(
+                            f"Received unexpected item type from agent chat stream: {type(output_item)}"
+                        )
+                        logger.debug(f"Unexpected item content: {output_item}")
 
         except Exception as e:
             if companion:

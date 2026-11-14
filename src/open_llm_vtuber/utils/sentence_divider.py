@@ -525,6 +525,17 @@ class SentenceDivider:
             if not processed_something:
                 break
 
+    async def split_complete(
+        self, text: str, *, presegmented: bool = False
+    ) -> AsyncIterator[SentenceWithTags]:
+        """Render an already complete unit now, retaining tag state across units."""
+        if presegmented and not self._tag_stack and "<" not in text:
+            yield SentenceWithTags(text=text, tags=[])
+            return
+        self._buffer += text
+        async for sentence in self._flush_buffer():
+            yield sentence
+
     async def _flush_buffer(self) -> AsyncIterator[SentenceWithTags]:
         """
         Process and yield all remaining content in the buffer at the end of the stream.

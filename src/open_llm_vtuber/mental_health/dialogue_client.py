@@ -1,6 +1,7 @@
 """Dialogue-model client for the mental health conversation agent."""
 
 from collections.abc import AsyncIterator
+from contextlib import aclosing
 from copy import deepcopy
 from typing import Any
 
@@ -54,8 +55,11 @@ class DialogueClient(StatelessLLMInterface):
         # LLaMA-Factory requires alternating user/assistant turns. Interrupt
         # markers and a cancelled generation can leave adjacent user messages.
         normalized = self._merge_adjacent_turns(messages)
-        async for chunk in self._client.chat_completion(normalized, system, tools):
-            yield chunk
+        async with aclosing(
+            self._client.chat_completion(normalized, system, tools)
+        ) as stream:
+            async for chunk in stream:
+                yield chunk
 
     @staticmethod
     def _merge_adjacent_turns(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:

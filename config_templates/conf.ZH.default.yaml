@@ -56,6 +56,7 @@ character_config:
 
     agent_settings:
       mental_health_agent:
+        streaming_output: true # 逐句检查并输出；false 表示收齐整段后统一检查。
         expression_enabled: true
         context_version: 2 # 上下文风险/状态规则；设为 1 可回退旧关键词规则
         # 带安全门与状态记忆的心理健康支持对话代理。启用时，将

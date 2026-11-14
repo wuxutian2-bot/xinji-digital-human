@@ -167,6 +167,7 @@ class MentalHealthAgentConfig(I18nMixin, BaseModel):
     """Configuration for the mental health Agent."""
 
     dialogue: MentalHealthDialogueConfig = Field(..., alias="dialogue")
+    streaming_output: bool = True
     expression_enabled: bool = True
     context_version: Literal[1, 2] = 1
     decision: MentalHealthDecisionConfig = Field(
@@ -181,6 +182,10 @@ class MentalHealthAgentConfig(I18nMixin, BaseModel):
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
         "dialogue": Description(
             en="Fine-tuned dialogue model connection", zh="微调对话模型连接配置"
+        ),
+        "streaming_output": Description(
+            en="Release each sentence after its safety check",
+            zh="每句通过输出安全检查后即开始输出",
         ),
         "context_version": Description(
             en="Context risk and state rule version (1 legacy, 2 contextual)",

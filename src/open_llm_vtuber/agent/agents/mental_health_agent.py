@@ -1,6 +1,7 @@
 """Conversation agent backed by the fine-tuned mental health dialogue model."""
 
 from collections.abc import AsyncIterator
+from contextlib import aclosing
 from typing import Literal
 import re
 import sqlite3
@@ -11,6 +12,8 @@ from loguru import logger
 from ...config_manager import TTSPreprocessorConfig
 from ...mental_health.dialogue_client import DialogueClient
 from ...mental_health.crisis_resources import crisis_resources_payload
+from ...mental_health.streaming_output import delta_text, safety_units
+from ...utils.sentence_divider import SentenceDivider, SentenceWithTags
 from ...mental_health.intent_estimator import IntentEstimator, format_intent_context
 from ...mental_health.decision_coordinator import coordinate_decision
 from ...mental_health.context_signals import (
@@ -45,7 +48,6 @@ from ..input_types import BatchInput, TextSource
 from ..output_types import Actions
 from ..transformers import (
     display_processor,
-    sentence_divider,
     tts_filter,
 )
 from .basic_memory_agent import BasicMemoryAgent
@@ -76,8 +78,10 @@ class MentalHealthAgent(BasicMemoryAgent):
         supported_voice_controls: frozenset[str] = frozenset(),
         behavior_frontend_enabled: bool = False,
         decision_protocol_version: Literal[1, 2] = 2,
+        streaming_output: bool = True,
     ) -> None:
         self._safety_guard = safety_guard
+        self._streaming_output = streaming_output
         self._decision_client = decision_client
         self._state_estimator = state_estimator
         self._psychological_memory = memory_service
@@ -155,35 +159,42 @@ class MentalHealthAgent(BasicMemoryAgent):
         turn_id = metadata.get("companion_turn_id")
         if not self.companion or not turn_id:
             return
-        invalidated = bool(
-            (self.companion.get("turn", turn_id) or {}).get("history_invalidated")
-        )
-        self.companion.put(
-            "turn",
-            turn_id,
-            {
-                "id": turn_id,
-                "timestamp": utc_now(),
-                "record_id": record_id,
-                "scope": scope or self._psychological_memory_scope,
-                "synthetic": bool(metadata.get("synthetic_demo", False)),
-                "intent": state.interaction_intent.model_dump(mode="json"),
-                "history_context": trend_for_model(trend.model_dump(mode="json"))
-                if trend and not invalidated
-                else None,
-                "history_invalidated": invalidated,
-                "trace": state.decision_trace.model_dump(mode="json"),
-                "final_strategy": decision.strategy.primary,
-                "requested_expression": decision.behavior.model_dump(mode="json"),
-                "requested_voice": decision.voice.model_dump(mode="json"),
-                "support_mode": self.support_mode,
-                "feedback": "unspecified",
-                "playback": "unconfirmed",
-                "generation": generation,
-                "sent_segments": [],
-            },
-        )
-        self._last_product_turn = turn_id
+        existing = self.companion.get("turn", turn_id)
+        invalidated = bool((existing or {}).get("history_invalidated"))
+        fields = {
+            "id": turn_id,
+            "timestamp": utc_now(),
+            "record_id": record_id,
+            "scope": scope or self._psychological_memory_scope,
+            "synthetic": bool(metadata.get("synthetic_demo", False)),
+            "intent": state.interaction_intent.model_dump(mode="json"),
+            "history_context": trend_for_model(trend.model_dump(mode="json"))
+            if trend and not invalidated
+            else None,
+            "history_invalidated": invalidated,
+            "trace": state.decision_trace.model_dump(mode="json"),
+            "final_strategy": decision.strategy.primary,
+            "requested_expression": decision.behavior.model_dump(mode="json"),
+            "requested_voice": decision.voice.model_dump(mode="json"),
+            "support_mode": self.support_mode,
+            "generation": generation,
+        }
+        if existing is None:
+            self.companion.put(
+                "turn",
+                turn_id,
+                {
+                    **fields,
+                    "feedback": "unspecified",
+                    "playback": "unconfirmed",
+                    "sent_segments": [],
+                },
+            )
+        else:
+            # Audio receipts and feedback can now arrive before generation finishes.
+            self.companion.update_turn(turn_id, **fields)
+        if fields["scope"] == self._psychological_memory_scope:
+            self._last_product_turn = turn_id
 
     def set_memory_from_history(self, conf_uid: str, history_uid: str) -> None:
         """Load chat history and select a separate psychological-memory scope."""
@@ -225,14 +236,14 @@ class MentalHealthAgent(BasicMemoryAgent):
     def _chat_function_factory(self):
         """Create a pipeline with non-optional safety gates around generation."""
 
-        @sentence_divider(
-            faster_first_response=self._faster_first_response,
-            segment_method=self._segment_method,
-            valid_tags=["think"],
-        )
         async def chat_with_safety(
-            input_data: BatchInput, decision_holder: dict[str, DecisionResult]
-        ) -> AsyncIterator[str]:
+            input_data: BatchInput,
+            decision_holder: dict[str, DecisionResult],
+            emitted: list[str],
+        ) -> AsyncIterator[SentenceWithTags]:
+            divider = SentenceDivider(
+                self._faster_first_response, self._segment_method, ["think"]
+            )
             self.reset_interrupt()
             self.prompt_mode_flag = False
             scope = self._psychological_memory_scope
@@ -292,7 +303,8 @@ class MentalHealthAgent(BasicMemoryAgent):
                 self._remember_interaction(
                     scope, session, intent, "crisis_support", pre_check
                 )
-                yield response
+                async for sentence in divider.split_complete(response):
+                    yield sentence
                 return
 
             recent_states = await self._load_recent_state(scope)
@@ -348,20 +360,23 @@ class MentalHealthAgent(BasicMemoryAgent):
                     "encourage appropriate human support without making a diagnosis."
                 )
 
+            stream_sentences = self._streaming_output and not (
+                boundary.control_only and not input_data.images
+            )
+            if stream_sentences:
+                contextual_system += (
+                    "\nFor spoken dialogue, open with one short, complete sentence in the "
+                    "user's language. 中文首句用三到八个字回应对方此刻的感受或诉求，"
+                    "随即用句号、问号或感叹号收句。接下来再按本轮策略自然展开。"
+                )
+
             token_stream = self._llm.chat_completion(
                 sanitize_model_messages(messages), contextual_system
             )
-            generated_response = ""
-            async for event in token_stream:
-                if isinstance(event, str):
-                    generated_response += event
-                elif isinstance(event, dict) and event.get("type") == "text_delta":
-                    generated_response += event.get("text", "")
 
-            # Mandatory post-generation gate. No generated text is yielded before it.
-            post_check = await self._safety_guard.check_output(generated_response)
-            response = post_check.safe_response or generated_response
-            if post_check.action in {SafetyAction.BLOCK, SafetyAction.REWRITE}:
+            def safety_override():
+                if decision.trace.output_safety_override:
+                    return
                 decision_holder["value"] = DecisionResult()
                 decision.trace.output_safety_override = True
                 decision.trace.coordination.final_strategy = decision_holder[
@@ -370,6 +385,107 @@ class MentalHealthAgent(BasicMemoryAgent):
                 decision.trace.coordination.reason_codes.append(
                     "output_safety_override"
                 )
+
+            def strip_expression_tags(text):
+                for expression in self._live2d_model.emo_map:
+                    text = re.sub(
+                        r"\[" + re.escape(expression) + r"\]", "", text, flags=re.I
+                    )
+                return text
+
+            async def finish(response, generation):
+                current_state.interaction_strategy = decision_holder[
+                    "value"
+                ].strategy.primary
+                current_state.decision_trace = decision.trace.model_copy(deep=True)
+                if (
+                    scope == self._psychological_memory_scope
+                    and not self._interrupt_handled
+                ):
+                    self._add_message(response, "assistant")
+                record_id = await self._store_state(scope, current_state)
+                self._record_product_turn(
+                    input_data,
+                    record_id,
+                    current_state,
+                    decision_holder["value"],
+                    trend,
+                    scope=scope,
+                    generation=generation,
+                )
+                if generation == "completed":
+                    self._remember_interaction(
+                        scope,
+                        session,
+                        intent,
+                        current_state.interaction_strategy,
+                        pre_check,
+                    )
+
+            # Control-only turns keep the established whole-output safety precedence
+            # over the local redirect. Never stream the model's control response.
+            if stream_sentences:
+                generation = "interrupted"
+                blocked = False
+                try:
+                    async with (
+                        aclosing(token_stream),
+                        aclosing(
+                            safety_units(token_stream, self._live2d_model.emo_map)
+                        ) as units,
+                    ):
+                        async for unit in units:
+                            text = strip_expression_tags(unit)
+                            check = await self._safety_guard.check_output(text)
+                            if check.action in {
+                                SafetyAction.REWRITE,
+                                SafetyAction.BLOCK,
+                            }:
+                                safety_override()
+                                text = check.safe_response
+                                if not text:
+                                    raise ValueError(
+                                        "Safety override missing replacement"
+                                    )
+                            if check.action == SafetyAction.BLOCK:
+                                blocked = True
+                                decision.trace.coordination.reason_codes.append(
+                                    "output_safety_block_midstream"
+                                )
+                                await token_stream.aclose()
+                                # A replacement must be audible even inside a model think tag.
+                                divider.reset()
+                            async for sentence in divider.split_complete(
+                                text, presegmented=True
+                            ):
+                                yield sentence
+                            if blocked:
+                                break
+                    if emitted:
+                        final_check = await self._safety_guard.check_output(
+                            "".join(emitted)
+                        )
+                        decision.trace.late_output_flag = final_check.action in {
+                            SafetyAction.BLOCK,
+                            SafetyAction.REWRITE,
+                        }
+                    generation = "completed"
+                except Exception:
+                    generation = "failed"
+                    raise
+                finally:
+                    if emitted:
+                        await finish("".join(emitted), generation)
+                return
+
+            async with aclosing(token_stream):
+                generated_response = "".join(
+                    [delta_text(event) async for event in token_stream]
+                )
+            post_check = await self._safety_guard.check_output(generated_response)
+            response = post_check.safe_response or generated_response
+            if post_check.action in {SafetyAction.BLOCK, SafetyAction.REWRITE}:
+                safety_override()
             elif boundary.control_only and not input_data.images:
                 # A local product boundary, distinct from harm/diagnosis filtering.
                 # Keep the model proposal and source; record who supplied final text.
@@ -382,67 +498,57 @@ class MentalHealthAgent(BasicMemoryAgent):
                 decision.trace.coordination.reason_codes.append(
                     "protocol_boundary_response"
                 )
-            # Legacy dialogue tags never control the avatar in this agent.
-            for expression in self._live2d_model.emo_map:
-                response = re.sub(
-                    r"\[" + re.escape(expression) + r"\]", "", response, flags=re.I
-                )
-            current_state.interaction_strategy = decision_holder[
-                "value"
-            ].strategy.primary
-            current_state.decision_trace = decision.trace.model_copy(deep=True)
-            self._add_message(response, "assistant")
-            record_id = await self._store_state(scope, current_state)
-            self._record_product_turn(
-                input_data,
-                record_id,
-                current_state,
-                decision_holder["value"],
-                trend,
-                scope=scope,
-            )
-            self._remember_interaction(
-                scope, session, intent, current_state.interaction_strategy, pre_check
-            )
-            yield response
+            response = strip_expression_tags(response)
+            await finish(response, "completed")
+            async for sentence in divider.split_complete(response):
+                yield sentence
 
         @tts_filter(self._tts_preprocessor_config)
         @display_processor()
+        async def render(sentence, actions):
+            yield sentence, actions
+
         async def chat_with_decision_actions(input_data: BatchInput):
             # Per invocation: overlapping generators must not share decisions.
             decision_holder = {"value": DecisionResult()}
-            first_sentence = True
-            async for sentence in chat_with_safety(input_data, decision_holder):
-                decision = decision_holder["value"]
-                # Safety UI is independent of avatar/voice expression controls.
-                crisis_actions = {}
-                if first_sentence and decision.strategy.primary == "crisis_support":
-                    crisis_actions = {
-                        "strategy": decision.strategy.model_dump(),
-                        "crisis_resources": crisis_resources_payload(),
-                        "crisis_id": uuid4().hex,
-                    }
-                if not self._expression_enabled:
-                    first_sentence = False
-                    yield sentence, Actions(**crisis_actions)
-                    continue
-                actions = Actions(
-                    voice_style=decision.voice.style,
-                    voice_speed=decision.voice.speed,
-                    voice_energy=decision.voice.energy,
-                    **crisis_actions,
-                )
-                if first_sentence:
-                    expression = self._live2d_model.emo_map.get(
-                        decision.behavior.expression.lower(),
-                        self._live2d_model.emo_map.get("neutral"),
-                    )
-                    if expression is not None:
-                        actions.expressions = [expression]
-                    actions.motion = decision.behavior.motion
-                    actions.gaze = decision.behavior.gaze
-                    actions.strategy = decision.strategy.model_dump()
-                    first_sentence = False
-                yield sentence, actions
+            emitted = []
+            previous_decision = None
+            async with aclosing(
+                chat_with_safety(input_data, decision_holder, emitted)
+            ) as stream:
+                async for sentence in stream:
+                    decision = decision_holder["value"]
+                    first_sentence = previous_decision is not decision
+                    previous_decision = decision
+                    # Safety UI is independent of avatar/voice expression controls.
+                    crisis_actions = {}
+                    if first_sentence and decision.strategy.primary == "crisis_support":
+                        crisis_actions = {
+                            "strategy": decision.strategy.model_dump(),
+                            "crisis_resources": crisis_resources_payload(),
+                            "crisis_id": uuid4().hex,
+                        }
+                    if not self._expression_enabled:
+                        actions = Actions(**crisis_actions)
+                    else:
+                        actions = Actions(
+                            voice_style=decision.voice.style,
+                            voice_speed=decision.voice.speed,
+                            voice_energy=decision.voice.energy,
+                            **crisis_actions,
+                        )
+                    if self._expression_enabled and first_sentence:
+                        expression = self._live2d_model.emo_map.get(
+                            decision.behavior.expression.lower(),
+                            self._live2d_model.emo_map.get("neutral"),
+                        )
+                        if expression is not None:
+                            actions.expressions = [expression]
+                        actions.motion = decision.behavior.motion
+                        actions.gaze = decision.behavior.gaze
+                        actions.strategy = decision.strategy.model_dump()
+                    async for output in render(sentence, actions):
+                        emitted.append(output.display_text.text)
+                        yield output
 
         return chat_with_decision_actions

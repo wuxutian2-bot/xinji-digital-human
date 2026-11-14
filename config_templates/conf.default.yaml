@@ -55,6 +55,7 @@ character_config:
 
     agent_settings:
       mental_health_agent:
+        streaming_output: true # Set false to check the entire reply before output.
         expression_enabled: true
         context_version: 2 # Context risk/state rules; 1 retains the legacy baseline.
         # Mental-health conversation agent with safety gates and state memory.

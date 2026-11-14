@@ -115,6 +115,7 @@ class AgentFactory:
                 segment_method=settings.get("segment_method", "pysbd"),
                 interrupt_method=interrupt_method,
                 expression_enabled=settings.get("expression_enabled", True),
+                streaming_output=settings.get("streaming_output", True),
                 supported_voice_controls=kwargs.get(
                     "tts_supported_controls", frozenset()
                 ),

@@ -128,6 +128,7 @@ class CoordinationTrace(BaseModel):
             "clarification_requested",
             "negative_feedback",
             "output_safety_override",
+            "output_safety_block_midstream",
             "protocol_control_ignored",
             "protocol_boundary_response",
         ]
@@ -144,6 +145,7 @@ class DecisionTrace(BaseModel):
     ) = None
     expression_fallback: bool = False
     output_safety_override: bool = False
+    late_output_flag: bool = False
     output_policy_override: bool = False
     protocol_version: Literal[1, 2] = 1
     coordination: CoordinationTrace | None = None
