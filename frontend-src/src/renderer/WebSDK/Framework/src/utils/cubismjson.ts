@@ -759,7 +759,7 @@ export class CubismJson {
 }
 
 interface parseJsonObject {
-  (obj: Value, map: JsonMap): JsonMap;
+  (obj: JsonObject, map: JsonMap): JsonMap;
 }
 
 /**
@@ -1284,6 +1284,7 @@ export class JsonMap extends Value {
 // Namespace definition for compatibility.
 import * as $ from './cubismjson';
 import { CubismJsonExtension } from './cubismjsonextension';
+import type { JsonObject } from './cubismjsonextension';
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Live2DCubismFramework {
   export const CubismJson = $.CubismJson;

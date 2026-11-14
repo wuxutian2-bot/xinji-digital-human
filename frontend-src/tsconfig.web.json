@@ -2,6 +2,8 @@
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
     "composite": true,
+    // Consume checked SDK declarations, including when using the editor service.
+    "disableSourceOfProjectReferenceRedirect": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.web.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
@@ -13,9 +15,9 @@
     }
   },
   "include": [
-    "src/renderer/**/*.ts",
-    "src/renderer/**/*.tsx",
-    "src/renderer/**/*.d.ts",
-    "src/renderer/WebSDK/src/**/*"
-  ]
+    "src/renderer/src/**/*.ts",
+    "src/renderer/src/**/*.tsx",
+    "src/renderer/src/**/*.d.ts"
+  ],
+  "references": [{ "path": "./tsconfig.sdk.json" }]
 }

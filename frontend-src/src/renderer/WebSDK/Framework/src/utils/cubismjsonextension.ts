@@ -11,9 +11,13 @@ import {
   JsonFloat,
   JsonMap,
   JsonNullvalue,
-  JsonString,
-  Value
+  JsonString
 } from './cubismjson';
+
+export type JsonValue = boolean | string | number | null | JsonObject | JsonValue[];
+export interface JsonObject {
+  [key: string]: JsonValue;
+}
 
 /**
  * CubismJsonで実装されているJsonパーサを使用せず、
@@ -22,7 +26,7 @@ import {
  * 置き換える処理をするクラス。
  */
 export class CubismJsonExtension {
-  static parseJsonObject(obj: Value, map: JsonMap) {
+  static parseJsonObject(obj: JsonObject, map: JsonMap): JsonMap {
     Object.keys(obj).forEach((key) => {
       if (typeof obj[key] == 'boolean') {
         const convValue = Boolean(obj[key]);
@@ -50,10 +54,11 @@ export class CubismJsonExtension {
     return map;
   }
 
-  protected static parseJsonArray(obj: Value) {
+  protected static parseJsonArray(obj: JsonValue[]): JsonArray {
     const arr = new JsonArray();
-    Object.keys(obj).forEach((key) => {
-      const convKey = Number(key);
+    Object.keys(obj).forEach((rawKey) => {
+      const key = Number(rawKey);
+      const convKey = key;
       if (typeof convKey == 'number') {
         if (typeof obj[key] == 'boolean') {
           const convValue = Boolean(obj[key]);
@@ -73,18 +78,6 @@ export class CubismJsonExtension {
         } else {
           // どれにも当てはまらない場合でも処理する
           arr.add(obj[key]);
-        }
-      } else if (obj[key] instanceof Array) {
-        arr.add(this.parseJsonArray(obj[key]));
-      } else if (obj[key] instanceof Object) {
-        arr.add(this.parseJsonObject(obj[key], new JsonMap()));
-      } else if (obj[key] == null) {
-        arr.add(new JsonNullvalue());
-      } else {
-        const convValue = Array(obj[key]);
-        // 配列ともObjectとも判定できなかった場合でも処理する
-        for (let i = 0; i < convValue.length; i++) {
-          arr.add(convValue[i]);
         }
       }
     });

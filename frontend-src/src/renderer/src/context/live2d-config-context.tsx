@@ -2,7 +2,6 @@ import {
   createContext, useContext, useState, useMemo,
 } from 'react';
 import { useLocalStorage } from '@/hooks/utils/use-local-storage';
-import { useConfig } from '@/context/character-config-context';
 
 /**
  * Model emotion mapping interface
@@ -105,8 +104,6 @@ export const Live2DConfigContext = createContext<Live2DConfigState | null>(null)
  * @param {React.ReactNode} props.children - Child components
  */
 export function Live2DConfigProvider({ children }: { children: React.ReactNode }) {
-  const { confUid } = useConfig();
-
   const [isLoading, setIsLoading] = useState(DEFAULT_CONFIG.isLoading);
 
   const [modelInfo, setModelInfoState] = useLocalStorage<ModelInfo | undefined>(

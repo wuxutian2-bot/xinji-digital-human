@@ -1,0 +1,23 @@
+{
+  // Keep the vendored SDK's compiler contract; the application stays strict.
+  "extends": "./src/renderer/WebSDK/Framework/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "noEmitOnError": true,
+    "rootDir": "./src/renderer",
+    "outDir": "./node_modules/.tmp/live2d-types",
+    "tsBuildInfoFile": "./node_modules/.tmp/live2d-types.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@framework/*": ["src/renderer/WebSDK/Framework/src/*"],
+      "@cubismsdksamples/*": ["src/renderer/WebSDK/src/*"]
+    }
+  },
+  "include": [
+    "src/renderer/WebSDK/**/*.ts",
+    // The model adapter imports this dependency-free application helper.
+    "src/renderer/src/utils/decision-behavior.ts"
+  ],
+  "exclude": ["node_modules"]
+}
