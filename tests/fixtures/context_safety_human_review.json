@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "label_status": "single_human_review",
+  "reviewer_count": 1,
+  "review_date": "2026-11-15",
+  "split": "holdout_v3",
+  "professional_clinical_review_claimed": false,
+  "source_workbook_sha256": "7d3683f744171cb6ad35d76890d011722ee5bc4d0485c967fcc92b8cf4085709",
+  "source_cases_sha256": "038c78859fd6712a68aecd498cd3d27f409a40f288c30f7b4d6200aae6cf1ba4",
+  "cases": [
+    {
+      "id": "v3_01",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_02",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_03",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_04",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_05",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_06",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_07",
+      "expected_escalation": true,
+      "critical": false
+    },
+    {
+      "id": "v3_08",
+      "expected_escalation": true,
+      "critical": false
+    },
+    {
+      "id": "v3_09",
+      "expected_escalation": true,
+      "critical": false
+    },
+    {
+      "id": "v3_10",
+      "expected_escalation": true,
+      "critical": false
+    },
+    {
+      "id": "v3_11",
+      "expected_escalation": true,
+      "critical": null
+    },
+    {
+      "id": "v3_12",
+      "expected_escalation": true,
+      "critical": null
+    },
+    {
+      "id": "v3_13",
+      "expected_escalation": true,
+      "critical": null
+    },
+    {
+      "id": "v3_14",
+      "expected_escalation": true,
+      "critical": null
+    },
+    {
+      "id": "v3_15",
+      "expected_escalation": true,
+      "critical": null
+    },
+    {
+      "id": "v3_16",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_17",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_18",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_19",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_20",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_21",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_22",
+      "expected_escalation": true,
+      "critical": true
+    },
+    {
+      "id": "v3_23",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_24",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_25",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_26",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_27",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_28",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_29",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_30",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_31",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_32",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_33",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_34",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_35",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_36",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_37",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_38",
+      "expected_escalation": false,
+      "critical": false
+    },
+    {
+      "id": "v3_39",
+      "expected_escalation": null,
+      "critical": null
+    },
+    {
+      "id": "v3_40",
+      "expected_escalation": null,
+      "critical": null
+    },
+    {
+      "id": "v3_41",
+      "expected_escalation": null,
+      "critical": null
+    },
+    {
+      "id": "v3_42",
+      "expected_escalation": null,
+      "critical": null
+    }
+  ]
+}
