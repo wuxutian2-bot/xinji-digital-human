@@ -103,11 +103,11 @@ _DOUBLE = re.compile(
     r"不是不|并非没有|不能说.{0,8}不|\b(?:cannot say|can.t say|not.*not)\b", re.I
 )
 _DENIAL = re.compile(
-    r"^(?:我)?(?:现在|今天|目前)?(?:并)?(?:不想|不会|没有|不|没|并不)(?:再|任何|要)?(?:自杀|自残|伤害自己|伤害他人|伤害别人|焦虑|难过|紧张|害怕|低落|孤独|压力|疲惫)|^i\s+(?:am not|do not|don.t|will not|won.t|have no)\s+(?:want to\s+)?(?:hurt myself|kill myself|suicidal|anxious|sad|worried|lonely|stressed)",
+    r"^(?:我)?(?:现在|今天|目前)?(?:并)?(?:不想|不会|没有想|没想|没有|不|没|并不)(?:再|任何|要)?(?:自杀|自残|伤害自己|伤害他人|伤害别人|焦虑|难过|紧张|害怕|低落|孤独|压力|疲惫)|^i\s+(?:am not|do not|don.t|will not|won.t|have no)\s+(?:want to\s+)?(?:hurt myself|kill myself|suicidal|anxious|sad|worried|lonely|stressed)",
     re.I,
 )
 _HARM_DENIAL_WHOLE = re.compile(
-    r"(?:我)?(?:现在|今天|目前)?(?:并)?(?:不想|不会|没有)(?:再|任何|要)?(?:自杀|自残|伤害自己|伤害他人|伤害别人)(?:的(?:想法|念头))?(?:了)?|i\s+(?:am not|do not|don.t|will not|won.t)\s+(?:want to\s+)?(?:hurt myself|kill myself|suicidal)",
+    r"(?:我)?(?:现在|今天|目前)?(?:并)?(?:不想|不会|没有想|没想|没有)(?:再|任何|要)?(?:自杀|自残|伤害自己|伤害他人|伤害别人)(?:的(?:想法|念头))?(?:了)?|i\s+(?:am not|do not|don.t|will not|won.t)\s+(?:want to\s+)?(?:hurt myself|kill myself|suicidal)",
     re.I,
 )
 _RESOLVED = re.compile(

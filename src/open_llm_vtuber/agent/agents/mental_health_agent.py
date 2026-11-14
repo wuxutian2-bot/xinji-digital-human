@@ -274,9 +274,14 @@ class MentalHealthAgent(BasicMemoryAgent):
                 self.support_mode = selected_mode
             current_state.interaction_intent = intent
 
-            if pre_check.action == SafetyAction.ESCALATE:
+            if pre_check.action == SafetyAction.ESCALATE or pre_check.safe_response:
+                primary = (
+                    "crisis_support"
+                    if pre_check.action == SafetyAction.ESCALATE
+                    else "supportive_listening"
+                )
                 decision_holder["value"] = DecisionResult(
-                    strategy=StrategyDecision(primary="crisis_support")
+                    strategy=StrategyDecision(primary=primary)
                 )
                 response = pre_check.safe_response or (
                     "你的安全非常重要。请立即联系当地急救服务或可信任的人。"
@@ -285,12 +290,13 @@ class MentalHealthAgent(BasicMemoryAgent):
                     source="safety_gate",
                     protocol_version=self._decision_protocol_version,
                     coordination=CoordinationTrace(
-                        proposed_strategy="crisis_support",
-                        final_strategy="crisis_support",
+                        proposed_strategy=primary,
+                        final_strategy=primary,
                         previous_strategy=session["strategy"],
                         reason_codes=["safety_priority"],
                     ),
                 )
+                current_state.interaction_strategy = primary
                 self._add_message(response, "assistant")
                 record_id = await self._store_state(scope, current_state)
                 self._record_product_turn(
@@ -300,9 +306,7 @@ class MentalHealthAgent(BasicMemoryAgent):
                     decision_holder["value"],
                     scope=scope,
                 )
-                self._remember_interaction(
-                    scope, session, intent, "crisis_support", pre_check
-                )
+                self._remember_interaction(scope, session, intent, primary, pre_check)
                 async for sentence in divider.split_complete(response):
                     yield sentence
                 return
