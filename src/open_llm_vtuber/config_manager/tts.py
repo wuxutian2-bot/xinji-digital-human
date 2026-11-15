@@ -680,12 +680,66 @@ class CartesiaTTSConfig(I18nMixin):
     }
 
 
+class BreezeVoicePreset(I18nMixin):
+    label: str = Field(min_length=1, max_length=80)
+    voice_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,64}$")
+    description: str = ""
+
+
+class BreezeTTSConfig(I18nMixin):
+    """Saved voice direction; BreezeBlue model weights are non-commercial."""
+
+    base_url: str = "http://127.0.0.1:8080"
+    voice_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,64}$")
+    base_instruction: str = "自然、温柔的中文陪伴者"
+    cfg_scale: float = Field(1.0, ge=0, le=10, allow_inf_nan=False)
+    seed: int = Field(42, ge=0, le=2147483647)
+    timeout: float = Field(60.0, gt=0, allow_inf_nan=False)
+    max_concurrency: int = Field(1, ge=1, le=16)
+    style_instructions: Dict[str, str] = Field(default_factory=dict)
+    presets: Dict[str, BreezeVoicePreset] = Field(default_factory=dict)
+    voices_dir: Optional[str] = None
+
+    DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
+        "base_url": Description(
+            en="Local Breeze HTTP endpoint", zh="本机 Breeze HTTP 地址"
+        ),
+        "voice_id": Description(
+            en="Required saved default voice ID", zh="必填的已保存默认音色 ID"
+        ),
+        "base_instruction": Description(
+            en="Default character delivery direction", zh="角色默认语气描述"
+        ),
+        "cfg_scale": Description(
+            en="Classifier-free guidance scale", zh="语音引导强度"
+        ),
+        "seed": Description(en="Fixed generation seed", zh="固定生成种子"),
+        "timeout": Description(en="HTTP timeout in seconds", zh="HTTP 超时秒数"),
+        "max_concurrency": Description(
+            en="Concurrent synthesis slots; match server parallelism",
+            zh="合成并发数，应匹配服务端 parallel 参数",
+        ),
+        "style_instructions": Description(
+            en="Overrides for calm, warm and steady delivery",
+            zh="覆盖 calm、warm、steady 的语气描述",
+        ),
+        "presets": Description(
+            en="Voices offered in companion settings", zh="陪伴面板可选音色预设"
+        ),
+        "voices_dir": Description(
+            en="Optional local saved voice directory for permanent custom-voice deletion",
+            zh="可选的本机音色目录，用于永久删除自定义音色文件",
+        ),
+    }
+
+
 class TTSConfig(I18nMixin):
     """Configuration for Text-to-Speech."""
 
     tts_model: Literal[
         "azure_tts",
         "bark_tts",
+        "breeze_tts",
         "edge_tts",
         "cosyvoice_tts",
         "cosyvoice2_tts",
@@ -706,6 +760,7 @@ class TTSConfig(I18nMixin):
 
     azure_tts: Optional[AzureTTSConfig] = Field(None, alias="azure_tts")
     bark_tts: Optional[BarkTTSConfig] = Field(None, alias="bark_tts")
+    breeze_tts: Optional[BreezeTTSConfig] = None
     edge_tts: Optional[EdgeTTSConfig] = Field(None, alias="edge_tts")
     cosyvoice_tts: Optional[CosyvoiceTTSConfig] = Field(None, alias="cosyvoice_tts")
     cosyvoice2_tts: Optional[Cosyvoice2TTSConfig] = Field(None, alias="cosyvoice2_tts")
@@ -733,6 +788,10 @@ class TTSConfig(I18nMixin):
         ),
         "azure_tts": Description(en="Configuration for Azure TTS", zh="Azure TTS 配置"),
         "bark_tts": Description(en="Configuration for Bark TTS", zh="Bark TTS 配置"),
+        "breeze_tts": Description(
+            en="Configuration for non-commercial Breeze-TTS-2",
+            zh="非商用 Breeze-TTS-2 配置",
+        ),
         "edge_tts": Description(en="Configuration for Edge TTS", zh="Edge TTS 配置"),
         "cosyvoice_tts": Description(
             en="Configuration for Cosyvoice TTS", zh="Cosyvoice TTS 配置"
@@ -776,7 +835,13 @@ class TTSConfig(I18nMixin):
         tts_model = values.tts_model
 
         # Only validate the selected TTS model
-        if tts_model == "azure_tts" and values.azure_tts is not None:
+        if tts_model == "breeze_tts":
+            if values.breeze_tts is None:
+                raise ValueError(
+                    "breeze_tts configuration with a saved voice_id is required"
+                )
+            values.breeze_tts.model_validate(values.breeze_tts.model_dump())
+        elif tts_model == "azure_tts" and values.azure_tts is not None:
             values.azure_tts.model_validate(values.azure_tts.model_dump())
         elif tts_model == "bark_tts" and values.bark_tts is not None:
             values.bark_tts.model_validate(values.bark_tts.model_dump())

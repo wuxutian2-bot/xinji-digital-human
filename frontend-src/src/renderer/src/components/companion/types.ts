@@ -1,4 +1,15 @@
 export type Mode = "listen" | "clarify" | "solve" | null;
+export interface VoiceStatus {
+  available: boolean;
+  preference: {
+    mode: "default" | "preset" | "custom";
+    preset_id?: string;
+    description?: string;
+    seed?: number;
+  } | null;
+  presets: { id: string; label: string; description: string }[];
+  preview_attempts: number;
+}
 export type Feedback = "helpful" | "unhelpful" | "unspecified";
 export type AgentRole =
   | "safety"

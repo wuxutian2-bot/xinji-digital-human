@@ -31,7 +31,12 @@ class ExpressionTests(unittest.IsolatedAsyncioTestCase):
                     voice_energy=0.8,
                 ),
             ),
-            {"speed": 1.0, "fallback": ["speed", "style", "energy"]},
+            {
+                "speed": 1.0,
+                "style": None,
+                "energy": None,
+                "fallback": ["speed", "style", "energy"],
+            },
         )
 
     async def test_concurrent_edge_calls_keep_per_sentence_rate(self):

@@ -9,7 +9,15 @@ class TTSInterface(metaclass=abc.ABCMeta):
     supported_controls = frozenset()
 
     async def async_generate_audio_with_options(
-        self, text: str, file_name_no_ext=None, *, speed: float = 1.0
+        self,
+        text: str,
+        file_name_no_ext=None,
+        *,
+        speed: float = 1.0,
+        style=None,
+        energy=None,
+        voice_id=None,
+        instruction=None,
     ) -> str:
         """Compatibility path for engines without per-utterance controls."""
         return await self.async_generate_audio(text, file_name_no_ext)

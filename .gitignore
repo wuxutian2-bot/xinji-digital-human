@@ -48,6 +48,7 @@ logs/*
 
 # Cache and models
 cache/*
+*.breeze
 src/open_llm_vtuber/tts/asset
 src/open_llm_vtuber/tts/config
 src/open_llm_vtuber/asr/models*
@@ -82,5 +83,6 @@ mcp_servers.json
 # Competition deliverables and scratch work (archived separately)
 /output/
 /work/
+/frontend-src/work/
 .ruff_cache/
 .uv-cache/

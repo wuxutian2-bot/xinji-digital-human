@@ -358,6 +358,28 @@ character_config:
     bark_tts:
       voice: 'v2/en_speaker_1'
 
+    # BreezeBlue model weights: research / competition demos only (non-commercial).
+    # Register voices first; keep tts_model unchanged to leave this engine disabled.
+    breeze_tts:
+      base_url: 'http://127.0.0.1:8080'
+      voice_id: 'xinji_bright'
+      base_instruction: '自然清晰、轻松亲切的中文陪伴者，保持参考音色'
+      cfg_scale: 1.0
+      seed: 42
+      timeout: 60
+      max_concurrency: 1
+      style_instructions:
+        calm: '语气平静、柔和'
+        warm: '语气温暖、带着关切'
+        steady: '语气沉稳、清晰、让人安心'
+      # Set the actual local Breeze voices directory to erase saved custom files.
+      voices_dir: null
+      presets:
+        bright:
+          label: '元气'
+          voice_id: 'xinji_bright'
+          description: '清亮自然、轻快亲切的陪伴声音；使用前需在本机注册'
+
     edge_tts:
       # Check out doc at https://github.com/rany2/edge-tts
       # Use `edge-tts --list-voices` to list all available voices

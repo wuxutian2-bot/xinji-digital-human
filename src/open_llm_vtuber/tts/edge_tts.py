@@ -18,7 +18,15 @@ class TTSEngine(TTSInterface):
     supported_controls = frozenset({"speed"})
 
     async def async_generate_audio_with_options(
-        self, text: str, file_name_no_ext=None, *, speed: float = 1.0
+        self,
+        text: str,
+        file_name_no_ext=None,
+        *,
+        speed: float = 1.0,
+        style=None,
+        energy=None,
+        voice_id=None,
+        instruction=None,
     ) -> str:
         from .voice_controls import resolve_voice_controls
         from types import SimpleNamespace

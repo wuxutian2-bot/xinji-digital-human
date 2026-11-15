@@ -67,9 +67,7 @@ class TTSTaskManager:
             await self._send_silent_payload(display_text, actions, current_sequence)
             return
 
-        logger.debug(
-            f"🏃Queuing TTS task for: '''{tts_text}''' (by {display_text.name})"
-        )
+        logger.debug("Queuing TTS task: length={}", len(tts_text))
 
         # Get current sequence number
         current_sequence = self._sequence_counter
@@ -148,7 +146,13 @@ class TTSTaskManager:
             if actions is not None:
                 actions = replace(actions, voice_applied=controls)
             audio_file_path = await self._generate_audio(
-                tts_engine, tts_text, controls["speed"]
+                tts_engine,
+                tts_text,
+                controls["speed"],
+                style=controls["style"],
+                energy=controls["energy"],
+                voice_id=controls.get("voice_id"),
+                instruction=controls.get("instruction"),
             )
             if not audio_file_path:
                 raise RuntimeError("TTS returned no audio")
@@ -177,13 +181,25 @@ class TTSTaskManager:
                 logger.debug("Audio cache file cleaned.")
 
     async def _generate_audio(
-        self, tts_engine: TTSInterface, text: str, speed: float = 1.0
+        self,
+        tts_engine: TTSInterface,
+        text: str,
+        speed: float = 1.0,
+        *,
+        style=None,
+        energy=None,
+        voice_id=None,
+        instruction=None,
     ) -> str:
         """Generate audio file from text"""
-        logger.debug(f"🏃Generating audio for '''{text}'''...")
+        logger.debug("Generating audio: length={}", len(text))
         return await tts_engine.async_generate_audio_with_options(
             text=text,
             speed=speed,
+            style=style,
+            energy=energy,
+            voice_id=voice_id,
+            instruction=instruction,
             file_name_no_ext=f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{str(uuid.uuid4())[:8]}",
         )
 

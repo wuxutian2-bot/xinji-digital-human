@@ -15,6 +15,8 @@ class Actions:
     voice_style: Optional[str] = None
     voice_speed: Optional[float] = None
     voice_energy: Optional[float] = None
+    voice_id: Optional[str] = None
+    voice_instruction: Optional[str] = None
     voice_applied: Optional[dict[str, Any]] = None
     strategy: Optional[dict[str, Any]] = None
     crisis_resources: Optional[list[dict[str, str]]] = None

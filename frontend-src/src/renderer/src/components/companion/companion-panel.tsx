@@ -1,5 +1,6 @@
 import { TrendChart, TrendSignals } from "./trend-chart";
 import { DataExport } from "./data-export";
+import { VoiceSettings } from "./voice-settings";
 import { useEffect, useRef, useState } from "react";
 import { useCompanion } from "./companion-context";
 import { dimensions, sources } from "./types";
@@ -604,191 +605,206 @@ export function CompanionPanel() {
     else if (!c.open && dialog.current?.open) dialog.current.close();
   }, [c.open]);
   return (
-    <dialog
-      ref={dialog}
-      className={`xj-panel xj${replay ? " xj-demo-panel" : ""}`}
-      aria-labelledby="xj-title"
-      onCancel={close}
-      onClose={c.close}
-    >
-      <header className="xj-header">
-        <div className="xj-header-copy">
-          {secondary && (
-            <button
-              className="xj-back"
-              onClick={() =>
-                c.setTab(c.tab === "records" ? "trend" : "overview")
-              }
-            >
-              ← {c.tab === "records" ? "返回看变化" : "返回我的心迹"}
-            </button>
-          )}
-          {replay && (
-            <span className="xj-eyebrow">
-              演示工作台 · {c.profile?.label || "连接中"}
-            </span>
-          )}
-          <div className="xj-title-row">
-            <h2 id="xj-title">
-              {replay
-                ? "这次，为什么这样回应"
-                : c.tab === "records"
-                  ? "过去的记录"
-                  : c.tab === "trial"
-                    ? "数据与隐私"
-                    : "我的心迹"}
-            </h2>
-            {!replay && c.profile?.synthetic_demo && (
-              <span className="xj-sample-tag">示例体验</span>
+    <>
+      <VoiceSettings />
+      <dialog
+        ref={dialog}
+        className={`xj-panel xj${replay ? " xj-demo-panel" : ""}`}
+        aria-labelledby="xj-title"
+        onCancel={close}
+        onClose={c.close}
+      >
+        <header className="xj-header">
+          <div className="xj-header-copy">
+            {secondary && (
+              <button
+                className="xj-back"
+                onClick={() =>
+                  c.setTab(c.tab === "records" ? "trend" : "overview")
+                }
+              >
+                ← {c.tab === "records" ? "返回看变化" : "返回我的心迹"}
+              </button>
             )}
-          </div>
-          <p>
-            {replay
-              ? "查看实际发生的决策与执行，供演示和复核使用。"
-              : c.tab === "records"
-                ? "感受由你定义，不准确的地方可以随时修改。"
-                : c.tab === "trial"
-                  ? "开始之前，先了解你的选择。"
-                  : "留一点时间，照顾自己的感受。"}
-          </p>
-        </div>
-        <button
-          aria-label={replay ? "返回日常使用" : "关闭我的心迹"}
-          className="xj-close"
-          onClick={close}
-        >
-          ×
-        </button>
-      </header>
-      {!secondary && !replay && (
-        <nav className="xj-tabs" aria-label="我的心迹功能">
-          {(
-            [
-              ["overview", "记一记"],
-              ["trend", "看变化"],
-              ["actions", "小步骤"],
-            ] as const
-          ).map(([key, label]) => (
-            <button
-              key={key}
-              aria-current={c.tab === key ? "page" : undefined}
-              onClick={() => c.setTab(key)}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-      )}
-      <main ref={body} className="xj-body">
-        {c.error && (
-          <div className="xj-alert" role="alert">
-            {c.error}
-            <button onClick={() => void c.refresh()}>重新连接</button>
-          </div>
-        )}
-        {c.loading && (
-          <p className="xj-muted" role="status">
-            正在更新记录…
-          </p>
-        )}
-        {needsConsent && c.tab !== "trial" && !replay ? (
-          <div className="xj-empty">
-            体验开始前，请先阅读说明并选择是否参加。
-            <button className="xj-primary" onClick={() => c.setTab("trial")}>
-              查看体验说明
-            </button>
-          </div>
-        ) : (
-          <>
-            {c.tab === "overview" && <Overview />}
-            {c.tab === "trend" && <Trends />}
-            {c.tab === "records" && (
-              <>
-                {c.profile?.synthetic_demo && (
-                  <p className="xj-muted">以下是示例记录，可以试着修改。</p>
-                )}
-                {c.records.length ? (
-                  c.records.map((r) => <RecordCard key={r.id} record={r} />)
-                ) : (
-                  <div className="xj-empty">
-                    还没有感受记录。
-                    <button onClick={() => c.setTab("overview")}>
-                      记下此刻的感受
-                    </button>
-                  </div>
-                )}
-                {c.records.length > 0 && (
-                  <p className="xj-muted">
-                    显示最近 {c.records.length} 条记录（最多 100 条）。
-                  </p>
-                )}
-              </>
-            )}
-            {c.tab === "actions" && <Actions />}
             {replay && (
-              <>
-                {c.profile?.synthetic_demo && (
-                  <div className="xj-notice">
-                    合成演示档案 · 所有预置历史均为虚构，不计入真实体验结果。
-                  </div>
-                )}
-                {c.turns.length ? (
-                  c.turns.map((t) => <Replay key={t.id} turn={t} />)
-                ) : (
-                  <div className="xj-empty">
-                    完成一次对话后，这里会出现决策记录。
-                  </div>
-                )}
-                <details className="xj-card">
-                  <summary>组织者工具：记录到访与回访</summary>
-                  <p className="xj-muted">
-                    按实际发生情况记录；合成档案中的事件不计入真人试用。
-                  </p>
-                  <div className="xj-row">
-                    <button
-                      disabled={c.busy || !!needsConsent}
-                      onClick={() =>
-                        void c.mutate("/events", "POST", { name: "visit" })
-                      }
-                    >
-                      记录本次到访
-                    </button>
-                    <button
-                      disabled={c.busy || !!needsConsent}
-                      onClick={() =>
-                        void c.mutate("/events", "POST", {
-                          name: "return_visit",
-                        })
-                      }
-                    >
-                      记录一次回访
-                    </button>
-                  </div>
-                </details>
-              </>
+              <span className="xj-eyebrow">
+                演示工作台 · {c.profile?.label || "连接中"}
+              </span>
             )}
-          </>
-        )}
-        {c.tab === "trial" && <Trial key={c.profile?.label} />}
-      </main>
-      <footer className="xj-panel-footer">
-        {replay ? (
-          <span>规则、模型提议与最终执行分别呈现。</span>
-        ) : c.tab === "trial" ? (
-          <span>你的选择可以随时调整。</span>
-        ) : (
-          <button className="xj-text-button" onClick={() => c.setTab("trial")}>
-            数据与隐私
+            <div className="xj-title-row">
+              <h2 id="xj-title">
+                {replay
+                  ? "这次，为什么这样回应"
+                  : c.tab === "records"
+                    ? "过去的记录"
+                    : c.tab === "trial"
+                      ? "数据与隐私"
+                      : "我的心迹"}
+              </h2>
+              {!replay && c.profile?.synthetic_demo && (
+                <span className="xj-sample-tag">示例体验</span>
+              )}
+            </div>
+            <p>
+              {replay
+                ? "查看实际发生的决策与执行，供演示和复核使用。"
+                : c.tab === "records"
+                  ? "感受由你定义，不准确的地方可以随时修改。"
+                  : c.tab === "trial"
+                    ? "开始之前，先了解你的选择。"
+                    : "留一点时间，照顾自己的感受。"}
+            </p>
+          </div>
+          <button
+            aria-label={replay ? "返回日常使用" : "关闭我的心迹"}
+            className="xj-close"
+            onClick={close}
+          >
+            ×
           </button>
+        </header>
+        {!secondary && !replay && (
+          <nav className="xj-tabs" aria-label="我的心迹功能">
+            {(
+              [
+                ["overview", "记一记"],
+                ["trend", "看变化"],
+                ["actions", "小步骤"],
+              ] as const
+            ).map(([key, label]) => (
+              <button
+                key={key}
+                aria-current={c.tab === key ? "page" : undefined}
+                onClick={() => c.setTab(key)}
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
         )}
-        <button
-          className="xj-text-button"
-          disabled={c.loading}
-          onClick={() => void c.refresh()}
-        >
-          刷新记录
-        </button>
-      </footer>
-    </dialog>
+        <main ref={body} className="xj-body">
+          {c.error && (
+            <div className="xj-alert" role="alert">
+              {c.error}
+              <button onClick={() => void c.refresh()}>重新连接</button>
+            </div>
+          )}
+          {c.loading && (
+            <p className="xj-muted" role="status">
+              正在更新记录…
+            </p>
+          )}
+          {needsConsent && c.tab !== "trial" && !replay ? (
+            <div className="xj-empty">
+              体验开始前，请先阅读说明并选择是否参加。
+              <button className="xj-primary" onClick={() => c.setTab("trial")}>
+                查看体验说明
+              </button>
+            </div>
+          ) : (
+            <>
+              {c.tab === "overview" && <Overview />}
+              {c.tab === "trend" && <Trends />}
+              {c.tab === "records" && (
+                <>
+                  {c.profile?.synthetic_demo && (
+                    <p className="xj-muted">以下是示例记录，可以试着修改。</p>
+                  )}
+                  {c.records.length ? (
+                    c.records.map((r) => <RecordCard key={r.id} record={r} />)
+                  ) : (
+                    <div className="xj-empty">
+                      还没有感受记录。
+                      <button onClick={() => c.setTab("overview")}>
+                        记下此刻的感受
+                      </button>
+                    </div>
+                  )}
+                  {c.records.length > 0 && (
+                    <p className="xj-muted">
+                      显示最近 {c.records.length} 条记录（最多 100 条）。
+                    </p>
+                  )}
+                </>
+              )}
+              {c.tab === "actions" && <Actions />}
+              {replay && (
+                <>
+                  {c.profile?.synthetic_demo && (
+                    <div className="xj-notice">
+                      合成演示档案 · 所有预置历史均为虚构，不计入真实体验结果。
+                    </div>
+                  )}
+                  {c.turns.length ? (
+                    c.turns.map((t) => <Replay key={t.id} turn={t} />)
+                  ) : (
+                    <div className="xj-empty">
+                      完成一次对话后，这里会出现决策记录。
+                    </div>
+                  )}
+                  <details className="xj-card">
+                    <summary>组织者工具：记录到访与回访</summary>
+                    <p className="xj-muted">
+                      按实际发生情况记录；合成档案中的事件不计入真人试用。
+                    </p>
+                    <div className="xj-row">
+                      <button
+                        disabled={c.busy || !!needsConsent}
+                        onClick={() =>
+                          void c.mutate("/events", "POST", { name: "visit" })
+                        }
+                      >
+                        记录本次到访
+                      </button>
+                      <button
+                        disabled={c.busy || !!needsConsent}
+                        onClick={() =>
+                          void c.mutate("/events", "POST", {
+                            name: "return_visit",
+                          })
+                        }
+                      >
+                        记录一次回访
+                      </button>
+                    </div>
+                  </details>
+                </>
+              )}
+            </>
+          )}
+          {c.tab === "trial" && <Trial key={c.profile?.label} />}
+        </main>
+        <footer className="xj-panel-footer">
+          {!replay && (
+            <button
+              className="xj-text-button"
+              disabled={!!needsConsent || !c.profile}
+              onClick={c.showVoice}
+            >
+              声音设置
+            </button>
+          )}
+          {replay ? (
+            <span>规则、模型提议与最终执行分别呈现。</span>
+          ) : c.tab === "trial" ? (
+            <span>你的选择可以随时调整。</span>
+          ) : (
+            <button
+              className="xj-text-button"
+              onClick={() => c.setTab("trial")}
+            >
+              数据与隐私
+            </button>
+          )}
+          <button
+            className="xj-text-button"
+            disabled={c.loading}
+            onClick={() => void c.refresh()}
+          >
+            刷新记录
+          </button>
+        </footer>
+      </dialog>
+    </>
   );
 }

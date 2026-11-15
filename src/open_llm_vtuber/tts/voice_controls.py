@@ -16,7 +16,34 @@ def resolve_voice_controls(engine, actions) -> dict:
     fallback = []
     if requested is not None and (not valid_speed or "speed" not in supported):
         fallback.append("speed")
-    for field in ("style", "energy"):
-        if getattr(actions, f"voice_{field}", None) is not None:
+    result = {"speed": speed, "style": None, "energy": None, "fallback": fallback}
+    style = getattr(actions, "voice_style", None)
+    if (
+        isinstance(style, str)
+        and style in {"calm", "warm", "steady"}
+        and "style" in supported
+    ):
+        result["style"] = style
+    elif style is not None:
+        fallback.append("style")
+    energy = getattr(actions, "voice_energy", None)
+    valid_energy = (
+        isinstance(energy, (int, float))
+        and not isinstance(energy, bool)
+        and isfinite(energy)
+        and 0.5 <= energy <= 1.5
+    )
+    if valid_energy and "energy" in supported:
+        result["energy"] = float(energy)
+    elif energy is not None:
+        fallback.append("energy")
+    for field, attribute in (
+        ("voice_id", "voice_id"),
+        ("instruction", "voice_instruction"),
+    ):
+        value = getattr(actions, attribute, None)
+        if isinstance(value, str) and value.strip() and field in supported:
+            result[field] = value
+        elif value is not None:
             fallback.append(field)
-    return {"speed": speed, "fallback": fallback}
+    return result

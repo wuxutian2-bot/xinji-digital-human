@@ -16,6 +16,7 @@ import type {
   StateRecord,
   Trend,
   Turn,
+  VoiceStatus,
 } from "./types";
 import "./companion.css";
 import { toaster } from "@/components/ui/toaster";
@@ -48,6 +49,10 @@ interface CompanionContextValue {
   selectMode: (mode: Mode) => void;
   mutate: (path: string, method: string, body?: unknown) => Promise<boolean>;
   exportData: () => Promise<boolean>;
+  voice: VoiceStatus | null;
+  voiceOpen: boolean;
+  showVoice: () => void;
+  closeVoice: () => void;
 }
 const Context = createContext<CompanionContextValue | null>(null);
 export function useCompanion() {
@@ -59,6 +64,8 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
   const { baseUrl, sendMessage } = useWebSocket();
   const { currentHistoryUid } = useChatHistory();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [voice, setVoice] = useState<VoiceStatus | null>(null);
+  const [voiceOpen, setVoiceOpen] = useState(false);
   const { crisis, dismiss } = useCrisis();
   const [records, setRecords] = useState<StateRecord[]>([]);
   const [trend, setTrend] = useState<Trend | null>(null);
@@ -105,15 +112,17 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
     const revision = ++generation.current;
     setLoading(true);
     try {
-      const [p, r, t, ts, a] = await Promise.all([
+      const [p, r, t, ts, a, v] = await Promise.all([
         api<Profile>("/profile"),
         api<StateRecord[]>("/states"),
         api<{ trend: Trend; review: string[] }>("/trend"),
         api<Turn[]>("/turns"),
         api<ActionItem[]>("/actions"),
+        api<VoiceStatus>("/voice").catch(() => null),
       ]);
       if (revision !== generation.current) return;
       setProfile(p);
+      setVoice(v);
       setRecords(r);
       setTrend(t.trend);
       setReview(t.review);
@@ -129,6 +138,8 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
   }, [api]);
   useEffect(() => {
     setProfile(null);
+    setVoice(null);
+    setVoiceOpen(false);
     setRecords([]);
     setTurns([]);
     setActions([]);
@@ -153,6 +164,17 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
       setOpen(true);
     }
   }, [profile, demoView]);
+  useEffect(() => {
+    if (
+      !demoView &&
+      profile &&
+      voice?.available &&
+      !voice.preference &&
+      (!profile.trial_mode || profile.consent?.accepted)
+    ) {
+      setVoiceOpen(true);
+    }
+  }, [profile, voice, demoView]);
   useEffect(() => {
     const messages = wsService.onMessage((message) => {
       if (
@@ -185,6 +207,8 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
         setMode(null);
         generation.current += 1;
         setProfile(null);
+        setVoice(null);
+        setVoiceOpen(false);
         setTurns([]);
         setRecords([]);
         setTrend(null);
@@ -285,6 +309,10 @@ export function CompanionProvider({ children }: { children: React.ReactNode }) {
         selectMode,
         mutate,
         exportData,
+        voice,
+        voiceOpen,
+        showVoice: () => setVoiceOpen(true),
+        closeVoice: () => setVoiceOpen(false),
       }}
     >
       {children}

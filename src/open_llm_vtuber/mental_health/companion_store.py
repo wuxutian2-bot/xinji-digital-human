@@ -205,16 +205,19 @@ class CompanionStore:
             ).fetchall()
             item_rows = db.execute(
                 "SELECT kind,id,payload FROM companion_items WHERE user_id=? "
-                "AND kind IN ('turn','action','playback') ORDER BY rowid DESC",
+                "AND kind IN ('turn','action','playback','voice_preference') ORDER BY rowid DESC",
                 (self.user_id,),
             ).fetchall()
         turns, actions, receipts = [], [], {}
+        voice_preference = None
         for row in item_rows:
             payload = json.loads(row["payload"])
             if row["kind"] == "turn":
                 turns.append(payload)
             elif row["kind"] == "action":
                 actions.append(payload)
+            elif row["kind"] == "voice_preference":
+                voice_preference = payload
             else:
                 receipts[row["id"]] = payload
         return {
@@ -231,6 +234,7 @@ class CompanionStore:
             ],
             "turns": self._with_playback(turns, receipts),
             "actions": actions,
+            "voice_preference": voice_preference,
         }
 
 

@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 from typing import Literal
 
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
@@ -10,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from .companion_store import companion_for, utc_now
 from .long_term import DIMENSIONS, SOURCES
 from .schemas import UserStateReport
+from .voice_preferences import VoicePreferences, VoicePreview, VoiceSelection
 
 
 class StrictBody(BaseModel):
@@ -107,6 +109,8 @@ def weekly_review(trend):
 
 
 def init_product_routes(context):
+    voices = VoicePreferences()
+
     def no_cache(response: Response):
         response.headers["Cache-Control"] = "no-store"
 
@@ -157,6 +161,43 @@ def init_product_routes(context):
         )
         s.event("consent_updated")
         return result
+
+    @router.get("/voice")
+    async def voice_status():
+        return await voices.status(context, store())
+
+    @router.post("/voice/preview")
+    async def voice_preview(body: VoicePreview):
+        s = writable_store()
+        try:
+            wav = await voices.preview(context, s, body.selection())
+        except (httpx.HTTPError, OSError, ValueError):
+            raise HTTPException(
+                503, "声音试听暂时不可用，请稍后重试或使用默认声音。"
+            ) from None
+        return Response(
+            wav, media_type="audio/wav", headers={"Cache-Control": "no-store"}
+        )
+
+    @router.put("/voice")
+    async def voice_select(body: VoiceSelection):
+        s = writable_store()
+        try:
+            return await voices.save(context, s, body)
+        except (httpx.HTTPError, OSError, ValueError):
+            raise HTTPException(
+                503, "声音保存失败，请稍后重试或使用默认声音。"
+            ) from None
+
+    @router.delete("/profile")
+    async def delete_profile():
+        try:
+            await voices.delete_profile(context, store())
+        except (httpx.HTTPError, OSError, ValueError):
+            raise HTTPException(
+                503, "自定义音色尚未完整删除，请恢复声音服务后重试。"
+            ) from None
+        return {"ok": True}
 
     @router.get("/export")
     def export():

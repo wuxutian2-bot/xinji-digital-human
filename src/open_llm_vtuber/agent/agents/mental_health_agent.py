@@ -48,6 +48,7 @@ from ...mental_health.schemas import (
     StrategyDecision,
     CoordinationTrace,
     AgentProposal,
+    VoiceDecision,
 )
 from ..input_types import BatchInput, TextSource
 from ..output_types import Actions
@@ -115,9 +116,11 @@ class MentalHealthAgent(BasicMemoryAgent):
                     name = f"behavior.{field}"
                     self._decision_capabilities.applied_controls.append(name)
                     self._decision_capabilities.metadata_only_controls.remove(name)
-        if "speed" in supported_voice_controls:
-            self._decision_capabilities.applied_controls.append("voice.speed")
-            self._decision_capabilities.metadata_only_controls.remove("voice.speed")
+        for control in ("speed", "style", "energy"):
+            if control in supported_voice_controls:
+                name = f"voice.{control}"
+                self._decision_capabilities.applied_controls.append(name)
+                self._decision_capabilities.metadata_only_controls.remove(name)
         if not expression_enabled:
             self._decision_capabilities.applied_controls = []
         super().__init__(
@@ -306,7 +309,10 @@ class MentalHealthAgent(BasicMemoryAgent):
                     else "supportive_listening"
                 )
                 decision_holder["value"] = DecisionResult(
-                    strategy=StrategyDecision(primary=primary)
+                    strategy=StrategyDecision(primary=primary),
+                    voice=VoiceDecision(style="steady", speed=0.85, energy=0.75)
+                    if pre_check.action == SafetyAction.ESCALATE
+                    else VoiceDecision(),
                 )
                 response = pre_check.safe_response or (
                     "你的安全非常重要。请立即联系当地急救服务或可信任的人。"
@@ -585,6 +591,18 @@ class MentalHealthAgent(BasicMemoryAgent):
                             voice_energy=decision.voice.energy,
                             **crisis_actions,
                         )
+                    # Read each sentence so a settings change applies to the next
+                    # utterance, without mutating a shared engine or decision.
+                    companion = companion_for(self)
+                    preference = (
+                        (companion.get("voice_preference", "current") or {})
+                        if companion
+                        else {}
+                    )
+                    if preference.get("mode") in {"preset", "custom"}:
+                        actions.voice_id = preference.get("voice_id")
+                    if preference.get("mode") == "custom":
+                        actions.voice_instruction = preference.get("description")
                     if self._expression_enabled and first_sentence:
                         expression = self._live2d_model.emo_map.get(
                             decision.behavior.expression.lower(),
